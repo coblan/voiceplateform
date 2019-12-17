@@ -1,20 +1,31 @@
-# 声网接口
+
+# 语音对接
+
+### 声网接口
+
+[Python 生成token](https://docs-preview.agoralab.co/cn/Audio%20Broadcast/token_server_python?platform=Python)
+
 
 ### 获取token
 可能没有什么用，暂时放这里
 ```
-[GET]   /dapi/agora/token               
+[GET]   /dapi/agora/token  
 ```
-
+    
 ### 获取option
 
 根据声网接口文档，需要用到`appID,channel,uid,token`这些参数，现在可以由后端直接生成，返回给前端使用。
-``` note:: 当前用户是写死的，等待用户系统的确定
-```
-```
-[GET]   /dapi/agora/rtc-option          
 
 ```
+[GET]   /dapi/agora/rtc-option?channel=mychanel&uid=1235          
+
+```
+
+| 参数  | 含义  | 必填  | 默认值  |
+|-------|-------|-------|------|
+| channel | 频道名称 | 否 | test_channel |
+| uid | 用户唯一id | 否 |  987654321 |
+
 返回:
 ``` javascript
 {
@@ -27,3 +38,4 @@
     }
 }
 ```
+    

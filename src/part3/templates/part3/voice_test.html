@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
     <script src="https://cdn.agora.io/sdk/release/AgoraRTCSDK-3.0.0.js"></script>
 </head>
 <body>
 <script>
+
     var rtc = {
         client: null,
         joined: false,
@@ -18,7 +20,7 @@
     var option = {
         appID: "303156d224e44881a00af9cabc9e10d8",
         channel: "voice1",
-        uid: 987654321,
+        uid: parseInt( Math.random()*100000 ),
         token: "006303156d224e44881a00af9cabc9e10d8IACY/uUH1y1R+2gaLbKId+u6QtIVIEttzfCTj8hwXnDhT8v9MDIAAAAAEAAOZ5D5b8r5XQEAAQBuyvld"
     }
 
@@ -27,31 +29,35 @@
 
     // Initialize the client
     Promise.resolve()
-       .then(()=>{
+            .then(()=>{
         return new Promise((resolve,reject)=>{
             rtc.client.init(option.appID, function () {
             console.log("init success");
             resolve()
-            }, function(err) {
-                console.error("client join failed", err)
-            })
+        }, function(err) {
+            console.error("client join failed", err)
+        })
 
-        }, (err) => {
-            console.error(err);
-        })
+    }, (err) => {
+        console.error(err);
+    })
     }).then(()=>{
         return new Promise((resolve,reject)=>{
-                rtc.client.join(option.token ? option.token : null, option.channel, option.uid ? +option.uid : null, function (uid) {
-                console.log("join channel: " + option.channel + " success, uid: " + uid);
-                rtc.params.uid = uid;
-                resolve()
-            }, function(err) {
-                console.error("client join failed", err)
-            })
+            rtc.client.join(option.token ? option.token : null, option.channel, option.uid ? +option.uid : null, function (uid) {
+            console.log("join channel: " + option.channel + " success, uid: " + uid);
+            rtc.params.uid = uid;
+            resolve()
+        }, function(err) {
+            console.error("client join failed", err)
         })
-    }).then(()=>{
-        return new Promise((resolve,reject)=>{
-            rtc.localStream = AgoraRTC.createStream({
+    })
+    })
+
+    function publish(){
+        Promise.resolve()
+                .then(()=>{
+            return new Promise((resolve,reject)=>{
+                rtc.localStream = AgoraRTC.createStream({
                 streamID: rtc.params.uid,
                 audio: true,
                 video: true,
@@ -59,21 +65,21 @@
             })
 
             rtc.localStream.init(function () {
-                    console.log("init local stream success");
-                    resolve()
-                }, function (err) {
-                    console.error("init local stream failed ", err);
-                })
+            console.log("初始化 local stream success");
+            resolve()
+        }, function (err) {
+            console.error("初始化 local stream failed ", err);
         })
+    })
     }).then(()=>{
-        // Publish the local stream
-        rtc.client.publish(rtc.localStream, function (err) {
-            console.log("publish failed");
+            // Publish the local stream
+            rtc.client.publish(rtc.localStream, function (err) {
+            console.log("发布 failed");
             console.error(err);
         })
 
     })
-
+    }
 
     rtc.client.on("stream-added", function (evt) {
         var remoteStream = evt.stream;
@@ -83,21 +89,51 @@
                 console.log("stream subscribe failed", err);
             })
         }
-        console.log('stream-added remote-uid: ', id);
+        console.log(' stream-added remote-uid: ', id);
     });
 
     rtc.client.on("stream-subscribed", function (evt) {
         var remoteStream = evt.stream;
         var id = remoteStream.getId();
         // Add a view for the remote stream.
-        addView(id);
+//        addView(id);
         // Play the remote stream.
-        remoteStream.play("remote_video_" + id);
+        remoteStream.play('local_stream') // ("remote_video_" + id);
         console.log('stream-subscribed remote-uid: ', id);
     })
 
 
+    function addView (id, show) {
+        if (!$("#" + id)[0]) {
+            $("<div/>", {
+                id: "remote_video_panel_" + id,
+                class: "video-view",
+            }).appendTo("#video");
+            $("<div/>", {
+                id: "remote_video_" + id,
+                class: "video-placeholder",
+            }).appendTo("#remote_video_panel_" + id);
+            $("<div/>", {
+                id: "remote_video_info_" + id,
+                class: "video-profile " + (show ? "" :  "hide"),
+            }).appendTo("#remote_video_panel_" + id);
+            $("<div/>", {
+                id: "video_autoplay_"+ id,
+                class: "autoplay-fallback hide",
+            }).appendTo("#remote_video_panel_" + id);
+        }
+    }
+    function removeView (id) {
+        if ($("#remote_video_panel_" + id)[0]) {
+            $("#remote_video_panel_"+id).remove();
+        }
+    }
+
 </script>
 hello big
+
+<button onclick="publish()">开始</button>
+
+<div id="local_stream" class="video-placeholder"></div>
 </body>
 </html>
