@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'helpers.director',
+    'helpers.case.jb_admin',
+    'helpers.authuser',
+    'hello',
     'part3'
 ]
 
