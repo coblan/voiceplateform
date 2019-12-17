@@ -3,7 +3,7 @@
 ### 获取token
 可能没有什么用，暂时放这里
 ```
-[GET]       /dapi/agora/token               
+[GET]   /dapi/agora/token               
 ```
 
 ### 获取option
@@ -12,7 +12,7 @@
 ``` note:: 当前用户是写死的，等待用户系统的确定
 ```
 ```
-[GET]      /dapi/agora/rtc-option          
+[GET]   /dapi/agora/rtc-option          
 
 ```
 返回:
