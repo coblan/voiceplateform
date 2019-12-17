@@ -1,8 +1,8 @@
 from helpers.director.shortcut import director_view
 from django.conf import settings
 import time
-
 from . Agora.RtcTokenBuilder import RtcTokenBuilder
+
 @director_view('agora/token')
 def get_token():
     appID = settings.AGORA.get('appID')
@@ -12,5 +12,21 @@ def get_token():
     Role_Attendee = 2
     privilegeExpiredTs = time.time() + 600
     token = RtcTokenBuilder.buildTokenWithAccount(appID, appCertificate, channelName, userAccount, Role_Attendee, privilegeExpiredTs)
-    print("Token with user account: {}".format(token))
     return token
+
+@director_view('agora/rtc-option')
+def get_option():
+    '''获取rtc的option'''
+    appID = settings.AGORA.get('appID')
+    appCertificate = settings.AGORA.get('appCertificate')
+    channelName='test_channel'
+    userAccount=987654321
+    Role_Attendee = 2
+    privilegeExpiredTs = time.time() + 600
+    token = RtcTokenBuilder.buildTokenWithAccount(appID, appCertificate, channelName, userAccount, Role_Attendee, privilegeExpiredTs)
+    return {
+        'appID':appID,
+        'channel':channelName,
+        'uid':userAccount,
+        'token':token,
+    }

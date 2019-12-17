@@ -1,0 +1,5 @@
+{
+    "restructuredtext.linting.pylintEnabled": false,
+    "restructuredtext.confPath": "${workspaceFolder}\\source",
+    "python.linting.enabled": false
+}

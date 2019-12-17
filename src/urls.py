@@ -30,7 +30,7 @@ urlpatterns = [
     url(r'^accounts/([\w\.]+)/?$',AuthEngine.as_view(),name=AuthEngine.url_name),
     #url(r'^pc/([\w\.]+)/?$',PcAdminMenu.as_view(),name=PcAdminMenu.url_name),
     url(r'^d/',include('helpers.director.urls'),name='director'),
-    url(r'^dapi/(?P<director_name>[\w\/\.]+)?/?$',director_view),
+    url(r'^dapi/(?P<director_name>[\w\/\.-]+)?/?$',director_view),
     url(r'^$',RedirectView.as_view(url='/web/home')) ,
 ]
 
