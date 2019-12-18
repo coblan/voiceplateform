@@ -66,13 +66,13 @@ def get_option(uid=None,channel=None,):
     appID = settings.AGORA.get('appID')
     appCertificate = settings.AGORA.get('appCertificate')
     channelName= channel  or 'test_channel'
-    userAccount=987654321
+    userAccount=uid or 987654321
     Role_Attendee = 2
     privilegeExpiredTs = time.time() + 600
     token = RtcTokenBuilder.buildTokenWithAccount(appID, appCertificate, channelName, userAccount, Role_Attendee, privilegeExpiredTs)
     return {
         'appID':appID,
         'channel':channelName,
-        'uid': uid or userAccount,
+        'uid': userAccount,
         'token':token,
     }

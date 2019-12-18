@@ -6,6 +6,8 @@
 </head>
 <body>
 <script>
+    var uid = parseInt( Math.random()*100000 )
+
 
     var rtc = {
         client: null,
@@ -16,20 +18,30 @@
         params: {}
     };
 
-    // Options for joining a channel
     var option = {
         appID: "303156d224e44881a00af9cabc9e10d8",
         channel: "voice1",
         uid: parseInt( Math.random()*100000 ),
         token: "006303156d224e44881a00af9cabc9e10d8IACY/uUH1y1R+2gaLbKId+u6QtIVIEttzfCTj8hwXnDhT8v9MDIAAAAAEAAOZ5D5b8r5XQEAAQBuyvld"
     }
+    var p1 = new Promise((resolve,reject)=>{
+         $.get('/dapi/agora/rtc-option?channel=mychanel&uid=1235',function(resp){
+                debugger
+                option= resp.data
+                resolve()
+          })
+      })
+
+    // Options for joining a channel
+
 
     // Create a client
     rtc.client = AgoraRTC.createClient({mode: "rtc", codec: "h264"});
 
     // Initialize the client
-    Promise.resolve()
+    Promise.all([p1])
             .then(()=>{
+        debugger
         return new Promise((resolve,reject)=>{
             rtc.client.init(option.appID, function () {
             console.log("init success");
