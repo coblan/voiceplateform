@@ -88,7 +88,7 @@ def get_option(uid=None,channel=None,):
 根据声网接口文档，需要用到`appID,channel,uid,token`这些参数，现在可以由后端直接生成，返回给前端使用。
 
 ```
-[GET]   /dapi/agora/rtm-option?channel=mychanel&uid=1235          
+[GET]   /dapi/agora/rtm-option?uid=1235          
 
 ```
 
