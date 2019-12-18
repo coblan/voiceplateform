@@ -83,7 +83,8 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">2. 语音对接</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#id2">2.1. 声网接口</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#token">2.2. 获取token</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#option">2.3. 获取option</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rtctoken">2.3. RTC获取token</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rtmtoken">2.4. RTM获取token</a></li>
 </ul>
 </li>
 </ul>
@@ -163,8 +164,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="option">
-<h2>2.3. 获取option<a class="headerlink" href="#option" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="rtctoken">
+<h2>2.3. RTC获取token<a class="headerlink" href="#rtctoken" title="Permalink to this headline">¶</a></h2>
 <p>根据声网接口文档，需要用到<code class="docutils literal notranslate"><span class="pre">appID,channel,uid,token</span></code>这些参数，现在可以由后端直接生成，返回给前端使用。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[GET]   /dapi/agora/rtc-option?channel=mychanel&amp;uid=1235          
 </pre></div>
@@ -200,6 +201,41 @@
         <span class="s2">&quot;channel&quot;</span><span class="o">:</span> <span class="s2">&quot;test_channel&quot;</span><span class="p">,</span>
         <span class="s2">&quot;uid&quot;</span><span class="o">:</span> <span class="mi">987654321</span><span class="p">,</span>
         <span class="s2">&quot;token&quot;</span><span class="o">:</span> <span class="s2">&quot;006303156d224e44881a00af9cabc9e10d8IAAxzfgl2eltoS+/UvNYWOA79m0bgaGryJzew8+iCUUfYY9auH4BAl8BEABxwigBpev5XQEAAQB9nPhd&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="rtmtoken">
+<h2>2.4. RTM获取token<a class="headerlink" href="#rtmtoken" title="Permalink to this headline">¶</a></h2>
+<p>根据声网接口文档，需要用到<code class="docutils literal notranslate"><span class="pre">appID,channel,uid,token</span></code>这些参数，现在可以由后端直接生成，返回给前端使用。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[GET]   /dapi/agora/rtm-option?channel=mychanel&amp;uid=1235          
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+<th>必填</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uid</td>
+<td>用户唯一id</td>
+<td>否</td>
+<td>987654321</td>
+</tr>
+</tbody>
+</table><p>返回:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;success&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="s2">&quot;data&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;appID&quot;</span><span class="o">:</span> <span class="s2">&quot;303156d224e44881a00af9cabc9e10d8&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;uid&quot;</span><span class="o">:</span> <span class="s2">&quot;987654321&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;token&quot;</span><span class="o">:</span> <span class="s2">&quot;006303156d224e44881a00af9cabc9e10d8IADW2XOcCfXR4zFGhvP+3QhDvarhYrQwgaIaRYHc1jUF2AECXwEAAAAAEACPKcoCMzr7XQEA6AML6/ld&quot;</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -251,7 +287,6 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script type="text/javascript" src="https://unpkg.com/mermaid@7.1.0/dist/mermaid.min.js"></script>
     
 
   
