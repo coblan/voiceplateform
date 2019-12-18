@@ -110,7 +110,7 @@ html_static_path = ['_static']
 
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'mydocdoc'
-
+html_last_updated_fmt = '%Y-%m-%d %H:%M:%S' #'%b %d, %Y, %X'
 
 # -- Options for LaTeX output ------------------------------------------------
 
