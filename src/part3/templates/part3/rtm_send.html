@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+    <script src="/static/agora/agora-rtm-sdk-1.2.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+</head>
+<body>
+<script>
+
+
+
+    function send_msg(msg,uid){
+        myrtm.msg = msg
+        myrtm.remote_uid = uid
+        console.log(msg)
+        Vue.nextTick(()=>{
+            myrtm.send()
+        })
+
+    }
+
+    $(function(){
+
+      myrtm=  new Vue({
+            el:'#there',
+            data(){
+                return {
+                    uid: ''+parseInt( Math.random()*100000000 ),
+                    appid:'',
+                    token:'',
+                    client:'',
+                    msg:'',
+                    remote_uid:'',
+                    recieved:''
+                }
+            },
+            mounted(){
+                var self =this
+                new Promise((resolve,reject) =>{
+                    $.get('/dapi/agora/rtm-option?channel=mychanel&uid='+this.uid,function(resp){
+                    self.token = resp.data.token
+                    self.appid = resp.data.appID
+                    resolve()
+                })
+            }).then(()=>{
+                    self. client = AgoraRTM.createInstance(this.appid);
+                self.client.on('ConnectionStateChanged', (newState, reason) => {
+                    console.log('on connection state changed to ' + newState + ' reason: ' + reason);
+            });
+                self.client.on('MessageFromPeer', ({ text }, peerId) => { // text 为消息文本，peerId 是消息发送方 User ID
+                    /* 收到点对点消息的处理逻辑 */
+                    console.log(text)
+                self.recieved = text
+            });
+            }).then(()=>{
+                    this.client.login({ token: self.token, uid: self.uid }).then(() => {
+                    console.log('AgoraRTM client login success');
+            }).catch(err => {
+                    console.log('AgoraRTM client login failure', err);
+            });
+            })
+
+            },
+            methods:{
+                get_token(){
+                    var self=this
+                    new Promise((resolve,reject) =>{
+                        $.get('/dapi/agora/rtm-option?channel=mychanel&uid='+this.uid,function(resp){
+                        self.token = resp.data.token
+                        self.appid = resp.data.appID
+                        resolve()
+                    })
+                }).then(()=>{
+                        self. client = AgoraRTM.createInstance(this.appid);
+                    self.client.on('ConnectionStateChanged', (newState, reason) => {
+                        console.log('on connection state changed to ' + newState + ' reason: ' + reason);
+                });
+                    self.client.on('MessageFromPeer', ({ text }, peerId) => { // text 为消息文本，peerId 是消息发送方 User ID
+                        /* 收到点对点消息的处理逻辑 */
+                        console.log(text)
+                    self.recieved = text
+                });
+                })
+
+                },
+                join(){
+                    this.client.login({ token: this.token, uid: this.uid }).then(() => {
+                        console.log('AgoraRTM client login success');
+                }).catch(err => {
+                        console.log('AgoraRTM client login failure', err);
+                });
+                },
+                send(){
+                    this.client.sendMessageToPeer(
+                            { text: this.msg }, // 符合 RtmMessage 接口的参数对象
+                            this.remote_uid, // 远端用户 ID
+                    ).then(sendResult => {
+                        if (sendResult.hasPeerReceived) {
+                        /* 远端用户收到消息的处理逻辑 */
+                    } else {
+                        /* 服务器已接收、但远端用户不可达的处理逻辑 */
+                    }
+                }).catch(error => {
+                        /* 发送失败的处理逻辑 */
+                    });
+                }
+            }
+
+        })
+    })
+
+</script>
+<div id="there">
+    <div>
+        <span>appID</span>
+        <span v-text="appid"></span>
+    </div>
+    <div>
+        <span>uid</span>
+        <input type="text" v-model="uid" disabled>
+        <!--<button @click="get_token()">获取token</button>-->
+    </div>
+    <div>
+        <span>token</span>
+        <input type="text" v-model="token" disabled>
+        <!--<button @click="join()">JOIN</button>-->
+    </div>
+    <div>
+        <div>
+            <span>msg</span>
+            <input type="text" v-model="msg">
+        </div>
+        <div>
+            <span>user id</span>
+            <input type="text" v-model="remote_uid">
+        </div>
+
+        <button @click="send()">send</button>
+    </div>
+
+    <div>
+        <span>接收消息:</span>
+        <span v-text="recieved"></span>
+    </div>
+
+</div>
+
+
+
+
+<div id="local_stream" class="video-placeholder"></div>
+</body>
+</html>
