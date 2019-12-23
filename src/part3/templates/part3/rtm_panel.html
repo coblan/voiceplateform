@@ -117,45 +117,50 @@
 
 </script>
 <div id="there">
-    <div>
-        <span>appID</span>
-        <span v-text="appid"></span>
-    </div>
-    <div>
-        <span>uid</span>
-        <input type="text" v-model="uid" disabled>
-        <!--<button @click="get_token()">获取token</button>-->
-    </div>
-    <div>
-        <span>token</span>
-        <input type="text" v-model="token" disabled>
-        <!--<button @click="join()">JOIN</button>-->
-    </div>
-    <div>
+    <div class="mypanel">
+        <h4>本地发送消息</h4>
         <div>
-            <span>msg</span>
-            <input type="text" v-model="msg">
-        </div>
-        <div>
-            <span>user id</span>
-            <input type="text" v-model="remote_uid">
-        </div>
-
-        <button @click="send()">send</button>
-    </div>
-
-    <div>
-        <span>接收消息:</span>
-        <span v-text="recieved"></span>
-    </div>
-
-    <div style="margin: 20px;border: 1px solid black;">
-        <div>
-            <span>消息</span>
-            <input type="text" v-model="celery_msg">
+            <span>appID</span>
+            <span v-text="appid"></span>
         </div>
         <div>
             <span>uid</span>
+            <input type="text" v-model="uid" disabled>
+            <!--<button @click="get_token()">获取token</button>-->
+        </div>
+        <div>
+            <span>token</span>
+            <input type="text" v-model="token" disabled>
+            <!--<button @click="join()">JOIN</button>-->
+        </div>
+        <div>
+            <div>
+                <span>消息内容</span>
+                <input type="text" v-model="msg">
+            </div>
+            <div>
+                <span>用户ID</span>
+                <input type="text" v-model="remote_uid">
+            </div>
+
+            <button @click="send()">send</button>
+        </div>
+
+        <div>
+            <span>接收消息:</span>
+            <span v-text="recieved"></span>
+        </div>
+    </div>
+
+
+    <div class="mypanel" >
+        <h4>服务器发送消息</h4>
+        <div>
+            <span>消息内容</span>
+            <input type="text" v-model="celery_msg">
+        </div>
+        <div>
+            <span>用户ID</span>
             <input type="text" v-model="celery_uid">
         </div>
         <button @click="celery_send_msg()">发送</button>
@@ -166,5 +171,13 @@
 
 
 <div id="local_stream" class="video-placeholder"></div>
+
+<style>
+    .mypanel{
+        margin: 20px;
+        border: 1px solid #8c8c8c;
+        padding: 10px;
+    }
+</style>
 </body>
 </html>
