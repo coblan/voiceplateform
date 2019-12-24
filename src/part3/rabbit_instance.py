@@ -11,7 +11,7 @@ def send_msg(msg,uid):
     credentials = pika.PlainCredentials(user,pswd)
     connection =pika.BlockingConnection(pika.ConnectionParameters(host=host,credentials=credentials))
     channel = connection.channel()
-    jsonmsg = json.dumps({'msg':msg,'uid':uid})
+    jsonmsg = json.dumps({'msg':msg,'uid':uid},ensure_ascii=False)
     channel.basic_publish(exchange='usermsg',
                          routing_key= 'rtm-uid',
                          body=jsonmsg)
