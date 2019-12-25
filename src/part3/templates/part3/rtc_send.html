@@ -58,32 +58,33 @@
                                     self.started = true
 
                                     // 播放音效
-                                    self.localStream.playEffect({
-                                        soundId: 1,
-                                        filePath: '/static/Haydn_Cello_Concerto_D-1.mp3'
-                                    }, function(error) {
-                                        if (error) {
-                                            // 错误处理
-                                            return;
-                                        }
-                                        // 播放成功后的流程
-                                    });
-
-
-
-//                                    var options = {
-//                                        cacheResource: false,
-//            //                            filePath: "http://www.hochmuth.com/mp3/Haydn_Cello_Concerto_D-1.mp3",
-//                                        filePath: '/static/Haydn_Cello_Concerto_D-1.mp3',
-//                                        cycle: 1,
-//                                        replace: true,
-//                                        playTime: 0
-//                                    }
-//                                    self.localStream.startAudioMixing(options, function (err) {
-//                                        if (err) {
-//                                            console.log("Failed to start audio mixing. " + err);
+//                                    self.localStream.muteAudio()
+//                                    self.localStream.playEffect({
+//                                        soundId: 1,
+//                                        filePath: '/static/Haydn_Cello_Concerto_D-1.mp3'
+//                                    }, function(error) {
+//                                        if (error) {
+//                                            // 错误处理
+//                                            return;
 //                                        }
+//                                        // 播放成功后的流程
 //                                    });
+
+
+
+                                    var options = {
+                                        cacheResource: false,
+            //                            filePath: "http://www.hochmuth.com/mp3/Haydn_Cello_Concerto_D-1.mp3",
+                                        filePath: '/static/Haydn_Cello_Concerto_D-1.mp3',
+                                        cycle: 1,
+                                        replace: true,
+                                        playTime: 0
+                                    }
+                                    self.localStream.startAudioMixing(options, function (err) {
+                                        if (err) {
+                                            console.log("Failed to start audio mixing. " + err);
+                                        }
+                                    });
                                 }
                         })
                     self.client.on("peer-leave", () => {
