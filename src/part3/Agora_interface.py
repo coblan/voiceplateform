@@ -3,7 +3,7 @@ from django.conf import settings
 import time
 from . Agora.RtcTokenBuilder import RtcTokenBuilder
 from . Agora.RtmTokenBuilder import RtmTokenBuilder
-from . rabbit_instance import send_msg
+from . rabbit_instance import send_msg,send_mp3
 
 doc_str('agora/api.md','''
 # 语音对接
@@ -126,3 +126,7 @@ def get_option(uid=None,channel=None,):
 @director_view('celery_send_msg')
 def celery_send_msg(msg,uid):
     send_msg(msg, uid)
+
+@director_view('try_send_mp3')
+def try_send_mp3(channel,mp3_url):
+    send_mp3(channel, mp3_url)

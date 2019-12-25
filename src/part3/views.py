@@ -9,3 +9,9 @@ def rtm_page(request):
 
 def rtm_send(request):
     return render(request,'part3/rtm_send.html',context={})
+
+def rtc_panel(request):
+    return render(request,'part3/rtc_panel.html',context={})
+
+def rtc_send(request):
+    return render(request,'part3/rtc_send.html',context={})

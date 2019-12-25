@@ -29,6 +29,8 @@ urlpatterns = [
     url('voice_test',part3_views.voice_test),
     url('^rtm/?$',part3_views.rtm_page),
     url('^rtm_send/?$',part3_views.rtm_send),
+    url('^rtc/?$',part3_views.rtc_panel),
+    url('^rtc_send/?$',part3_views.rtc_send),
     url(r'^accounts/([\w\.]+)/?$',AuthEngine.as_view(),name=AuthEngine.url_name),
     #url(r'^pc/([\w\.]+)/?$',PcAdminMenu.as_view(),name=PcAdminMenu.url_name),
     url(r'^d/',include('helpers.director.urls'),name='director'),
