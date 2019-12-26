@@ -41,7 +41,7 @@
                             resolve()
                         })
                     }).then(()=>{
-                            self.client = AgoraRTC.createClient({mode: "rtc", codec: "h264"})
+                        self.client = AgoraRTC.createClient({mode: "rtc", codec: "h264"})
                         return new Promise((resolve,reject)=>{
                                     self.client.init(self.appid, function () {
                                     console.log("init success");
@@ -50,70 +50,18 @@
                                     console.error("client join failed", err)
                                 })
                         })
-                    }).then(()=> {
-                        self.client.on("peer-online",()=> {
-                                console.log('有人链接了。')
-                                self.user_count += 1
-                                if (!self.started) {
-                                    self.started = true
-
-                                    // 播放音效
-//                                    self.localStream.muteAudio()
-//                                    self.localStream.playEffect({
-//                                        soundId: 1,
-//                                        filePath: '/static/Haydn_Cello_Concerto_D-1.mp3'
-//                                    }, function(error) {
-//                                        if (error) {
-//                                            // 错误处理
-//                                            return;
-//                                        }
-//                                        // 播放成功后的流程
-//                                    });
-
-
-
-                                    var options = {
-                                        cacheResource: false,
-                                        filePath: this.mp3_url || "http://www.hochmuth.com/mp3/Haydn_Cello_Concerto_D-1.mp3",
-//                                        filePath: '/static/Haydn_Cello_Concerto_D-1.mp3',
-                                        cycle: 1,
-                                        replace: true,
-                                        playTime: 0
-                                    }
-                                    self.localStream.startAudioMixing(options, function (err) {
-                                        if (err) {
-                                            console.log("Failed to start audio mixing. " + err);
-                                        }
-                                    });
-                                }
-                        })
-                    self.client.on("peer-leave", () => {
-                        console.log('有人退出了。')
-                        self.user_count -=1
-                        if(self.user_count<=0){
-                            console.log('所有人都退出了，现在退出')
-                            self.localStream.stopAllEffects()
-                            self.started = false
-                            self.client.leave()
-                        }
-//                        self.client.getRemoteAudioStats((remoteAudioStatsMap) => {
-//                            if(Object.keys(remoteAudioStatsMap).length == 0){
-//                                self.client.leave(() => {
-//                                    console.log('所有人都退出了，现在退出')
-//                                self.started = false
-//                            })
-//                        }
-//
-//                    })
-
                     })
-                })
                 },
                 send(){
                     this.updateclient().then(()=>{
                         return this.join()
                     }).then(()=>{
-                        this.publish()
+                        return this.publish()
+                    }).then(()=>{
+                        this.regist_event()
+                        return this.after_publish()
+                    }).then(()=>{
+                        this.onstart()
                     })
                 },
                 join(){
@@ -128,28 +76,119 @@
                 },
                 publish(){
                     var self = this
-                    Promise.resolve().then(()=>{
-                        return new Promise((resolve,reject)=>{
-                            self.localStream = AgoraRTC.createStream({
-                            streamID: self.uid,
-                            audio: true,
-                            video: false,
-                            screen: false,
-                        })
 
-                        self.localStream.init(function () {
-                        console.log("初始化 local stream success");
-                        resolve()
-                    }, function (err) {
+                    return new Promise((resolve,reject)=>{
+                        self.localStream = AgoraRTC.createStream({
+                        streamID: self.uid,
+                        audio: true,
+                        video: false,
+                        screen: false,
+                    })
+
+                    self.localStream.init(function () {
+                            console.log("初始化 local stream success");
+                            resolve()
+                        }, function (err) {
                         console.error("初始化 local stream failed ", err);
                     })
-                })
                 }).then(()=>{
                         // Publish the local stream
                         self.client.publish(self.localStream, function (err) {
                         console.log("发布 failed");
                         console.error(err);
                     })
+
+                })
+                },
+                after_publish(){
+                    var self = this
+                    self.localStream.muteAudio()
+                    if(/^http/.test(this.mp3_url) ){
+                        var mp3_reach ='/relay?url='+this.mp3_url
+                    }else{
+                        var mp3_reach = this.mp3_url
+                    }
+
+                    var options = {
+                        cacheResource: true,
+                        //                                        filePath: "http://www.hochmuth.com/mp3/Haydn_Cello_Concerto_D-1.mp3",
+                        filePath: mp3_reach || '/static/Haydn_Cello_Concerto_D-1.mp3',
+                        cycle: 1,
+                        replace: true,
+                        playTime: 0
+                    }
+                    self.localStream.startAudioMixing(options, function (err) {
+                        if (err) {
+                            console.log("Failed to start audio mixing. " + err);
+                        }
+                    });
+
+                    var p1 = new Promise((resolve,reject)=>{
+                                self.localStream.on("audioMixingPlayed",function(){
+                                if(! self.started){
+                                    self.localStream.pauseAudioMixing()
+                                    resolve()
+                                }
+                            })
+                    })
+                    var p2 = new Promise((resolve,reject)=>{
+                                self.client.on("peer-online",()=> {
+                                console.log('有人链接了。')
+                                self.user_count += 1
+                                if (!self.started) {
+                                    resolve()
+                                    // 播放音效
+                                    //                                    self.localStream.muteAudio()
+                                    //                                    self.localStream.playEffect({
+                                    //                                        soundId: 1,
+                                    ////                                        filePath: '/static/Haydn_Cello_Concerto_D-1.mp3'
+                                    //                                        filePath: 'http://www.hochmuth.com/mp3/Haydn_Cello_Concerto_D-1.mp3'
+                                    //                                    }, function(error) {
+                                    //                                        if (error) {
+                                    //                                            // 错误处理
+                                    //                                            return;
+                                    //                                        }
+                                    //                                        // 播放成功后的流程
+                                    //                                    });
+
+
+
+                                }
+                            })
+                            })
+                    return Promise.all([p1,p2])
+
+                },
+                onstart(){
+                    var self = this
+                    self.started = true
+                    self.localStream.unmuteAudio()
+                    self.localStream.resumeAudioMixing()
+                },
+                regist_event(){
+                    var self = this
+
+
+                    self.client.on("peer-leave", () => {
+                        console.log('有人退出了。')
+                    self.user_count -=1
+                    if(self.user_count<=0){
+                        console.log('所有人都退出了，现在退出')
+//                        self.localStream.stopAllEffects()
+                        self.localStream.muteAudio()
+                        self.localStream.stopAudioMixing()
+                        self.started = false
+                        self.client.leave()
+                    }
+//                        self.client.getRemoteAudioStats((remoteAudioStatsMap) => {
+//                            if(Object.keys(remoteAudioStatsMap).length == 0){
+//                                self.client.leave(() => {
+//                                    console.log('所有人都退出了，现在退出')
+//                                self.started = false
+//                            })
+//                        }
+//
+//                    })
 
                 })
                 }
