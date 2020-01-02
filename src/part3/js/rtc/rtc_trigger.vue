@@ -18,6 +18,7 @@
                 self.task_list.push({channel:channel,mp3_url:mp3_url})
             }
             setInterval(self.pump,500)
+            this.parStore.$on('finish-task',this.check_need_refresh)
         },
         computed:{
             sender_count(){
@@ -25,9 +26,19 @@
             }
         },
         methods:{
+            check_need_refresh(){
+                if(this.parStore.option.sender_list.length == 0){
+                    this.debug_log('任务完成，刷新一下页面')
+                    location.reload()
+                }
+            },
             warning_log(msg){
                 ex.director_call('rtc_front_log',{msg:msg,level:'WARNING',uid:'trigger'})
             },
+            debug_log(msg){
+                ex.director_call('rtc_front_log',{msg:msg,level:'DEBUG',uid:'trigger'})
+            },
+
             pump(){
                 if(this.task_list.length >0 ){
                     var sender = this.get_valid_sender()

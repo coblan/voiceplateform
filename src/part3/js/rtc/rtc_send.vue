@@ -65,6 +65,9 @@
 //                this.$emit('ready-send-order')
 //            })
 
+            this.$on('finish-task',()=>[
+                    this.parStore.$emit('finish-task')
+            ])
 
         },
         methods:{
@@ -231,12 +234,10 @@
                     console.log('有人退出频道，当前用户数${self.user_count}')
                     if(self.user_count<=0){
 
-
-    //                        self.localStream.stopAllEffects()
-
                         self.close()
                         this.debug_log('所有人都退出了频道，现在退出')
-                        self.$emit('ready-send-order')
+//                        self.$emit('ready-send-order')
+                        self.$emit('finish-task')
                     }
                 })
                 setTimeout(()=>{
@@ -244,7 +245,8 @@
                         // 长时间无人接听，退出拨打
                         self.close()
                         this.debug_log('长时间无人接听，退出拨打!')
-                        self.$emit('ready-send-order')
+//                        self.$emit('ready-send-order')
+                        self.$emit('finish-task')
                     }
                 },1000*30)
             }
