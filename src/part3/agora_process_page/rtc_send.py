@@ -11,7 +11,7 @@ class RTCSendPage(object):
     
     def get_context(self):
         rtc_send=[]
-        for i in range(30):
+        for i in range(5):
             rtc_send.append( {'editor':'com-rtc-send'})
             
         return {

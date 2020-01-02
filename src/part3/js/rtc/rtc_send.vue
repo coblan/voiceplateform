@@ -159,7 +159,7 @@
                 }
                 self.localStream.startAudioMixing(options, function (err) {
                     if (err) {
-                        self.warning_log('播放录音错误:'+err)
+                        self.warning_log(`播放录音${options.filePath}错误:${err}`)
                         console.log("Failed to start audio mixing. " + err);
                     }
                 });
