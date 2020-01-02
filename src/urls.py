@@ -23,6 +23,7 @@ from django.views.generic import RedirectView
 from helpers.authuser.engin_view import AuthEngine
 from hello.views import relay
 from part3 import views as part3_views
+from hello.engin_menu import AgoraProcessEngin
 
 urlpatterns = [
     #url(r'^admin/', admin.site.urls),
@@ -31,6 +32,9 @@ urlpatterns = [
     url('^rtm_send/?$',part3_views.rtm_send),
     url('^rtc/?$',part3_views.rtc_panel),
     url('^rtc_send/?$',part3_views.rtc_send),
+    
+    url(r'^ago/([\w\.-]+)/?$',AgoraProcessEngin.as_view(),name=AgoraProcessEngin.url_name),
+    
     url(r'^relay/?$',relay),
     url(r'^accounts/([\w\.]+)/?$',AuthEngine.as_view(),name=AuthEngine.url_name),
     #url(r'^pc/([\w\.]+)/?$',PcAdminMenu.as_view(),name=PcAdminMenu.url_name),
