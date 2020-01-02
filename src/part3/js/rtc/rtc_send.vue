@@ -55,12 +55,15 @@
                 this.mp3_url=''
                 this.started=false
 
-                this.parStore.option.sender_list.push(this)
+                this.createClient().then(()=>{
+                    this.parStore.option.sender_list.push(this)
+                })
             })
 
-            this.createClient().then(()=>{
-                this.$emit('ready-send-order')
-            })
+            this.$emit('ready-send-order')
+//            this.createClient().then(()=>{
+//                this.$emit('ready-send-order')
+//            })
 
 
         },
@@ -86,9 +89,7 @@
                 ex.director_call('rtc_front_log',{msg:msg,level:'WARNING',uid:this.uid})
             },
             send(){
-                this.createClient().then(()=>{
-                    this.$emit('ready-send-order')
-            }).then(()=>{
+               Promise.resolve(). then(()=>{
                     this.debug_log('开始加入频道'+this.channel)
                     return this.join()
                 }).then(()=>{
