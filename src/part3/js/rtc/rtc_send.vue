@@ -233,18 +233,25 @@
                 self.localStream.unmuteAudio()
                 self.localStream.resumeAudioMixing()
             },
+            close(){
+                var self=this
+                self.localStream.muteAudio()
+                self.localStream.stopAudioMixing()
+                self.localStream.close()
+                self.client.leave()
+            },
             regist_event(){
                 var self = this
                 self.client.on("peer-leave", () => {
                     console.log('有人退出了。')
                     self.user_count -=1
+                    console.log('有人退出频道，当前用户数${self.user_count}')
                     if(self.user_count<=0){
-                        console.log('所有人都退出了，现在退出')
+
 
     //                        self.localStream.stopAllEffects()
-                        self.localStream.muteAudio()
-                        self.localStream.stopAudioMixing()
-                        self.client.leave()
+
+                        self.close()
                         this.debug_log('所有人都退出了频道，现在退出')
                         self.$emit('ready-send-order')
                     }
@@ -252,9 +259,7 @@
                 setTimeout(()=>{
                     if(! self.started){
                         // 长时间无人接听，退出拨打
-                        self.localStream.muteAudio()
-                        self.localStream.stopAudioMixing()
-                        self.client.leave()
+                        self.close()
                         this.debug_log('长时间无人接听，退出拨打!')
                         self.$emit('ready-send-order')
                     }
