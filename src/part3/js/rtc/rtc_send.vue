@@ -94,7 +94,7 @@
                     return this.publish()
                 }).then(()=>{
                     this.regist_event()
-                return this.after_publish()
+                return this.success_publish()
             }).then(()=>{
                     this.debug_log('有用户接入，开始播放录音')
                     this.onstart()
@@ -137,7 +137,7 @@
 
             })
             },
-            after_publish(){
+            success_publish(){
                 var self = this
                 self.localStream.muteAudio()
                 if(/^http/.test(this.mp3_url) ){
@@ -162,12 +162,13 @@
 
                 var p1 = new Promise((resolve,reject)=>{
                             self.localStream.on("audioMixingPlayed",function(){
-                            if(! self.started){
-                                self.localStream.pauseAudioMixing()
-                                resolve()
-                            }
+                                self.debug_log('加载录音完成!')
+                                if(! self.started){
+                                    self.localStream.pauseAudioMixing()
+                                    resolve()
+                                }
                         })
-            })
+                     })
                 var p2 = new Promise((resolve,reject)=>{
                     self.client.on("peer-online",()=> {
                     console.log('有人链接了。')
@@ -198,6 +199,7 @@
 
             },
             onstart(){
+                this.debug_log("开始播放录音"+this.user_count)
                 var self = this
                 self.started = true
                 self.localStream.unmuteAudio()
