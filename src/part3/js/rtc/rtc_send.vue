@@ -85,6 +85,9 @@
             debug_log(msg){
                 ex.director_call('rtc_front_log',{msg:msg,level:'DEBUG',uid:this.uid})
             },
+            warning_log(msg){
+                ex.director_call('rtc_front_log',{msg:msg,level:'WARNING',uid:this.uid})
+            },
             send(){
                 this.debug_log('开始更新client信息，创建频道:'+this.channel)
                 this.updateclient().then(()=>{
@@ -156,6 +159,7 @@
                 }
                 self.localStream.startAudioMixing(options, function (err) {
                     if (err) {
+                        self.warning_log('播放录音错误:'+err)
                         console.log("Failed to start audio mixing. " + err);
                     }
                 });
