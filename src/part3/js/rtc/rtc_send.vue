@@ -78,26 +78,6 @@
                             self.warning_log(`初始化client失败:${err}`)
                         })
             })
-
-
-
-//                return new Promise((resolve,reject) =>{
-//                            $.get('/dapi/agora/rtc-option?channel='+this.channel+'&uid='+this.uid,function(resp){
-//                            self.token = resp.data.token
-//                            self.appid = resp.data.appID
-//                            resolve()
-//                        })
-//            }).then(()=>{
-//                    self.client = AgoraRTC.createClient({mode: "rtc", codec: "h264"})
-//                return new Promise((resolve,reject)=>{
-//                            self.client.init(self.appid, function () {
-//                            console.log("init success");
-//                            resolve()
-//                        }, function(err) {
-//                            console.error("client join failed", err)
-//                        })
-//            })
-//            })
             },
             debug_log(msg){
                 ex.director_call('rtc_front_log',{msg:msg,level:'DEBUG',uid:this.uid})
@@ -106,7 +86,9 @@
                 ex.director_call('rtc_front_log',{msg:msg,level:'WARNING',uid:this.uid})
             },
             send(){
-                Promise.resolve().then(()=>{
+                this.createClient().then(()=>{
+                    this.$emit('ready-send-order')
+            }).then(()=>{
                     this.debug_log('开始加入频道'+this.channel)
                     return this.join()
                 }).then(()=>{
