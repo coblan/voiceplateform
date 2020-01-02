@@ -1,4 +1,5 @@
 from helpers.pcweb.shotcut import web_page_dc
+from django.conf import settings
 
 class RTCSendPage(object):
     def __init__(self, request, engin):
@@ -12,7 +13,7 @@ class RTCSendPage(object):
     def get_context(self):
         rtc_send=[]
         for i in range(5):
-            rtc_send.append( {'editor':'com-rtc-send'})
+            rtc_send.append( {'editor':'com-rtc-send','appid':settings.AGORA.get('appID')})
             
         return {
             'tops':[

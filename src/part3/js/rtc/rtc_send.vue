@@ -38,7 +38,7 @@
             return {
                 parStore:ex.vueParStore(this),
                 uid: ''+parseInt( Math.random()*100000000 ),
-                appid:'',
+                appid:this.ctx.appid,
                 token:'',
                 client:'',
                 mp3_url:'',
@@ -48,39 +48,56 @@
             }
         },
         mounted(){
+
             this.$on('ready-send-order',()=>{
                 this.channel=''
                 this.token = ''
                 this.mp3_url=''
-                this.appid = ''
                 this.started=false
 
                 this.parStore.option.sender_list.push(this)
             })
 
-            this.$emit('ready-send-order')
+            this.createClient().then(()=>{
+                this.$emit('ready-send-order')
+            })
+
 
         },
         methods:{
-            updateclient(){
+            createClient(){
                 var self =this
-                return new Promise((resolve,reject) =>{
-                            $.get('/dapi/agora/rtc-option?channel='+this.channel+'&uid='+this.uid,function(resp){
-                            self.token = resp.data.token
-                            self.appid = resp.data.appID
-                            resolve()
-                        })
-            }).then(()=>{
-                    self.client = AgoraRTC.createClient({mode: "rtc", codec: "h264"})
+                self.client = AgoraRTC.createClient({mode: "rtc", codec: "h264"})
+
                 return new Promise((resolve,reject)=>{
                             self.client.init(self.appid, function () {
                             console.log("init success");
                             resolve()
                         }, function(err) {
                             console.error("client join failed", err)
+                            self.warning_log(`初始化client失败:${err}`)
                         })
             })
-            })
+
+
+
+//                return new Promise((resolve,reject) =>{
+//                            $.get('/dapi/agora/rtc-option?channel='+this.channel+'&uid='+this.uid,function(resp){
+//                            self.token = resp.data.token
+//                            self.appid = resp.data.appID
+//                            resolve()
+//                        })
+//            }).then(()=>{
+//                    self.client = AgoraRTC.createClient({mode: "rtc", codec: "h264"})
+//                return new Promise((resolve,reject)=>{
+//                            self.client.init(self.appid, function () {
+//                            console.log("init success");
+//                            resolve()
+//                        }, function(err) {
+//                            console.error("client join failed", err)
+//                        })
+//            })
+//            })
             },
             debug_log(msg){
                 ex.director_call('rtc_front_log',{msg:msg,level:'DEBUG',uid:this.uid})
@@ -89,8 +106,7 @@
                 ex.director_call('rtc_front_log',{msg:msg,level:'WARNING',uid:this.uid})
             },
             send(){
-                this.debug_log('开始更新client信息，创建频道:'+this.channel)
-                this.updateclient().then(()=>{
+                Promise.resolve().then(()=>{
                     this.debug_log('开始加入频道'+this.channel)
                     return this.join()
                 }).then(()=>{
@@ -105,14 +121,22 @@
             },
             join(){
                 var self=this
-                return new Promise((resolve,reject)=>{
-                            this.client.join(this.token , this.channel, this.uid ,  (uid)=> {
-                            console.log("join channel: " + this.channel + " success, uid: " + uid);
+
+               return new Promise((resolve,reject) =>{
+                            $.get('/dapi/agora/rtc-option?channel='+this.channel+'&uid='+this.uid,function(resp){
+                            self.token = resp.data.token
                             resolve()
-                        }, function(err) {
+                        })
+                 }).then(()=>{
+                    return new Promise((resolve,reject)=>{
+                        this.client.join(this.token , this.channel, this.uid ,  (uid)=> {
+                        console.log("join channel: " + this.channel + " success, uid: " + uid);
+                        resolve()
+                    }, function(err) {
                             console.error("client join failed", err)
                         })
-            })
+                    })
+                })
             },
             publish(){
                 var self = this
