@@ -31,7 +31,7 @@ RABBIT={
 }
 
 ELK={
-    'host':'http://localhost:9200',
+    'host':'http://172.18.215.159:9200',
     'user':'elastic',
     'pswd':'he27375089',
 }
