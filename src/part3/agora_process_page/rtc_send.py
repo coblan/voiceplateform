@@ -12,7 +12,7 @@ class RTCSendPage(object):
     
     def get_context(self):
         rtc_send=[]
-        for i in range(3):
+        for i in range(1):
             rtc_send.append( {'editor':'com-rtc-send','appid':settings.AGORA.get('appID')})
             
         return {

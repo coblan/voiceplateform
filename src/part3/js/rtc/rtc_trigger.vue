@@ -1,5 +1,8 @@
 <template>
-    <div>trigger 样例 <span v-text="sender_count"></span></div>
+    <div>trigger 样例 <span v-text="sender_count"></span>
+        <div class="can_recieve" v-if="can_recieve">可以接受消息</div>
+        <div class="process_over" v-if="process_over">处理完成</div>
+    </div>
 </template>
 <script>
     export default {
@@ -9,6 +12,8 @@
             return {
                 parStore:parStore,
                 task_list:[],
+                can_recieve:false,
+                process_over:false,
             }
         },
         mounted(){
@@ -17,6 +22,10 @@
             window.send_mp3 = function(channel,mp3_url){
                 self.task_list.push({channel:channel,mp3_url:mp3_url})
             }
+            window.reload_page= function(){
+                location.reload()
+            }
+            this.can_recieve=true
             setInterval(self.pump,500)
             this.parStore.$on('finish-task',this.check_need_refresh)
         },
@@ -28,8 +37,9 @@
         methods:{
             check_need_refresh(){
                 if(this.parStore.option.sender_list.length == 0){
-                    this.debug_log('任务完成，刷新一下页面')
-                    location.reload()
+                    this.debug_log('任务完成.返回python控制')
+//                    location.reload()
+                    this.process_over=true
                 }
             },
             warning_log(msg){
