@@ -3,7 +3,7 @@
 ### 上传用户
 
 ```
-/dapi/account/update           POST
+[POST]  /dapi/account/update  
 ```
 
 | 参数    | 含义    |  必填|
@@ -22,7 +22,7 @@
 
 ### 用户拨打
 ```
-/dapi/call/user               POST
+[POST]  /dapi/call/user 
 ```
 
 |  参数     |   含义        | 必填 |
