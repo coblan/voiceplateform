@@ -11,14 +11,15 @@ class RTCSendPage(object):
         return 'rtc发送页面'
     
     def get_context(self):
-        rtc_send=[]
-        for i in range(1):
-            rtc_send.append( {'editor':'com-rtc-send','appid':settings.AGORA.get('appID')})
+        #rtc_send=[]
+        #for i in range(1):
+            #rtc_send.append( {'editor':'com-rtc-send','appid':settings.AGORA.get('appID')})
             
         return {
             'tops':[
-                {'editor':'com-rtc-trigger'},
-                *rtc_send,
+                {'editor':'com-rtc-send','appid':settings.AGORA.get('appID')}
+                #{'editor':'com-rtc-trigger'},
+                #*rtc_send,
                 #{'editor':'com-rtc-send'},
                 #{'editor':'com-rtc-send'},
                 #{'editor':'com-rtc-send'},

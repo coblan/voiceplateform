@@ -4,6 +4,40 @@ import time
 from . Agora.RtcTokenBuilder import RtcTokenBuilder
 from . Agora.RtmTokenBuilder import RtmTokenBuilder
 from . rabbit_instance import send_msg,send_mp3
+from helpers.func.random_str import get_str
+from maindb.models import Accountinfo
+from .apple.apns import push
+
+@director_view('call/user')
+def call_user(src_uid,dst_uid =None):
+    '单个用户拨打另外一个用户'
+    appID = settings.AGORA.get('appID')
+    appCertificate = settings.AGORA.get('appCertificate')
+    channelName= 'ch_'+ get_str(length=10)
+    userAccount= src_uid
+    Role_Attendee = 2
+    privilegeExpiredTs = time.time() + 600
+    token = RtcTokenBuilder.buildTokenWithAccount(appID, appCertificate, channelName, userAccount, Role_Attendee, privilegeExpiredTs)
+    
+    if dst_uid:
+        user = Accountinfo.objects.filter(uid = dst_uid) .first()
+        if user and user.apns_token:
+            msg = {
+                'data': {'type':'feed', 'id': 123},
+                'count': 8,
+                'udid': user.apns_token,
+                'content': 'ios推送测试'
+            }
+            push(msg)
+    
+    return {
+        'appID':appID,
+        'channel':channelName,
+        'uid': userAccount,
+        'token':token,
+    }
+
+
 
 doc_str('agora/api.md','''
 # 语音对接

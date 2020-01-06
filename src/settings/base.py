@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'helpers.authuser',
     'helpers.pcweb',
     'hello',
-    'part3'
+    'part3',
+    'maindb',
 ]
 
 MIDDLEWARE = [

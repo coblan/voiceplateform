@@ -1,5 +1,6 @@
 <template>
     <div class="com-rtc-send">
+        <span v-if="loaded" class="can_recieve">能够接受消息</span>
         <div>
             <span>appID</span>
             <span v-text="appid"></span>
@@ -45,29 +46,48 @@
                 channel:'',
                 started:false,
                 user_count:0,
+                loaded:false,
+                finish_callback:'',
             }
         },
         mounted(){
 
-            this.$on('ready-send-order',()=>{
-                this.channel=''
-                this.token = ''
-                this.mp3_url=''
-                this.started=false
-
-                this.createClient().then(()=>{
-                    this.parStore.option.sender_list.push(this)
-                })
-            })
-
-            this.$emit('ready-send-order')
+//            this.$on('ready-send-order',()=>{
+//                this.channel=''
+//                this.token = ''
+//                this.mp3_url=''
+//                this.started=false
+//                this.loaded=true
+////                this.createClient().then(()=>{
+////                    this.parStore.option.sender_list.push(this)
+////                })
+//            })
+//
+//            this.$emit('ready-send-order')
 //            this.createClient().then(()=>{
 //                this.$emit('ready-send-order')
 //            })
 
-            this.$on('finish-task',()=>[
-                    this.parStore.$emit('finish-task')
-            ])
+//            this.$on('finish-task',()=>[
+//                    this.parStore.$emit('finish-task')
+//            ])
+
+            window.send_mp3 = (channel,mp3_url,callback)=>{
+                this.channel = channel
+                this.mp3_url = mp3_url
+
+                this.finish_callback= callback
+                this.send()
+            }
+            window.reload_page = ()=>{
+                location.reload()
+            }
+            this.$on('finish-task',()=>{
+                if(this.finish_callback){
+                    this.finish_callback()
+                }
+            })
+            this.loaded=true
 
         },
         methods:{
@@ -92,7 +112,7 @@
                 ex.director_call('rtc_front_log',{msg:msg,level:'WARNING',uid:this.uid})
             },
             send(){
-               Promise.resolve(). then(()=>{
+               return this.createClient(). then(()=>{
                     this.debug_log('开始加入频道'+this.channel)
                     return this.join()
                 }).then(()=>{
@@ -107,7 +127,7 @@
             },
             join(){
                 var self=this
-
+                debugger
                return new Promise((resolve,reject) =>{
                             $.get('/dapi/agora/rtc-option?channel='+this.channel+'&uid='+this.uid,function(resp){
                             self.token = resp.data.token

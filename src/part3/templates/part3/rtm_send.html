@@ -45,20 +45,20 @@
                 })
             }).then(()=>{
                     self. client = AgoraRTM.createInstance(this.appid);
-                self.client.on('ConnectionStateChanged', (newState, reason) => {
+                    self.client.on('ConnectionStateChanged', (newState, reason) => {
                     console.log('on connection state changed to ' + newState + ' reason: ' + reason);
-            });
+                });
                 self.client.on('MessageFromPeer', ({ text }, peerId) => { // text 为消息文本，peerId 是消息发送方 User ID
                     /* 收到点对点消息的处理逻辑 */
                     console.log(text)
-                self.recieved = text
-            });
+                    self.recieved = text
+                });
             }).then(()=>{
                     this.client.login({ token: self.token, uid: self.uid }).then(() => {
                     console.log('AgoraRTM client login success');
-            }).catch(err => {
-                    console.log('AgoraRTM client login failure', err);
-            });
+                }).catch(err => {
+                        console.log('AgoraRTM client login failure', err);
+                });
             })
 
             },
