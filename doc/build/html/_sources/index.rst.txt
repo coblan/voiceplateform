@@ -14,7 +14,7 @@ Welcome to voiceplatform's documentation!
    abstract.md
    agora/api.md
    rtm_msg.md
-   myapi.md
+   api/index.rst
 
 
 

@@ -21,7 +21,12 @@ class AccountForm(ModelFields):
 
 @director_view('account/update')
 def update_account_info(**kws):
-    'uid,device='',apns_token='''
+    '''
+    参数
+    @uid  用户id,
+    @device='',
+    @apns_token=
+    '''
     instacne = Accountinfo.objects.filter(uid = kws.get('uid')).first()
     if instacne:
         pk = instacne.pk
@@ -32,6 +37,17 @@ def update_account_info(**kws):
         'pk':pk
     })
     return director_save_row(kws)
+
+@director_view('account/reject-tone')
+def upload_reject_tone(uid,tone_url):
+    instacne = Accountinfo.objects.filter(uid = uid).first()
+    if instacne:
+        instacne.reject_tone = tone_url
+        instacne.save()
+    else:
+        raise UserWarning('用户不存在')
+    
+    
 
 director.update({
     'accountinfo':AccountInfoPage.tableCls,

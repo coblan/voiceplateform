@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4. API &mdash; voiceplatform 1 documentation</title>
+  <title>4.1. 用户管理 &mdash; voiceplatform 1 documentation</title>
   
 
   
@@ -24,14 +24,15 @@
 
   
 
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="3. RTM发送消息" href="rtm_msg.html" /> 
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.2. 拨打" href="myapi.html" />
+    <link rel="prev" title="4. 接口文档" href="index.html" /> 
 
   
-  <script src="_static/js/modernizr.min.js"></script>
+  <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -47,7 +48,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> voiceplatform
+            <a href="../index.html" class="icon icon-home"> voiceplatform
           
 
           
@@ -60,7 +61,7 @@
 
           
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -79,12 +80,17 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="abstract.html">1. 外部链接</a></li>
-<li class="toctree-l1"><a class="reference internal" href="agora/api.html">2. 语音对接</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rtm_msg.html">3. RTM发送消息</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">4. API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">4.1. 上传用户</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">4.2. 用户拨打</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../abstract.html">1. 外部链接</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../agora/api.html">2. 语音对接</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rtm_msg.html">3. RTM发送消息</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">4. 接口文档</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.1. 用户管理</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">4.1.1. 上传用户信息</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">4.1.2. 更新用户留言信息</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="myapi.html">4.2. 拨打</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other_api.html">4.3. 其他接口</a></li>
 </ul>
 </li>
 </ul>
@@ -101,7 +107,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">voiceplatform</a>
+          <a href="../index.html">voiceplatform</a>
         
       </nav>
 
@@ -130,15 +136,17 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>4. API</li>
+          <li><a href="index.html">4. 接口文档</a> &raquo;</li>
+        
+      <li>4.1. 用户管理</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/myapi.md.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/api/user_api.md.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -151,10 +159,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="api">
-<h1>4. API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="id1">
-<h2>4.1. 上传用户<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="id1">
+<h1>4.1. 用户管理<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>4.1.1. 上传用户信息<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">account</span><span class="o">/</span><span class="n">update</span>  
 </pre></div>
 </div>
@@ -191,9 +199,9 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="id2">
-<h2>4.2. 用户拨打<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">call</span><span class="o">/</span><span class="n">user</span> 
+<div class="section" id="id3">
+<h2>4.1.2. 更新用户留言信息<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">account</span><span class="o">/</span><span class="n">reject</span><span class="o">-</span><span class="n">tone</span>
 </pre></div>
 </div>
 <table border="1" class="docutils">
@@ -206,28 +214,21 @@
 </thead>
 <tbody>
 <tr>
-<td>src_uid</td>
-<td>自己的uid，用于签名token</td>
+<td>uid</td>
+<td>用户id</td>
 <td>是</td>
 </tr>
 <tr>
-<td>dst_uid</td>
-<td>对方的uid ，如果对方是苹果用户，会push消息给对方</td>
+<td>tone_url</td>
+<td>留言url(如果为空，会清空原来的留言)</td>
 <td>否</td>
 </tr>
 </tbody>
-</table><p>返回</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;success&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
-    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;appID&quot;</span><span class="p">:</span> <span class="s2">&quot;303156d224e44881a00af9cabc9e10d8&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;channel&quot;</span><span class="p">:</span> <span class="s2">&quot;ch_4aY875LP4o&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;uid&quot;</span><span class="p">:</span> <span class="s2">&quot;1234&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="s2">&quot;006303156d224e44881a00af9cabc9e10d8IACgUJJitrMNSv8lt51GOztehgjZLfpgtuWC6mDDhAKBeJMxVymj4OObEADw9+kBR7MUXgEAAQAfZBNe&quot;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
+</table><p>前端客户端操作流程</p>
+<ol class="simple">
+<li>调用 <a class="reference internal" href="other_api.html#upload"><span class="std std-ref">接口上传</span></a> 留言音频文件，获得tone_url</li>
+<li>调用本接口更新用户留言信息</li>
+</ol>
 </div>
 </div>
 
@@ -239,8 +240,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="myapi.html" class="btn btn-neutral float-right" title="4.2. 拨打" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-        <a href="rtm_msg.html" class="btn btn-neutral" title="3. RTM发送消息" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+        <a href="index.html" class="btn btn-neutral" title="4. 接口文档" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -250,7 +253,7 @@
   <div role="contentinfo">
     <p>
         &copy; Copyright 2019, coblan
-      Last updated on 2020-01-07 01:05:27.
+      Last updated on 2020-01-08 00:36:11.
 
     </p>
   </div>
@@ -271,17 +274,17 @@
 
     
     
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
         <script type="text/javascript" src="https://unpkg.com/mermaid@7.1.0/dist/mermaid.min.js"></script>
     
 
   
 
-  <script type="text/javascript" src="_static/js/theme.js"></script>
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
 
   <script type="text/javascript">
       jQuery(function () {

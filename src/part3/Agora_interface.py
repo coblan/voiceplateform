@@ -38,6 +38,26 @@ def call_user(src_uid,dst_uid =None):
         'token':token,
     }
 
+@director_view('call/robot')
+def call_robot(src_uid):
+    "演示用"
+    appID = settings.AGORA.get('appID')
+    appCertificate = settings.AGORA.get('appCertificate')
+    channelName= 'ch_'+ get_str(length=10)
+    userAccount= src_uid
+    Role_Attendee = 2
+    privilegeExpiredTs = time.time() + 600
+    token = RtcTokenBuilder.buildTokenWithAccount(appID, appCertificate, channelName, userAccount, Role_Attendee, privilegeExpiredTs)
+    general_log.info('[%s]向机器人拨打语音'%src_uid)
+    
+    send_mp3(channelName,mp3_url='/static/Haydn_Cello_Concerto_D-1.mp3')
+    
+    return {
+        'appID':appID,
+        'channel':channelName,
+        'uid': userAccount,
+        'token':token,
+    }
 
 
 doc_str('agora/api.md','''
