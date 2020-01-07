@@ -60,6 +60,10 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'hello.elk.RTCLOG',         
             },    
+        'VoiceplatformLOG':{
+            'level': 'DEBUG',
+            'class': 'hello.elk.VoiceplatformLOG', 
+        },
         'console': {
             'level':'DEBUG',
             'class': 'logging.StreamHandler',
@@ -85,7 +89,7 @@ LOGGING = {
             'propagate': True,            
             },
         'general_log': {
-            'handlers': ['console', 'djangoout_warning',  ],
+            'handlers': ['console', 'djangoout_warning', 'VoiceplatformLOG' ],
             'level': 'DEBUG',
             'propagate': True,            
             },

@@ -2,6 +2,8 @@ import socket, ssl, json, struct
 import binascii
 import sys
 import os
+import logging
+general_log = logging.getLogger('general_log')
 
 def Payload(alert='', badge=1, data={}):
     payload = {
@@ -73,6 +75,29 @@ def push(msg):
 
     payload = Payload(msg['content'], msg['count'], data)
     return APN(token, payload, pem)
+
+
+class VoiceCallPush(object):
+    def __init__(self,token, infodc,src_user, **kwargs):
+        self.token = token
+        self.pem = pem_path
+        self.payload = {
+            "aps": {
+                "content-available": 1,
+                "alert": {
+                    "title": "语音通话",
+                    "body": "用户%s邀请你语音通话"%src_user
+                },
+                "badge": 9,
+                "sound": "default",
+                "userInfo": infodc
+            }
+        }
+    
+    def push(self):
+        general_log.info('向apple用户[%s]推送消息'% self.token )
+        return APN(self.token, self.payload, self.pem)
+        
 
 if __name__ == '__main__':
     msg = {

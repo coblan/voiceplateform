@@ -6,7 +6,9 @@ from . Agora.RtmTokenBuilder import RtmTokenBuilder
 from . rabbit_instance import send_msg,send_mp3
 from helpers.func.random_str import get_str
 from maindb.models import Accountinfo
-from .apple.apns import push
+from .apple.apns import VoiceCallPush
+import logging
+general_log = logging.getLogger('general_log')
 
 @director_view('call/user')
 def call_user(src_uid,dst_uid =None):
@@ -18,17 +20,16 @@ def call_user(src_uid,dst_uid =None):
     Role_Attendee = 2
     privilegeExpiredTs = time.time() + 600
     token = RtcTokenBuilder.buildTokenWithAccount(appID, appCertificate, channelName, userAccount, Role_Attendee, privilegeExpiredTs)
-    
+    general_log.info('[%s]向[%s]拨打语音'%(src_uid,dst_uid))
     if dst_uid:
         user = Accountinfo.objects.filter(uid = dst_uid) .first()
         if user and user.apns_token:
-            msg = {
-                'data': {'type':'feed', 'id': 123},
-                'count': 8,
-                'udid': user.apns_token,
-                'content': 'ios推送测试'
+            infodc = {
+                'title':'audiocall',
+                'accountCaller':src_uid,
+                'channel':channelName,
             }
-            push(msg)
+            VoiceCallPush(user.apns_token, infodc,src_user = src_uid).push()
     
     return {
         'appID':appID,
