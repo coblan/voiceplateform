@@ -50,7 +50,8 @@ def call_robot(src_uid):
     token = RtcTokenBuilder.buildTokenWithAccount(appID, appCertificate, channelName, userAccount, Role_Attendee, privilegeExpiredTs)
     general_log.info('[%s]向机器人拨打语音'%src_uid)
     
-    send_mp3(channelName,mp3_url='/static/Haydn_Cello_Concerto_D-1.mp3')
+    #send_mp3(channelName,mp3_url='/static/Haydn_Cello_Concerto_D-1.mp3')
+    send_mp3(channelName,mp3_url='/static/tt.mp3')
     
     return {
         'appID':appID,
