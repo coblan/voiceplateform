@@ -48,29 +48,10 @@
                 user_count:0,
                 loaded:false,
                 finish_callback:'',
+                mp3_length:60,
             }
         },
         mounted(){
-
-//            this.$on('ready-send-order',()=>{
-//                this.channel=''
-//                this.token = ''
-//                this.mp3_url=''
-//                this.started=false
-//                this.loaded=true
-////                this.createClient().then(()=>{
-////                    this.parStore.option.sender_list.push(this)
-////                })
-//            })
-//
-//            this.$emit('ready-send-order')
-//            this.createClient().then(()=>{
-//                this.$emit('ready-send-order')
-//            })
-
-//            this.$on('finish-task',()=>[
-//                    this.parStore.$emit('finish-task')
-//            ])
 
             window.send_mp3 = (channel,mp3_url,callback)=>{
                 this.channel = channel
@@ -121,13 +102,15 @@
                     this.regist_event()
                 return this.success_publish()
             }).then(()=>{
-                    this.debug_log('有用户接入，开始播放录音')
+                    this.debug_log('有用户接入，开始播放录音,'+this.mp3_length+'秒后，机器人退出')
                     this.onstart()
+                    setTimeout(()=>{
+                        this.$emit('finish-task')
+                    },this.mp3_length)
             })
             },
             join(){
                 var self=this
-                debugger
                return new Promise((resolve,reject) =>{
                             $.get('/dapi/agora/rtc-option?channel='+this.channel+'&uid='+this.uid,function(resp){
                             self.token = resp.data.token
@@ -197,6 +180,7 @@
                 var p1 = new Promise((resolve,reject)=>{
                             self.localStream.on("audioMixingPlayed",function(){
                                 self.debug_log('加载录音完成!')
+                                self.mp3_length =  self.localStream.getAudioMixingDuration();
                                 if(! self.started){
                                     self.localStream.pauseAudioMixing()
                                     resolve()
