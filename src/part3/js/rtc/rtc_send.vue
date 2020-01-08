@@ -48,7 +48,7 @@
                 user_count:0,
                 loaded:false,
                 finish_callback:'',
-                mp3_length:60,
+                mp3_length:60*1000,
             }
         },
         mounted(){
