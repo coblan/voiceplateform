@@ -88,6 +88,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">4.2. 拨打</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id2">4.2.1. 用户拨打</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id3">4.2.2. 直接拨打机器人</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#token">4.2.3. 获取token</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="other_api.html">4.3. 其他接口</a></li>
@@ -234,6 +235,50 @@
 </pre></div>
 </div>
 </div>
+<div class="section" id="token">
+<h2>4.2.3. 获取token<a class="headerlink" href="#token" title="Permalink to this headline">¶</a></h2>
+<p>被叫用户加入频道需要token，调用该接口获取token</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">channel</span><span class="o">/</span><span class="n">join</span>
+
+<span class="p">{</span>
+    <span class="s2">&quot;uid&quot;</span><span class="p">:</span><span class="s2">&quot;1234&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;channel&quot;</span><span class="p">:</span><span class="s2">&quot;ch_xergsde&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+<th>必填</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uid</td>
+<td>用户的uid</td>
+<td>是</td>
+</tr>
+<tr>
+<td>channel</td>
+<td>频道名</td>
+<td>是</td>
+</tr>
+</tbody>
+</table><p>返回</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;success&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;appID&quot;</span><span class="p">:</span> <span class="s2">&quot;303156d224e44881a00af9cabc9e10d8&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;channel&quot;</span><span class="p">:</span> <span class="s2">&quot;ch_xergsde&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;uid&quot;</span><span class="p">:</span> <span class="s2">&quot;1234&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="s2">&quot;006303156d224e44881a00af9cabc9e10d8IAAcLnRJAGjM7DIH6qEO4Ef8j8h3NNMDxj8xpSjblZ9SXR6ERHqj4OObEABa+9gDky4XXgEAAQBr3xVe&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 
@@ -257,7 +302,7 @@
   <div role="contentinfo">
     <p>
         &copy; Copyright 2019, coblan
-      Last updated on 2020-01-08 00:38:51.
+      Last updated on 2020-01-08 21:52:52.
 
     </p>
   </div>
@@ -283,6 +328,7 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/mermaid@7.1.0/dist/mermaid.min.js"></script>
     
 
   

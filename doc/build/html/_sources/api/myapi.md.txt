@@ -48,5 +48,33 @@
 }
 ```
 
+### 获取token
 
+被叫用户加入频道需要token，调用该接口获取token
 
+```
+[POST]  /dapi/channel/join
+
+{
+    "uid":"1234",
+    "channel":"ch_xergsde"
+}
+```
+
+|  参数     |   含义        | 必填 |
+|----------| ---------------|-------|
+|uid   | 用户的uid | 是   |
+|channel   | 频道名 | 是   |
+
+返回
+```
+{
+    "success": true,
+    "data": {
+        "appID": "303156d224e44881a00af9cabc9e10d8",
+        "channel": "ch_xergsde",
+        "uid": "1234",
+        "token": "006303156d224e44881a00af9cabc9e10d8IAAcLnRJAGjM7DIH6qEO4Ef8j8h3NNMDxj8xpSjblZ9SXR6ERHqj4OObEABa+9gDky4XXgEAAQBr3xVe"
+    }
+}
+```

@@ -59,6 +59,24 @@ def call_robot(src_uid):
         'token':token,
     }
 
+@director_view('channel/join')
+def call_robot(uid,channel):
+    "演示用"
+    appID = settings.AGORA.get('appID')
+    appCertificate = settings.AGORA.get('appCertificate')
+    channelName= channel
+    userAccount= uid
+    Role_Attendee = 2
+    privilegeExpiredTs = time.time() + 600
+    token = RtcTokenBuilder.buildTokenWithAccount(appID, appCertificate, channelName, userAccount, Role_Attendee, privilegeExpiredTs)
+
+    return {
+        'appID':appID,
+        'channel':channelName,
+        'uid': uid,
+        'token':token,
+    }
+
 
 doc_str('agora/api.md','''
 # 语音对接
