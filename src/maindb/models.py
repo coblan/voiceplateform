@@ -7,4 +7,21 @@ class Accountinfo(models.Model):
     device = models.CharField('设备标识',max_length=100,blank=True)
     apns_token = models.CharField('苹果推送Token',max_length=100,blank=True)
     reject_tone = models.CharField('拒接电话语言',max_length=300,blank=True)
+
+MSG_STATUS=(
+    (0,'初始化'),
+    (1,'已获取'),
+    (2,'已完成'),
+)
+
+class VoiceMsgList(models.Model):
+    uid = models.IntegerField('相关用户UID',)
+    channel = models.CharField('频道名',max_length=30,)
+    status = models.IntegerField('状态',default=0,choices=MSG_STATUS)
+    createtime = models.DateTimeField('创建时间',auto_now_add=True)
     
+
+#class ChannelList(models.Model):
+    #name = models.CharField('频道名',max_length=30,)
+    #starter = models.IntegerField('发起人UID',)
+    #createtime = models.DateTimeField('创建时间',auto_now_add=True)

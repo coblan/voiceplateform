@@ -5,8 +5,11 @@ from . Agora.RtcTokenBuilder import RtcTokenBuilder
 from . Agora.RtmTokenBuilder import RtmTokenBuilder
 from . rabbit_instance import send_msg,send_mp3
 from helpers.func.random_str import get_str
-from maindb.models import Accountinfo
+from maindb.models import Accountinfo,VoiceMsgList
 from .apple.apns import VoiceCallPush
+from django.utils import timezone
+from helpers.director.model_func.dictfy import sim_dict
+
 import logging
 general_log = logging.getLogger('general_log')
 
@@ -21,7 +24,10 @@ def call_user(src_uid,dst_uid =None):
     privilegeExpiredTs = time.time() + 600
     token = RtcTokenBuilder.buildTokenWithAccount(appID, appCertificate, channelName, userAccount, Role_Attendee, privilegeExpiredTs)
     general_log.info('[%s]向[%s]拨打语音'%(src_uid,dst_uid))
+    VoiceMsgList.objects.create(uid = src_uid,channel=channelName,status=1)
     if dst_uid:
+        VoiceMsgList.objects.create(uid = dst_uid,channel=channelName)
+        
         user = Accountinfo.objects.filter(uid = dst_uid) .first()
         if user and user.apns_token:
             infodc = {
@@ -37,6 +43,42 @@ def call_user(src_uid,dst_uid =None):
         'uid': userAccount,
         'token':token,
     }
+
+@director_view('call/end')
+def end_call(uid,channel):
+    VoiceMsgList.objects.filter(uid = uid,channel=channel).update(status=2)
+    general_log.debug('[%(uid)s]结束[%(channel)s]通话'%locals() )
+
+@director_view('call/msg')
+def get_voice_msg(uid):
+    now = timezone.now()
+    rows = []
+    for item in VoiceMsgList.objects.filter(uid = uid,status=0,createtime__gte = (now- timezone.timedelta(minutes=2) )):
+        rows.append(sim_dict(item))
+    return rows
+
+@director_view('call/recieve')
+def recieve(uid,channel):
+    '''
+    接收频道
+    '''
+    appID = settings.AGORA.get('appID')
+    appCertificate = settings.AGORA.get('appCertificate')
+    channelName= channel
+    userAccount= uid
+    Role_Attendee = 2
+    privilegeExpiredTs = time.time() + 600
+    token = RtcTokenBuilder.buildTokenWithAccount(appID, appCertificate, channelName, userAccount, Role_Attendee, privilegeExpiredTs)
+    
+    general_log.debug('[%(uid)s]接听[%(channel)s]通话'%locals() )
+    VoiceMsgList.objects.filter(uid = uid,channel=channel,status=0).update(status=1)
+    return {
+        'appID':appID,
+        'channel':channelName,
+        'uid': userAccount,
+        'token':token,
+    }
+
 
 @director_view('call/robot')
 def call_robot(src_uid):
@@ -78,6 +120,10 @@ def call_robot(uid,channel):
         'token':token,
     }
 
+@director_view('invite/robot')
+def invite_robot(channel):
+    send_mp3(channel,mp3_url='/static/reject_tone.mp3')
+    
 
 doc_str('agora/api.md','''
 # 语音对接
