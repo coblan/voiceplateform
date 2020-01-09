@@ -221,6 +221,7 @@
                 var self = this
                 self.started = true
                 self.localStream.unmuteAudio()
+                self.localStream.setAudioMixingPosition(0)
                 self.localStream.resumeAudioMixing()
             },
             close(){
