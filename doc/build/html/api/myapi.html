@@ -86,12 +86,13 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">4. 接口文档</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="user_api.html">4.1. 用户管理</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">4.2. 拨打</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id2">4.2.1. 用户拨打</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">4.2.2. 直接拨打机器人</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">4.2.3. 拉取消息</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">4.2.4. 被叫用户接听</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id6">4.2.5. 挂断电话</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id7">4.2.6. 请求机器人进入频道</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">4.2.1. 拨打序列图</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">4.2.2. 用户拨打</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">4.2.3. 直接拨打机器人</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">4.2.4. 拉取消息</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">4.2.5. 被叫用户接听</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">4.2.6. 挂断电话</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">4.2.7. 请求机器人进入频道</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="other_api.html">4.3. 其他接口</a></li>
@@ -166,7 +167,41 @@
   <div class="section" id="id1">
 <h1>4.2. 拨打<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id2">
-<h2>4.2.1. 用户拨打<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2>4.2.1. 拨打序列图<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+
+            <style>
+            /* mermaid issue 527 workaround */
+            .section {
+                opacity: 1.0 !important;
+            }
+            </style>
+            <script>mermaid.initialize({startOnLoad:true});</script><div class="mermaid">
+            sequenceDiagram
+participant RTC
+participant A as 拨打方A
+participant  B as 被叫方B
+participant  S as 服务器
+
+A-&gt;&gt;S:请求通知B
+activate A
+S--&gt;&gt;A:返回token
+A-&gt;&gt;RTC:加入频道
+deactivate A
+S--&gt;&gt;B:消息通知B
+activate B
+B--&gt;&gt;S:启动app时请求是否有被叫消息
+B-&gt;&gt;S:申请接听频道
+S--&gt;&gt;B:返回token
+deactivate B
+B-&gt;&gt;RTC:加入频道
+A-&gt;B:开始通话
+A-&gt;&gt;S:通知服务器通话完结
+A-&gt;&gt;RTC:离开频道
+B-&gt;&gt;S:通知服务器通话完结
+B-&gt;&gt;RTC:离开频道
+        </div></div>
+<div class="section" id="id3">
+<h2>4.2.2. 用户拨打<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>单对单拨打</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">call</span><span class="o">/</span><span class="n">user</span>               
 </pre></div>
@@ -204,8 +239,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="id3">
-<h2>4.2.2. 直接拨打机器人<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h2>4.2.3. 直接拨打机器人<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p><em>该接口用于演示目的</em>,客户端拿到返回的<code class="docutils literal notranslate"><span class="pre">channel</span></code>后，就加入该频道，后台机器人会在该频道播放预先准备好的音频。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">call</span><span class="o">/</span><span class="n">robot</span>
 </pre></div>
@@ -284,8 +319,8 @@
     }
 }
 ``` --></div>
-<div class="section" id="id4">
-<h2>4.2.3. 拉取消息<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h2>4.2.4. 拉取消息<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>返回最近1分钟的拨打消息。</p>
 <p>当app启动时，需要调用一下该接口，客户端可以以此判断否有人给自己拨打语音电话。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">call</span><span class="o">/</span><span class="n">msg</span>
@@ -325,8 +360,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="id5">
-<h2>4.2.4. 被叫用户接听<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id6">
+<h2>4.2.5. 被叫用户接听<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <p>被叫用户接听电话时，客户端调用该接口通知后台，并且获取相应的token</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">call</span><span class="o">/</span><span class="n">recieve</span>
 
@@ -368,8 +403,8 @@
 </pre></div>
 </div>
 </div>
-<div class="section" id="id6">
-<h2>4.2.5. 挂断电话<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id7">
+<h2>4.2.6. 挂断电话<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <p>不管是接听用户还是主教用户挂断电话时，客户端都需要调用该接口，通知后台。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">call</span><span class="o">/</span><span class="n">end</span>
 
@@ -400,8 +435,8 @@
 </tr>
 </tbody>
 </table></div>
-<div class="section" id="id7">
-<h2>4.2.6. 请求机器人进入频道<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id8">
+<h2>4.2.7. 请求机器人进入频道<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <p>当用户拒接电话时，可以请求机器人接入该频道</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">invite</span><span class="o">/</span><span class="n">robot</span>
 
@@ -449,7 +484,7 @@
   <div role="contentinfo">
     <p>
         &copy; Copyright 2019, coblan
-      Last updated on 2020-01-10 00:40:57.
+      Last updated on 2020-01-10 11:09:53.
 
     </p>
   </div>
@@ -475,6 +510,7 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/mermaid@7.1.0/dist/mermaid.min.js"></script>
     
 
   

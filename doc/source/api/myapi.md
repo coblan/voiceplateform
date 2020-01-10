@@ -1,5 +1,36 @@
 # 拨打
 
+### 拨打序列图
+
+``` mermaid::
+
+    sequenceDiagram
+    participant RTC
+    participant A as 拨打方A
+    participant  B as 被叫方B
+    participant  S as 服务器
+    
+    A->>S:请求通知B
+    activate A
+    S-->>A:返回token
+    A->>RTC:加入频道
+    deactivate A
+    S-->>B:消息通知B
+    activate B
+    B-->>S:启动app时请求是否有被叫消息
+    B->>S:申请接听频道
+    S-->>B:返回token
+    deactivate B
+    B->>RTC:加入频道
+    A->B:开始通话
+    A->>S:通知服务器通话完结
+    A->>RTC:离开频道
+    B->>S:通知服务器通话完结
+    B->>RTC:离开频道
+    
+
+```
+
 ### 用户拨打
 单对单拨打
 ```
