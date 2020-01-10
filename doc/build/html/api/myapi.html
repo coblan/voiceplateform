@@ -89,7 +89,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#id2">4.2.1. 拨打序列图</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id3">4.2.2. 用户拨打</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id4">4.2.3. 直接拨打机器人</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">4.2.4. 拉取消息</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">4.2.4. 最近通话消息</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id6">4.2.5. 被叫用户接听</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id7">4.2.6. 挂断电话</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id8">4.2.7. 请求机器人进入频道</a></li>
@@ -320,9 +320,12 @@ B-&gt;&gt;RTC:离开频道
 }
 ``` --></div>
 <div class="section" id="id5">
-<h2>4.2.4. 拉取消息<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
-<p>返回最近1分钟的拨打消息。</p>
-<p>当app启动时，需要调用一下该接口，客户端可以以此判断否有人给自己拨打语音电话。</p>
+<h2>4.2.4. 最近通话消息<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>返回最近(<code class="docutils literal notranslate"><span class="pre">暂定1分钟</span></code>)的拨打消息。主要作用是:</p>
+<ul class="simple">
+<li>当app启动时，需要调用一下该接口，客户端可以以此判断否有人给自己拨打语音电话。</li>
+<li>任意拨打方可以调用该接口,查询自己最近是否有通话会话，以此辅助判断自己是否断线。</li>
+</ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">call</span><span class="o">/</span><span class="n">msg</span>
 
 <span class="p">{</span>
@@ -359,6 +362,29 @@ B-&gt;&gt;RTC:离开频道
     <span class="p">}</span>
 </pre></div>
 </div>
+<p>返回的状态值status</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>值</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>初始化</td>
+</tr>
+<tr>
+<td>1</td>
+<td>信息已获取</td>
+</tr>
+<tr>
+<td>2</td>
+<td>通话已经完结</td>
+</tr>
+</tbody>
+</table><p>当客户端退出频道时，必须通知服务器，以维持该状态值的准确性。</p>
 </div>
 <div class="section" id="id6">
 <h2>4.2.5. 被叫用户接听<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
@@ -484,7 +510,7 @@ B-&gt;&gt;RTC:离开频道
   <div role="contentinfo">
     <p>
         &copy; Copyright 2019, coblan
-      Last updated on 2020-01-10 11:09:53.
+      Last updated on 2020-01-10 11:24:12.
 
     </p>
   </div>
