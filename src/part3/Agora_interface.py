@@ -9,13 +9,14 @@ from maindb.models import Accountinfo,VoiceMsgList
 from .apple.apns import VoiceCallPush
 from django.utils import timezone
 from helpers.director.model_func.dictfy import sim_dict
-
+from helpers.director.network import argument
 import logging
 general_log = logging.getLogger('general_log')
 
 @director_view('call/user')
-def call_user(src_uid,dst_uid =None):
+def call_user(src_uid:int,dst_uid:int =None) -> dict:
     '单个用户拨打另外一个用户'
+    
     appID = settings.AGORA.get('appID')
     appCertificate = settings.AGORA.get('appCertificate')
     channelName= 'ch_'+ get_str(length=10)
