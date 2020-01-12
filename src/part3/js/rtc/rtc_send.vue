@@ -89,19 +89,11 @@
             })
             },
             debug_log(msg){
-                var dc = {
-                    msg:msg,
-                    proc_name:this.search_args.proc_name,
-                }
-                ex.director_call('rtc_front_log',{msg:dc,level:'DEBUG',})
+                ex.director_call('rtc_front_log',{msg:msg,level:'DEBUG',proc_name:this.search_args.proc_name,})
 //                ex.director_call('rtc_front_log',{msg:msg,level:'DEBUG',uid:this.uid,proc_name:this.search_args.proc_name})
             },
             warning_log(msg){
-                var dc = {
-                    msg:msg,
-                    proc_name:this.search_args.proc_name,
-                }
-                ex.director_call('rtc_front_log',{msg:dc,level:'WARNING',})
+                ex.director_call('rtc_front_log',{msg:msg,level:'WARNING',proc_name:this.search_args.proc_name,})
 //                ex.director_call('rtc_front_log',{msg:msg,level:'WARNING',uid:this.uid,proc_name:this.search_args.proc_name})
             },
             send(){

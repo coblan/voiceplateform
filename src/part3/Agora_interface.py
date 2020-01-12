@@ -80,7 +80,27 @@ def recieve(uid,channel):
         'token':token,
     }
 
-
+@director_view('invite/robot')
+def invite_robot(uid,channel):
+    "拒绝接听时，要求机器人接入"
+    appID = settings.AGORA.get('appID')
+    appCertificate = settings.AGORA.get('appCertificate')
+    channelName= channel
+    userAccount= uid
+    Role_Attendee = 2
+    privilegeExpiredTs = time.time() + 600
+    token = RtcTokenBuilder.buildTokenWithAccount(appID, appCertificate, channelName, userAccount, Role_Attendee, privilegeExpiredTs)
+    send_mp3(channel,mp3_url='/static/reject_tone.mp3')
+    general_log.debug('[%(uid)s]拒绝接听,要求机器人进入[%(channel)s]'%locals() )
+    VoiceMsgList.objects.filter(uid = uid,channel=channel).update(status=2)
+    
+    return {
+        'appID':appID,
+        'channel':channelName,
+        'uid': userAccount,
+        'token':token,
+    }
+    
 @director_view('call/robot')
 def call_robot(src_uid):
     "演示用"
@@ -121,9 +141,7 @@ def call_robot(uid,channel):
         'token':token,
     }
 
-@director_view('invite/robot')
-def invite_robot(channel):
-    send_mp3(channel,mp3_url='/static/reject_tone.mp3')
+
     
 
 doc_str('agora/api.md','''

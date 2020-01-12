@@ -328,6 +328,7 @@ B-&gt;&gt;RTC:离开频道
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">call</span><span class="o">/</span><span class="n">msg</span>
 
+<span class="n">示例参数</span><span class="p">:</span>
 <span class="p">{</span>
     <span class="s1">&#39;uid&#39;</span><span class="p">:</span><span class="s1">&#39;4321&#39;</span>
     <span class="p">}</span>
@@ -391,6 +392,7 @@ B-&gt;&gt;RTC:离开频道
 <p>被叫用户接听电话时，客户端调用该接口通知后台，并且获取相应的token</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">call</span><span class="o">/</span><span class="n">recieve</span>
 
+<span class="n">示例参数</span><span class="p">:</span>
 <span class="p">{</span>
     <span class="s1">&#39;uid&#39;</span><span class="p">:</span><span class="s1">&#39;4321&#39;</span><span class="p">,</span>
     <span class="s1">&#39;channel&#39;</span><span class="p">:</span><span class="s1">&#39;ch_sdgsdgsgs&#39;</span><span class="p">,</span>
@@ -434,6 +436,7 @@ B-&gt;&gt;RTC:离开频道
 <p>不管是接听用户还是主教用户挂断电话时，客户端都需要调用该接口，通知后台。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">call</span><span class="o">/</span><span class="n">end</span>
 
+<span class="n">示例参数</span><span class="p">:</span>
 <span class="p">{</span>
 <span class="s1">&#39;uid&#39;</span><span class="p">:</span><span class="s1">&#39;4321&#39;</span><span class="p">,</span>
 <span class="s1">&#39;channel&#39;</span><span class="p">:</span><span class="s1">&#39;ch_sdgsdgsgwe&#39;</span>
@@ -466,7 +469,9 @@ B-&gt;&gt;RTC:离开频道
 <p>当用户拒接电话时，可以请求机器人接入该频道</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">invite</span><span class="o">/</span><span class="n">robot</span>
 
+<span class="n">示例参数</span><span class="p">:</span>
 <span class="p">{</span>
+ <span class="s2">&quot;uid&quot;</span><span class="p">:</span><span class="s2">&quot;1235&quot;</span><span class="p">,</span>
 <span class="s1">&#39;channel&#39;</span><span class="p">:</span><span class="s1">&#39;ch_sdgsdgsgwe&#39;</span>
 <span class="p">}</span>
 </pre></div>
@@ -486,7 +491,19 @@ B-&gt;&gt;RTC:离开频道
 <td>是</td>
 </tr>
 </tbody>
-</table></div>
+</table><p>返回</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;success&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;appID&quot;</span><span class="p">:</span> <span class="s2">&quot;303156d224e44881a00af9cabc9e10d8&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;channel&quot;</span><span class="p">:</span> <span class="s2">&quot;ch_sdgsdgsgwe&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;uid&quot;</span><span class="p">:</span> <span class="s2">&quot;1235&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="s2">&quot;006303156d224e44881a00af9cabc9e10d8IADcxCL86Hiy0kAF/mKUdbNh2lBGVH+RQ+GAXMwinkoZjwEAybM10OTsEABu3lAAHhwcXgEAAQD2zBpe&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 
@@ -510,7 +527,7 @@ B-&gt;&gt;RTC:离开频道
   <div role="contentinfo">
     <p>
         &copy; Copyright 2019, coblan
-      Last updated on 2020-01-10 11:24:12.
+      Last updated on 2020-01-12 15:29:09.
 
     </p>
   </div>

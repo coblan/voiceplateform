@@ -4,9 +4,9 @@ import logging
 rtc_log = logging.getLogger('rtc_log')
 
 @director_view('rtc_front_log')
-def rtc_front_log(msg,level='DEBUG'):
-    #dc = {'msg':msg}
-    send_msg = json.dumps(msg,ensure_ascii=False)
+def rtc_front_log(msg,proc_name=None,level='DEBUG'):
+    dc = {'msg':msg,'proc_name':proc_name}
+    send_msg = json.dumps(dc  ,ensure_ascii=False)
     if level == 'DEBUG':
         rtc_log.debug(send_msg)
     elif level == 'WARNING':

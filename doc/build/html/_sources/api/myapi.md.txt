@@ -121,6 +121,7 @@
 ```
 [POST]  /dapi/call/msg
 
+示例参数:
 {
     'uid':'4321'
     }
@@ -161,6 +162,7 @@
 ```
 [POST]  /dapi/call/recieve
 
+示例参数:
 {
     'uid':'4321',
     'channel':'ch_sdgsdgsgs',
@@ -190,6 +192,7 @@
 ```
 [POST]  /dapi/call/end
 
+示例参数:
 {
 'uid':'4321',
 'channel':'ch_sdgsdgsgwe'
@@ -208,7 +211,9 @@
 ```
 [POST]  /dapi/invite/robot
 
+示例参数:
 {
+ "uid":"1235",
 'channel':'ch_sdgsdgsgwe'
 }
 ```
@@ -216,3 +221,16 @@
 |  参数     |   含义        | 必填 |
 |----------| ---------------|-------|
 |channel   | 频道 | 是   |
+
+返回
+```
+{
+    "success": true,
+    "data": {
+        "appID": "303156d224e44881a00af9cabc9e10d8",
+        "channel": "ch_sdgsdgsgwe",
+        "uid": "1235",
+        "token": "006303156d224e44881a00af9cabc9e10d8IADcxCL86Hiy0kAF/mKUdbNh2lBGVH+RQ+GAXMwinkoZjwEAybM10OTsEABu3lAAHhwcXgEAAQD2zBpe"
+    }
+}
+```
