@@ -12,7 +12,7 @@ class RTCLOG(ELKHander):
         dc = json.loads(msg)
         return {
             'msg':dc.get('msg'),
-            'host':'%s-[%s]'%(self.hostName,dc.get('proc_name')),
+            'hostname':'%s-[%s]'%(self.hostName,dc.get('proc_name')),
         }
     
 
