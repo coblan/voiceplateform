@@ -34,6 +34,8 @@ ELK={
     'host':'http://172.18.215.159:9200',
     'user':'elastic',
     'pswd':'he27375089',
+    'voice_rtm_msg':'voice_rtm_msg',
+    'voiceplatform':'voiceplatform'
 }
 
 from . log import *

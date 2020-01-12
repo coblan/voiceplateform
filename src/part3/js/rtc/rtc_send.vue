@@ -36,6 +36,7 @@
     export default {
         props:['ctx'],
         data(){
+
             return {
                 parStore:ex.vueParStore(this),
                 uid: ''+parseInt( Math.random()*100000000 ),
@@ -49,6 +50,7 @@
                 loaded:false,
                 finish_callback:'',
                 mp3_length:60*1000,
+                search_args:ex.parseSearch()
             }
         },
         mounted(){
@@ -87,10 +89,20 @@
             })
             },
             debug_log(msg){
-                ex.director_call('rtc_front_log',{msg:msg,level:'DEBUG',uid:this.uid})
+                var dc = {
+                    msg:msg,
+                    proc_name:this.search_args.proc_name,
+                }
+                ex.director_call('rtc_front_log',{msg:dc,level:'DEBUG',})
+//                ex.director_call('rtc_front_log',{msg:msg,level:'DEBUG',uid:this.uid,proc_name:this.search_args.proc_name})
             },
             warning_log(msg){
-                ex.director_call('rtc_front_log',{msg:msg,level:'WARNING',uid:this.uid})
+                var dc = {
+                    msg:msg,
+                    proc_name:this.search_args.proc_name,
+                }
+                ex.director_call('rtc_front_log',{msg:dc,level:'WARNING',})
+//                ex.director_call('rtc_front_log',{msg:msg,level:'WARNING',uid:this.uid,proc_name:this.search_args.proc_name})
             },
             send(){
                return this.createClient(). then(()=>{
