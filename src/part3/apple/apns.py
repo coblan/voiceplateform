@@ -95,7 +95,7 @@ class VoiceCallPush(object):
                 },
                 "badge": 9,
                 "sound": "ring.caf",#"default",
-                "userInfo": infodc
+                "userInfo": json.dumps( infodc,ensure_ascii=False )
             }
         }
     
