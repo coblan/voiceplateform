@@ -93,7 +93,7 @@ class VoiceCallPush(object):
                     "body": "用户%s邀请你语音通话"%src_user
                 },
                 "badge": 9,
-                "sound": "default",
+                "sound": "ring.caf",#"default",
                 "userInfo": infodc
             }
         }
