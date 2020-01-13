@@ -39,7 +39,7 @@ ELK={
 }
 
 APPLE={
-    'push_crt':'apns-dev-123456.pem'
+    'push_crt':'dev_123456.pem'
 }
 
 from . log import *

@@ -55,7 +55,25 @@
         },
         mounted(){
 
+//            ex.stompListen("/exchange/center.topic/backend.timely.message",function(data){
+//                console.log(data.body)
+//                var msg_dc = JSON.parse(data.body)
+//                if(msg_dc.EventType==1){
+//                    rootStore.$emit("todolist_updated")
+//                }
+//            })
+
             window.send_mp3 = (channel,mp3_url,callback)=>{
+                ex.stompInit({url:"ws://localhost:15674/ws",user:"guest",pswd:"guest"});
+                ex.stompListen("/exchange/stop_channel/"+channel,(data)=>{
+                    console.log(data.body)
+                    this.debug_log(`[${channel}]接收到后台退出频道消息`)
+                    this.$emit('finish-task')
+//                    var msg_dc = JSON.parse(data.body)
+
+                })
+
+
                 this.channel = channel
                 this.mp3_url = mp3_url
 

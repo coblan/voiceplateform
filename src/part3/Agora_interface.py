@@ -3,7 +3,7 @@ from django.conf import settings
 import time
 from . Agora.RtcTokenBuilder import RtcTokenBuilder
 from . Agora.RtmTokenBuilder import RtmTokenBuilder
-from . rabbit_instance import send_msg,send_mp3
+from . rabbit_instance import send_msg,send_mp3,notify_quit_robot
 from helpers.func.random_str import get_str
 from maindb.models import Accountinfo,VoiceMsgList
 from .apple.apns import VoiceCallPush
@@ -123,24 +123,28 @@ def call_robot(src_uid):
         'token':token,
     }
 
-@director_view('channel/join')
-def call_robot(uid,channel):
-    "演示用"
-    appID = settings.AGORA.get('appID')
-    appCertificate = settings.AGORA.get('appCertificate')
-    channelName= channel
-    userAccount= uid
-    Role_Attendee = 2
-    privilegeExpiredTs = time.time() + 600
-    token = RtcTokenBuilder.buildTokenWithAccount(appID, appCertificate, channelName, userAccount, Role_Attendee, privilegeExpiredTs)
+#@director_view('channel/join')
+#def call_robot(uid,channel):
+    #"演示用"
+    #appID = settings.AGORA.get('appID')
+    #appCertificate = settings.AGORA.get('appCertificate')
+    #channelName= channel
+    #userAccount= uid
+    #Role_Attendee = 2
+    #privilegeExpiredTs = time.time() + 600
+    #token = RtcTokenBuilder.buildTokenWithAccount(appID, appCertificate, channelName, userAccount, Role_Attendee, privilegeExpiredTs)
 
-    return {
-        'appID':appID,
-        'channel':channelName,
-        'uid': uid,
-        'token':token,
-    }
+    #return {
+        #'appID':appID,
+        #'channel':channelName,
+        #'uid': uid,
+        #'token':token,
+    #}
 
+@director_view('quit/robot')
+def quit_robot(channel):
+    general_log.debug('发送消息退出频道[%s]'%channel)
+    notify_quit_robot(channel)
 
     
 

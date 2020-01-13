@@ -23,3 +23,11 @@ def send_mp3(rtc_channel,mp3_url):
     channel.basic_publish(exchange='user_rtc',
                          routing_key= 'user_rtc',
                          body=jsonmsg)
+
+def notify_quit_robot(channel_name):
+    connection =pika.BlockingConnection(pika.ConnectionParameters(host=host,credentials=credentials))
+    channel = connection.channel()
+    #jsonmsg = json.dumps({'channel':rtc_channel,'mp3_url':mp3_url},ensure_ascii=False)
+    channel.basic_publish(exchange='stop_channel',
+                         routing_key= channel_name,
+                         body='stop-channel')
