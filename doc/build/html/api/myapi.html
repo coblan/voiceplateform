@@ -93,6 +93,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#id6">4.2.5. 被叫用户接听</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id7">4.2.6. 挂断电话</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id8">4.2.7. 请求机器人进入频道</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">4.2.8. 将机器人踢出频道</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="other_api.html">4.3. 其他接口</a></li>
@@ -509,6 +510,37 @@ B-&gt;&gt;RTC:离开频道
 </pre></div>
 </div>
 </div>
+<div class="section" id="id9">
+<h2>4.2.8. 将机器人踢出频道<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">quit</span><span class="o">/</span><span class="n">robot</span>
+
+<span class="n">示例参数</span>
+<span class="p">{</span><span class="s2">&quot;channel&quot;</span><span class="p">:</span><span class="s2">&quot;ch_dgfd2et123&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+<th>必填</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>channel</td>
+<td>频道</td>
+<td>是</td>
+</tr>
+</tbody>
+</table><p>返回</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;success&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">null</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 
@@ -532,7 +564,7 @@ B-&gt;&gt;RTC:离开频道
   <div role="contentinfo">
     <p>
         &copy; Copyright 2019, coblan
-      Last updated on 2020-01-12 15:48:28.
+      Last updated on 2020-01-13 13:51:49.
 
     </p>
   </div>
