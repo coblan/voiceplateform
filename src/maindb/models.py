@@ -15,7 +15,8 @@ MSG_STATUS=(
 )
 
 class VoiceMsgList(models.Model):
-    uid = models.IntegerField('相关用户UID',)
+    uid = models.CharField('相关用户UID',max_length=30)
+    #uid = models.IntegerField('相关用户UID',)
     channel = models.CharField('频道名',max_length=30,)
     status = models.IntegerField('状态',default=0,choices=MSG_STATUS)
     createtime = models.DateTimeField('创建时间',auto_now_add=True)

@@ -26,17 +26,19 @@ def call_user(src_uid:int,dst_uid:int =None) -> dict:
     token = RtcTokenBuilder.buildTokenWithAccount(appID, appCertificate, channelName, userAccount, Role_Attendee, privilegeExpiredTs)
     general_log.info('[%s]向[%s]拨打语音'%(src_uid,dst_uid))
     VoiceMsgList.objects.create(uid = src_uid,channel=channelName,status=1)
-    if dst_uid:
-        VoiceMsgList.objects.create(uid = dst_uid,channel=channelName)
+    
+    # 暂时屏蔽
+    #if dst_uid:
+        #VoiceMsgList.objects.create(uid = dst_uid,channel=channelName)
         
-        user = Accountinfo.objects.filter(uid = dst_uid) .first()
-        if user and user.apns_token:
-            infodc = {
-                'title':'audiocall',
-                'accountCaller':src_uid,
-                'channel':channelName,
-            }
-            VoiceCallPush(user.apns_token, infodc,src_user = src_uid).push()
+        #user = Accountinfo.objects.filter(uid = dst_uid) .first()
+        #if user and user.apns_token:
+            #infodc = {
+                #'title':'audiocall',
+                #'accountCaller':src_uid,
+                #'channel':channelName,
+            #}
+            #VoiceCallPush(user.apns_token, infodc,src_user = src_uid).push()
     
     return {
         'appID':appID,
