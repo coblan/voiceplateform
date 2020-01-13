@@ -38,4 +38,8 @@ ELK={
     'voiceplatform':'voiceplatform'
 }
 
+APPLE={
+    'push_crt':'apns-dev-123456.pem'
+}
+
 from . log import *

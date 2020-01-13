@@ -2,6 +2,8 @@ import socket, ssl, json, struct
 import binascii
 import sys
 import os
+from django.conf import settings
+
 import logging
 general_log = logging.getLogger('general_log')
 
@@ -65,7 +67,9 @@ def APN(token, payload, theCertfile):
 
 
 pp = os.path.dirname(__file__)
-pem_path = os.path.join(pp,'apn.pem')
+#pem_path = os.path.join(pp,'apn.pem')
+pem_path = os.path.join(pp,settings.APPLE.get('push_crt'))
+
 def push(msg):
     #推送需要用到的证书
     
