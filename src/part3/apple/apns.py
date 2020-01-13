@@ -88,6 +88,7 @@ class VoiceCallPush(object):
         self.payload = {
             "aps": {
                 "content-available": 1,
+                "acm":1,
                 "alert": {
                     "title": "语音通话",
                     "body": "用户%s邀请你语音通话"%src_user
