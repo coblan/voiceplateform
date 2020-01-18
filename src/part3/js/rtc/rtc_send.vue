@@ -56,6 +56,7 @@
                 token:'',
                 client:'',
                 mp3_url:'',
+                tone_list:[],
                 channel:'',
                 started:false,
                 user_count:0,
@@ -75,7 +76,7 @@
 //                }
 //            })
 
-            window.send_mp3 = (channel,mp3_url,callback)=>{
+            window.send_mp3 = (channel,tone_list,callback)=>{
                 ex.stompInit({url:"ws://localhost:15674/ws",user:"guest",pswd:"guest"});
                 ex.stompListen("/exchange/stop_channel/"+channel,(data)=>{
                     console.log(data.body)
@@ -88,6 +89,7 @@
 
                 this.channel = channel
                 this.mp3_url = mp3_url
+                this.tone_list = tone_list
 
                 this.finish_callback= callback
                 this.send()
@@ -104,6 +106,61 @@
 
         },
         methods:{
+            load_mp3(mp3_url){
+                    var self = this
+                    self.localStream.muteAudio()
+                    if(/^http/.test(mp3_url) ){
+                        var mp3_reach ='/relay?url='+mp3_url
+                    }else{
+                        var mp3_reach = mp3_url
+                    }
+
+                    var options = {
+                        cacheResource: true,
+                        //                                        filePath: "http://www.hochmuth.com/mp3/Haydn_Cello_Concerto_D-1.mp3",
+                        filePath: mp3_reach || '/static/Haydn_Cello_Concerto_D-1.mp3',
+                        cycle: 1,
+                        replace: true,
+                        playTime: 0
+                    }
+                    self.localStream.startAudioMixing(options, function (err) {
+                        if (err) {
+                            self.warning_log(`播放录音${options.filePath}错误:${err}`)
+                            console.log("Failed to start audio mixing. " + err);
+                        }
+                    });
+
+                    var p1 = new Promise((resolve,reject)=>{
+                                self.localStream.on("audioMixingPlayed",function(){
+                                self.debug_log('加载录音完成!')
+                                var mp3_length =  self.localStream.getAudioMixingDuration();
+                                self.localStream.pauseAudioMixing()
+                                resolve(mp3_length)
+                            })
+                })
+                return p1
+            },
+            play(mp3_url,second,has_person_promise){
+                var p1 = this.load_mp3(mp3_url)
+                var p2 = new Promise((resolve,reject)=>{
+                    setTimeout(resolve,1000*second)
+                })
+                return Promise.all([p1,p2,has_person_promise]).then((values)=>{
+                     this.onstart()
+                    var mp3_length = values[0]
+                    return new Promise((resolve,reject)=>{
+                        setTimeout(resolve,mp3_length)
+                    })
+                })
+            },
+            pump(index){
+                var obj = this.tone_list[index]
+
+                return play(mp3_url,second).then((index)=>{
+                    return this.pump(index+1)
+                })
+
+            },
             createClient(){
                 var self =this
                 self.client = AgoraRTC.createClient({mode: "rtc", codec: "h264"})
@@ -142,6 +199,7 @@
                         this.$emit('finish-task')
                     },this.mp3_length)
             })
+
             },
             join(){
                 var self=this

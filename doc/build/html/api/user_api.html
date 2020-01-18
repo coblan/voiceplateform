@@ -206,13 +206,12 @@
 <span class="p">{</span>
     <span class="s2">&quot;uid&quot;</span><span class="p">:</span><span class="s2">&quot;12345&quot;</span><span class="p">,</span>
     <span class="s2">&quot;tone_list&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span><span class="s2">&quot;mp3&quot;</span><span class="p">:</span><span class="s2">&quot;/media/userfile/mytone1.mp3&quot;</span><span class="p">},</span>      <span class="o">//</span> <span class="n">mp3</span> <span class="n">url</span>
-        <span class="p">{</span><span class="s2">&quot;space_second&quot;</span><span class="p">:</span><span class="mi">10000</span><span class="p">},</span>                     <span class="o">//</span> <span class="n">间隔时间</span><span class="p">(</span><span class="n">秒</span><span class="p">)</span>
-        <span class="p">{</span><span class="s2">&quot;mp3&quot;</span><span class="p">:</span><span class="s2">&quot;/media/userfile/mytone2.mp3&quot;</span><span class="p">},</span>
-        <span class="p">{</span><span class="s2">&quot;space_second&quot;</span><span class="p">:</span><span class="mi">20000</span><span class="p">},</span>
-        <span class="p">{</span><span class="s2">&quot;mp3&quot;</span><span class="p">:</span><span class="s2">&quot;/media/userfile/mytone2.mp3&quot;</span><span class="p">}</span>
+        <span class="p">{</span><span class="s2">&quot;url&quot;</span><span class="p">:</span><span class="s2">&quot;/media/userfile/mytone1.mp3&quot;</span><span class="p">,</span><span class="s2">&quot;before_second&quot;</span><span class="p">:</span><span class="mi">10</span><span class="p">},</span>                        
+        <span class="p">{</span><span class="s2">&quot;url&quot;</span><span class="p">:</span><span class="s2">&quot;/media/userfile/mytone2.mp3&quot;</span><span class="p">,</span><span class="s2">&quot;before_second&quot;</span><span class="p">:</span><span class="mi">20</span><span class="p">}</span>
     <span class="p">]</span>
 <span class="p">}</span>
+  <span class="o">//</span> <span class="nd">@url</span><span class="p">:</span><span class="n">语音的url</span>
+  <span class="o">//</span> <span class="nd">@before_second</span><span class="p">:</span><span class="n">播放mp3</span><span class="p">[</span><span class="n">前</span><span class="p">]</span><span class="n">的间隔</span><span class="p">(</span><span class="n">等待</span><span class="p">)</span><span class="n">时间</span><span class="p">(</span><span class="n">秒</span><span class="p">)</span>
 </pre></div>
 </div>
 <table border="1" class="docutils">
@@ -264,7 +263,7 @@
   <div role="contentinfo">
     <p>
         &copy; Copyright 2019, coblan
-      Last updated on 2020-01-18 12:01:18.
+      Last updated on 2020-01-19 00:20:25.
 
     </p>
   </div>
