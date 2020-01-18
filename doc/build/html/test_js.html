@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>3. RTM发送消息 &mdash; voiceplatform 1 documentation</title>
+  <title>RTC机器人 &mdash; voiceplatform 1 documentation</title>
   
 
   
@@ -27,9 +27,7 @@
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="4. 接口文档" href="api/index.html" />
-    <link rel="prev" title="2. 语音对接" href="agora/api.html" /> 
+    <link rel="search" title="Search" href="search.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -79,10 +77,10 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="abstract.html">1. 外部链接</a></li>
 <li class="toctree-l1"><a class="reference internal" href="agora/api.html">2. 语音对接</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">3. RTM发送消息</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rtm_msg.html">3. RTM发送消息</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">4. 接口文档</a></li>
 </ul>
 
@@ -129,13 +127,13 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>3. RTM发送消息</li>
+      <li>RTC机器人</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/rtm_msg.md.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/test_js.md.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -148,42 +146,22 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="rtm">
-<h1>3. RTM发送消息<a class="headerlink" href="#rtm" title="Permalink to this headline">¶</a></h1>
-<p><a class="reference external" href="http://voice.enjoyst.com/rtm">测试网址</a> <code class="docutils literal notranslate"><span class="pre">http://voice.enjoyst.com/rtm</span></code>。如下截图</p>
-<p><img alt="Image" src="_images/rtm_msg.png" /></p>
-<p>上部用于浏览器端调用rtm webclient进行本地发送消息。<em>不能给自己发送消息</em>,只能发消息给其他用户。</p>
-<p>下部分是向后台发送消息，可以发送给任何人。</p>
-<p>数据流向</p>
-
-            <style>
-            /* mermaid issue 527 workaround */
-            .section {
-                opacity: 1.0 !important;
-            }
-            </style>
-            <script>mermaid.initialize({startOnLoad:true});</script><div class="mermaid">
-            graph TD
-A[Client] --&gt;|send message via http| B(Logic)
-B --&gt; C{rabbitMq}
-C --&gt;|One| D[rtm client on backend]
-D --&gt;|RTM| E[User]
-        </div></div>
+  <div class="section" id="rtc">
+<h1>RTC机器人<a class="headerlink" href="#rtc" title="Permalink to this headline">¶</a></h1>
+<p>机器人用于后台服务器向用户拨打语音电话，留言等。机器人加入频道，与频道内的用户通话。</p>
+<ul class="simple">
+<li>30s无人接听就退出频道</li>
+<li>语音最长不能超过5分钟，否则机器人自动退出</li>
+</ul>
+<p>机器人具备接听后端消息功能，如果后端发送stop_channel 消息过来，机器人退出。</p>
+<p>机器人退出后，后端进程会重新刷新页面。</p>
+</div>
 
 
            </div>
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="api/index.html" class="btn btn-neutral float-right" title="4. 接口文档" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="agora/api.html" class="btn btn-neutral" title="2. 语音对接" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

@@ -84,8 +84,6 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">2. 语音对接</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#id2">2.1. 声网接口</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#token">2.2. 获取token</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#rtctoken">2.3. RTC获取token</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#rtmtoken">2.4. RTM获取token</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../rtm_msg.html">3. RTM发送消息</a></li>
@@ -163,84 +161,86 @@
 <div class="section" id="token">
 <h2>2.2. 获取token<a class="headerlink" href="#token" title="Permalink to this headline">¶</a></h2>
 <p>可能没有什么用，暂时放这里</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">GET</span><span class="p">]</span>   <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">agora</span><span class="o">/</span><span class="n">token</span>  
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[GET]   /dapi/agora/token
+```### RTC获取token
+
+根据声网接口文档，需要用到`appID,channel,uid,token`这些参数，现在可以由后端直接生成，返回给前端使用。
 </pre></div>
 </div>
-</div>
-<div class="section" id="rtctoken">
-<h2>2.3. RTC获取token<a class="headerlink" href="#rtctoken" title="Permalink to this headline">¶</a></h2>
-<p>根据声网接口文档，需要用到<code class="docutils literal notranslate"><span class="pre">appID,channel,uid,token</span></code>这些参数，现在可以由后端直接生成，返回给前端使用。</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[GET]   /dapi/agora/rtc-option?channel=mychanel&amp;uid=1235          
+<p>[GET]   /dapi/agora/rtc-option?channel=mychanel&amp;uid=1235</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+&lt;table border=&quot;1&quot; class=&quot;docutils&quot;&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;参数&lt;/th&gt;
+&lt;th&gt;含义&lt;/th&gt;
+&lt;th&gt;必填&lt;/th&gt;
+&lt;th&gt;默认值&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;channel&lt;/td&gt;
+&lt;td&gt;频道名称&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;test_channel&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;uid&lt;/td&gt;
+&lt;td&gt;用户唯一id&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;987654321&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+返回:
+``` javascript
+{
+&quot;success&quot;: true,
+&quot;data&quot;: {
+&quot;appID&quot;: &quot;303156d224e44881a00af9cabc9e10d8&quot;,
+&quot;channel&quot;: &quot;test_channel&quot;,
+&quot;uid&quot;: 987654321,
+&quot;token&quot;: &quot;006303156d224e44881a00af9cabc9e10d8IAAxzfgl2eltoS+/UvNYWOA79m0bgaGryJzew8+iCUUfYY9auH4BAl8BEABxwigBpev5XQEAAQB9nPhd&quot;
+}
+}
+```### RTM获取token
+
+根据声网接口文档，需要用到`appID,channel,uid,token`这些参数，现在可以由后端直接生成，返回给前端使用。
 </pre></div>
 </div>
-<table border="1" class="docutils">
-<thead>
-<tr>
-<th>参数</th>
-<th>含义</th>
-<th>必填</th>
-<th>默认值</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>channel</td>
-<td>频道名称</td>
-<td>否</td>
-<td>test_channel</td>
-</tr>
-<tr>
-<td>uid</td>
-<td>用户唯一id</td>
-<td>否</td>
-<td>987654321</td>
-</tr>
-</tbody>
-</table><p>返回:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;success&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-    <span class="s2">&quot;data&quot;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">&quot;appID&quot;</span><span class="o">:</span> <span class="s2">&quot;303156d224e44881a00af9cabc9e10d8&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;channel&quot;</span><span class="o">:</span> <span class="s2">&quot;test_channel&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;uid&quot;</span><span class="o">:</span> <span class="mi">987654321</span><span class="p">,</span>
-        <span class="s2">&quot;token&quot;</span><span class="o">:</span> <span class="s2">&quot;006303156d224e44881a00af9cabc9e10d8IAAxzfgl2eltoS+/UvNYWOA79m0bgaGryJzew8+iCUUfYY9auH4BAl8BEABxwigBpev5XQEAAQB9nPhd&quot;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="rtmtoken">
-<h2>2.4. RTM获取token<a class="headerlink" href="#rtmtoken" title="Permalink to this headline">¶</a></h2>
-<p>根据声网接口文档，需要用到<code class="docutils literal notranslate"><span class="pre">appID,channel,uid,token</span></code>这些参数，现在可以由后端直接生成，返回给前端使用。</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[GET]   /dapi/agora/rtm-option?uid=1235          
-</pre></div>
-</div>
-<table border="1" class="docutils">
-<thead>
-<tr>
-<th>参数</th>
-<th>含义</th>
-<th>必填</th>
-<th>默认值</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>uid</td>
-<td>用户唯一id</td>
-<td>否</td>
-<td>987654321</td>
-</tr>
-</tbody>
-</table><p>返回:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;success&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-    <span class="s2">&quot;data&quot;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">&quot;appID&quot;</span><span class="o">:</span> <span class="s2">&quot;303156d224e44881a00af9cabc9e10d8&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;uid&quot;</span><span class="o">:</span> <span class="s2">&quot;987654321&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;token&quot;</span><span class="o">:</span> <span class="s2">&quot;006303156d224e44881a00af9cabc9e10d8IADW2XOcCfXR4zFGhvP+3QhDvarhYrQwgaIaRYHc1jUF2AECXwEAAAAAEACPKcoCMzr7XQEA6AML6/ld&quot;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<p>[GET]   /dapi/agora/rtm-option?uid=1235</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+&lt;table border=&quot;1&quot; class=&quot;docutils&quot;&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;参数&lt;/th&gt;
+&lt;th&gt;含义&lt;/th&gt;
+&lt;th&gt;必填&lt;/th&gt;
+&lt;th&gt;默认值&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;uid&lt;/td&gt;
+&lt;td&gt;用户唯一id&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;987654321&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+返回:
+``` javascript
+{
+&quot;success&quot;: true,
+&quot;data&quot;: {
+&quot;appID&quot;: &quot;303156d224e44881a00af9cabc9e10d8&quot;,
+&quot;uid&quot;: &quot;987654321&quot;,
+&quot;token&quot;: &quot;006303156d224e44881a00af9cabc9e10d8IADW2XOcCfXR4zFGhvP+3QhDvarhYrQwgaIaRYHc1jUF2AECXwEAAAAAEACPKcoCMzr7XQEA6AML6/ld&quot;
+}
+}
 </pre></div>
 </div>
 </div>
@@ -267,7 +267,7 @@
   <div role="contentinfo">
     <p>
         &copy; Copyright 2019, coblan
-      Last updated on 2020-01-13 14:05:32.
+      Last updated on 2020-01-18 12:01:18.
 
     </p>
   </div>

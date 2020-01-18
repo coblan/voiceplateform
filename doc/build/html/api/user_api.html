@@ -202,6 +202,17 @@
 <div class="section" id="id3">
 <h2>4.1.2. 更新用户留言信息<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">account</span><span class="o">/</span><span class="n">reject</span><span class="o">-</span><span class="n">tone</span>
+<span class="n">参数</span><span class="p">:</span>
+<span class="p">{</span>
+    <span class="s2">&quot;uid&quot;</span><span class="p">:</span><span class="s2">&quot;12345&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tone_list&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s2">&quot;mp3&quot;</span><span class="p">:</span><span class="s2">&quot;/media/userfile/mytone1.mp3&quot;</span><span class="p">},</span>      <span class="o">//</span> <span class="n">mp3</span> <span class="n">url</span>
+        <span class="p">{</span><span class="s2">&quot;space_second&quot;</span><span class="p">:</span><span class="mi">10000</span><span class="p">},</span>                     <span class="o">//</span> <span class="n">间隔时间</span><span class="p">(</span><span class="n">秒</span><span class="p">)</span>
+        <span class="p">{</span><span class="s2">&quot;mp3&quot;</span><span class="p">:</span><span class="s2">&quot;/media/userfile/mytone2.mp3&quot;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;space_second&quot;</span><span class="p">:</span><span class="mi">20000</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">&quot;mp3&quot;</span><span class="p">:</span><span class="s2">&quot;/media/userfile/mytone2.mp3&quot;</span><span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <table border="1" class="docutils">
@@ -219,14 +230,14 @@
 <td>是</td>
 </tr>
 <tr>
-<td>tone_url</td>
+<td>tone_list</td>
 <td>留言url(如果为空，会清空原来的留言)</td>
 <td>否</td>
 </tr>
 </tbody>
 </table><p>前端客户端操作流程</p>
 <ol class="simple">
-<li>调用 <a class="reference internal" href="other_api.html#upload"><span class="std std-ref">接口上传</span></a> 留言音频文件，获得tone_url</li>
+<li>调用 <a class="reference internal" href="other_api.html#upload"><span class="std std-ref">接口上传</span></a> 留言音频文件，获得 mp3 url</li>
 <li>调用本接口更新用户留言信息</li>
 </ol>
 </div>
@@ -253,7 +264,7 @@
   <div role="contentinfo">
     <p>
         &copy; Copyright 2019, coblan
-      Last updated on 2020-01-13 14:05:32.
+      Last updated on 2020-01-18 12:01:18.
 
     </p>
   </div>

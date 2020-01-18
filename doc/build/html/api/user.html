@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.3. 其他接口 &mdash; voiceplatform 1 documentation</title>
+  <title>获取用户的最近语音消息 &mdash; voiceplatform 1 documentation</title>
   
 
   
@@ -27,8 +27,7 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="4.2. 拨打" href="myapi.html" /> 
+    <link rel="search" title="Search" href="../search.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -78,19 +77,11 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../abstract.html">1. 外部链接</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../agora/api.html">2. 语音对接</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../rtm_msg.html">3. RTM发送消息</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">4. 接口文档</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="user_api.html">4.1. 用户管理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="myapi.html">4.2. 拨打</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">4.3. 其他接口</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#upload">4.3.1. 文件上传</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">4. 接口文档</a></li>
 </ul>
 
             
@@ -136,15 +127,13 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="index.html">4. 接口文档</a> &raquo;</li>
-        
-      <li>4.3. 其他接口</li>
+      <li>获取用户的最近语音消息</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/api/other_api.md.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/api/user.md.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -158,20 +147,8 @@
            <div itemprop="articleBody">
             
   <div class="section" id="id1">
-<h1>4.3. 其他接口<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="upload">
-<span id="id2"></span><h2>4.3.1. 文件上传<a class="headerlink" href="#upload" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">d</span><span class="o">/</span><span class="n">upload</span>
-</pre></div>
-</div>
-<p>参数名字随意，如果是单个文件，返回的一个url，如果是同时上传多个文件返回的是一个相同数量的数组</p>
-<p>返回</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
-    <span class="s2">&quot;/media/general_upload/0a2533c28a18ac79057a93b5817da886.jpg&quot;</span>
-<span class="p">]</span>
-</pre></div>
-</div>
-</div>
+<h1>获取用户的最近语音消息<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>最近2分钟内的语音消息</p>
 </div>
 
 
@@ -179,13 +156,6 @@
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-      
-        <a href="myapi.html" class="btn btn-neutral" title="4.2. 拨打" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>
