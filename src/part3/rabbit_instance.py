@@ -16,10 +16,10 @@ def send_msg(msg,uid):
                          routing_key= 'rtm-uid',
                          body=jsonmsg)
 
-def send_mp3(rtc_channel,mp3_url):
+def send_mp3(rtc_channel,tone_list):
     connection =pika.BlockingConnection(pika.ConnectionParameters(host=host,credentials=credentials))
     channel = connection.channel()
-    jsonmsg = json.dumps({'channel':rtc_channel,'mp3_url':mp3_url},ensure_ascii=False)
+    jsonmsg = json.dumps({'channel':rtc_channel,'tone_list':tone_list},ensure_ascii=False)
     channel.basic_publish(exchange='user_rtc',
                          routing_key= 'user_rtc',
                          body=jsonmsg)

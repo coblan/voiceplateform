@@ -10,6 +10,8 @@ from .apple.apns import VoiceCallPush
 from django.utils import timezone
 from helpers.director.model_func.dictfy import sim_dict
 from helpers.director.network import argument
+import json
+
 import logging
 general_log = logging.getLogger('general_log')
 
@@ -166,7 +168,12 @@ def invite_robot(uid,channel):
     Role_Attendee = 2
     privilegeExpiredTs = time.time() + 600
     token = RtcTokenBuilder.buildTokenWithAccount(appID, appCertificate, channelName, userAccount, Role_Attendee, privilegeExpiredTs)
-    send_mp3(channel,mp3_url='/static/reject_tone.mp3')
+    
+    userinfo = Accountinfo.objects.filter(uid=uid).first()
+    if userinfo and userinfo.reject_tone:
+        send_mp3(channel,tone_list=json.loads(userinfo.reject_tone))
+    else:
+        send_mp3(channel,tone_list=[{'url':'/static/reject_tone.mp3','before_second':0},])
     general_log.debug('[%(uid)s]拒绝接听,要求机器人进入[%(channel)s]'%locals() )
     VoiceMsgList.objects.filter(uid = uid,channel=channel).update(status=2)
     

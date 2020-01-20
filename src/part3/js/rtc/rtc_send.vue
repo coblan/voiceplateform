@@ -59,6 +59,8 @@
                 tone_list:[],
                 channel:'',
                 started:false,
+                has_person_join:false,
+                playing:false,
                 user_count:0,
                 loaded:false,
                 finish_callback:'',
@@ -86,11 +88,11 @@
 
                 })
 
+                this.debug_log('播放语音数据:'+JSON.stringify(tone_list))
 
                 this.channel = channel
-                this.mp3_url = mp3_url
+//                this.mp3_url = mp3_url
                 this.tone_list = tone_list
-
                 this.finish_callback= callback
                 this.send()
             }
@@ -101,6 +103,7 @@
                 if(this.finish_callback){
                     this.finish_callback()
                 }
+
             })
             this.loaded=true
 
@@ -129,13 +132,14 @@
                             console.log("Failed to start audio mixing. " + err);
                         }
                     });
-
                     var p1 = new Promise((resolve,reject)=>{
                                 self.localStream.on("audioMixingPlayed",function(){
                                 self.debug_log('加载录音完成!')
-                                var mp3_length =  self.localStream.getAudioMixingDuration();
-                                self.localStream.pauseAudioMixing()
-                                resolve(mp3_length)
+                                if(! self.playing){
+                                    var mp3_length =  self.localStream.getAudioMixingDuration();
+                                    self.localStream.pauseAudioMixing()
+                                    resolve(mp3_length)
+                                }
                             })
                 })
                 return p1
@@ -146,20 +150,28 @@
                     setTimeout(resolve,1000*second)
                 })
                 return Promise.all([p1,p2,has_person_promise]).then((values)=>{
+                     this.playing = true
                      this.onstart()
                     var mp3_length = values[0]
                     return new Promise((resolve,reject)=>{
-                        setTimeout(resolve,mp3_length)
+                        setTimeout(()=>{
+                            this.stopPlay()
+                            resolve()
+                        },mp3_length)
                     })
                 })
             },
-            pump(index){
-                var obj = this.tone_list[index]
+            pump(index, has_person_promise ){
+                if(index >=  this.tone_list.length){
+                    this.$emit('finish-task')
+                    return
+                }
+                var tone_obj = this.tone_list[index]
+                this.debug_log(`播放第${index}个tone,等待时间${tone_obj.before_second}`)
+                return this.play(tone_obj.url,tone_obj.before_second,has_person_promise).then(()=>{
 
-                return play(mp3_url,second).then((index)=>{
-                    return this.pump(index+1)
+                    return this.pump(index+1,has_person_promise)
                 })
-
             },
             createClient(){
                 var self =this
@@ -173,32 +185,33 @@
                             console.error("client join failed", err)
                             self.warning_log(`初始化client失败:${err}`)
                         })
-            })
+                })
             },
             debug_log(msg){
                 ex.director_call('rtc_front_log',{msg:msg,level:'DEBUG',proc_name:this.search_args.proc_name,})
-//                ex.director_call('rtc_front_log',{msg:msg,level:'DEBUG',uid:this.uid,proc_name:this.search_args.proc_name})
             },
             warning_log(msg){
                 ex.director_call('rtc_front_log',{msg:msg,level:'WARNING',proc_name:this.search_args.proc_name,})
-//                ex.director_call('rtc_front_log',{msg:msg,level:'WARNING',uid:this.uid,proc_name:this.search_args.proc_name})
             },
             send(){
+                var self =this
                return this.createClient(). then(()=>{
                     this.debug_log('开始加入频道'+this.channel)
                     return this.join()
                 }).then(()=>{
                     return this.publish()
                 }).then(()=>{
-                    this.regist_event()
-                return this.success_publish()
-            }).then(()=>{
-                    this.debug_log('有用户接入，开始播放录音,'+this.mp3_length+'秒后，机器人退出')
-                    this.onstart()
-                    setTimeout(()=>{
-                        this.$emit('finish-task')
-                    },this.mp3_length)
+                    var has_person_promise = self.regist_event()
+                    this.pump(0,has_person_promise)
+//                return this.success_publish()
             })
+//            .then(()=>{
+//                    this.debug_log('有用户接入，开始播放录音,'+this.mp3_length+'秒后，机器人退出')
+//                    this.onstart()
+//                    setTimeout(()=>{
+//                        this.$emit('finish-task')
+//                    },this.mp3_length)
+//            })
 
             },
             join(){
@@ -246,6 +259,7 @@
             })
             },
             success_publish(){
+                // 废弃
                 var self = this
                 self.localStream.muteAudio()
                 if(/^http/.test(this.mp3_url) ){
@@ -311,10 +325,15 @@
             onstart(){
                 this.debug_log("开始播放录音"+this.user_count)
                 var self = this
-                self.started = true
                 self.localStream.unmuteAudio()
                 self.localStream.setAudioMixingPosition(0)
                 self.localStream.resumeAudioMixing()
+            },
+            stopPlay(){
+                var self=this
+                self.playing=false
+                self.localStream.muteAudio()
+                self.localStream.stopAudioMixing()
             },
             close(){
                 var self=this
@@ -338,7 +357,7 @@
                     }
                 })
                 setTimeout(()=>{
-                    if(! self.started){
+                    if(! self.has_person_join){
                         // 长时间无人接听，退出拨打
                         self.close()
                         this.debug_log('长时间无人接听，退出拨打!')
@@ -346,6 +365,18 @@
                         self.$emit('finish-task')
                     }
                 },1000*30)
+
+                var has_person_promise = new Promise((resolve,reject)=>{
+                            self.client.on("peer-online",()=> {
+                            self.has_person_join=true
+                            console.log('有人链接了。')
+                            self.user_count += 1
+                            this.debug_log("新用户连接，当前连接数:"+this.user_count)
+                            resolve()
+                        })
+                    })
+
+                return has_person_promise
             }
         }
     }

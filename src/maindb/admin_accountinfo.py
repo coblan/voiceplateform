@@ -61,7 +61,7 @@ def upload_reject_tone(uid,tone_list):
     '''
     instacne = Accountinfo.objects.filter(uid = uid).first()
     if instacne:
-        instacne.tone_list = json.dumps(tone_list)
+        instacne.reject_tone = json.dumps(tone_list)
         instacne.save()
     else:
         raise UserWarning('用户不存在')
