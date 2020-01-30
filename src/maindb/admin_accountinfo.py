@@ -66,6 +66,16 @@ def upload_reject_tone(uid,tone_list):
     else:
         raise UserWarning('用户不存在')
 
+@director_view('account/get-reject-tone')
+def get_reject_tone(uid):
+    instacne = Accountinfo.objects.filter(uid = uid).first()
+    if instacne :
+        if instacne.reject_tone:
+            return json.loads(instacne.reject_tone)
+        else:
+            return []
+    else:
+        raise UserWarning('用户不存在')
 
 director.update({
     'accountinfo':AccountInfoPage.tableCls,
