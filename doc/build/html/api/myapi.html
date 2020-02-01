@@ -96,9 +96,9 @@
 <li class="toctree-l3"><a class="reference internal" href="#id9">4.2.8. 将机器人踢出频道</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id10">4.2.9. 定时拨打电话</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id11">上传拨打信息</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id12">获取拨打列表</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id12">4.2.10. 获取拨打列表</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="other_api.html">4.3. 其他接口</a></li>
@@ -378,7 +378,7 @@ B-&gt;&gt;RTC:离开频道
          <span class="s1">&#39;_status_label&#39;</span><span class="p">:</span> <span class="s1">&#39;初始化&#39;</span><span class="p">,</span>
           <span class="s1">&#39;createtime&#39;</span><span class="p">:</span> <span class="s1">&#39;2020-01-10 00:19:40&#39;</span><span class="p">,</span> 
           <span class="s1">&#39;pk&#39;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
-          <span class="s1">&#39;extra_msg&#39;</span><span class="p">:</span><span class="s1">&#39;&#39;</span><span class="p">}]</span>
+          <span class="s1">&#39;extra_msg&#39;</span><span class="p">:</span><span class="s1">&#39;caller send extra message&#39;</span><span class="p">}]</span>
     <span class="p">}</span>
 </pre></div>
 </div>
@@ -606,9 +606,8 @@ B-&gt;&gt;RTC:离开频道
 </tr>
 </tbody>
 </table></div>
-</div>
 <div class="section" id="id12">
-<h2>4.2.10. 获取拨打列表<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<h3>获取拨打列表<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">calltask</span><span class="o">/</span><span class="nb">list</span>
 <span class="n">参数示例</span>
 <span class="p">{</span>
@@ -652,6 +651,7 @@ B-&gt;&gt;RTC:离开频道
 </div>
 </div>
 </div>
+</div>
 
 
            </div>
@@ -674,7 +674,7 @@ B-&gt;&gt;RTC:离开频道
   <div role="contentinfo">
     <p>
         &copy; Copyright 2019, coblan
-      Last updated on 2020-02-01 19:41:21.
+      Last updated on 2020-02-01 19:48:43.
 
     </p>
   </div>
