@@ -49,7 +49,7 @@ general_log = logging.getLogger('general_log')
 '''
 
 @director_view('call/user')
-def call_user(src_uid,dst_uid =None):
+def call_user(src_uid,dst_uid =None,extra_msg=''):
     '''{'doc':'api/call.md',}
     ### 拨打
     用户拨打电话给其他人
@@ -64,13 +64,13 @@ def call_user(src_uid,dst_uid =None):
     privilegeExpiredTs = time.time() + 600
     token = RtcTokenBuilder.buildTokenWithAccount(appID, appCertificate, channelName, userAccount, Role_Attendee, privilegeExpiredTs)
     general_log.info('[%s]向[%s]拨打语音'%(src_uid,dst_uid))
-    VoiceMsgList.objects.create(uid = src_uid,channel=channelName,status=1)
+    VoiceMsgList.objects.create(uid = src_uid,channel=channelName,status=1,extra_msg=extra_msg)
     
     if dst_uid:
         if isinstance(dst_uid,str):
             dst_uid = dst_uid.split(',')
         for uid in dst_uid:
-            VoiceMsgList.objects.create(uid = uid,channel=channelName)
+            VoiceMsgList.objects.create(uid = uid,channel=channelName,extra_msg=extra_msg)
         
         users = Accountinfo.objects.filter(uid__in = dst_uid).exclude(apns_token="")
         for user in users:

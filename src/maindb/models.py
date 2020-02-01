@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from helpers.director.model_func.cus_fields.jsonable import JsonAbleField
+
 # Create your models here.
 class Accountinfo(models.Model):
     #user = models.OneToOneField(User)
@@ -20,9 +22,16 @@ class VoiceMsgList(models.Model):
     channel = models.CharField('频道名',max_length=30,)
     status = models.IntegerField('状态',default=0,choices=MSG_STATUS)
     createtime = models.DateTimeField('创建时间',auto_now_add=True)
+    extra_msg = models.TextField('额外信息',blank=True)
     
 
 #class ChannelList(models.Model):
     #name = models.CharField('频道名',max_length=30,)
     #starter = models.IntegerField('发起人UID',)
     #createtime = models.DateTimeField('创建时间',auto_now_add=True)
+
+class CallTask(models.Model):
+    src_uid = models.CharField('拨打用户',max_length=30)
+    dst_uid = JsonAbleField('接收用户',)
+    call_time = models.DateTimeField('拨打时间')
+    
