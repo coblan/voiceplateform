@@ -19,7 +19,7 @@ class AccountForm(ModelFields):
     nolimit = True
     class Meta:
         model = Accountinfo
-        exclude =[]
+        exclude =['reject_tone']
 
 @director_view('account/update')
 def update_account_info(**kws):
@@ -57,8 +57,8 @@ def upload_reject_tone(uid,tone_list):
         {'url':'/media/userfile/mytone1.mp3',"before_second":20},
     ]
     '''
-    general_log.debug('接收参数更新uid=%(uid)s的语音助手'%locals())
-    instacne = Accountinfo.objects.filter(uid = str(uid)).first()
+    general_log.debug('调用更新用户语音助手，接收到参数uid=%(uid)s的语音助手'%locals())
+    instacne = Accountinfo.objects.filter(uid = uid).first()
     if instacne:
         general_log.debug('更新用户%(uid)s的语音助手%(tone_list)s'%locals())
         instacne.reject_tone = json.dumps(tone_list,ensure_ascii=False)
