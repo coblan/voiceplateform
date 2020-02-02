@@ -1,6 +1,8 @@
 from helpers.director.shortcut import TablePage,ModelTable,ModelFields,page_dc,director,director_view,director_save_row
 import json
 from .models import Accountinfo
+import logging
+general_log  = logging.getLogger('general_log')
 
 class AccountInfoPage(TablePage):
     def get_label(self):
@@ -59,6 +61,7 @@ def upload_reject_tone(uid,tone_list):
         {'mp3':'/media/userfile/mytone2.mp3'},
     ]
     '''
+    general_log.debug('更新用户%(uid)s的语音助手%(tone_list)s'%locals())
     instacne = Accountinfo.objects.filter(uid = uid).first()
     if instacne:
         instacne.reject_tone = json.dumps(tone_list,ensure_ascii=False)
