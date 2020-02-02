@@ -54,16 +54,13 @@ def upload_reject_tone(uid,tone_list):
     '''
     @uid:用户id
     @tone_list: [
-        {'mp3':'/media/userfile/mytone1.mp3'},
-        {'space_second':10000},
-        {'mp3':'/media/userfile/mytone2.mp3'},
-        {'space_second':20000},
-        {'mp3':'/media/userfile/mytone2.mp3'},
+        {'url':'/media/userfile/mytone1.mp3',"before_second":20},
     ]
     '''
-    general_log.debug('更新用户%(uid)s的语音助手%(tone_list)s'%locals())
-    instacne = Accountinfo.objects.filter(uid = uid).first()
+    general_log.debug('接收参数更新uid=%(uid)s的语音助手'%locals())
+    instacne = Accountinfo.objects.filter(uid = str(uid)).first()
     if instacne:
+        general_log.debug('更新用户%(uid)s的语音助手%(tone_list)s'%locals())
         instacne.reject_tone = json.dumps(tone_list,ensure_ascii=False)
         instacne.save()
     else:
