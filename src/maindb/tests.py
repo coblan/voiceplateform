@@ -32,7 +32,7 @@ class TestSimpleWash(TestCase):
         self.assertTrue( VoiceMsgList.objects.get(uid='1234').status == 2 )
         
         # 上传拨打任务
-        data = {'src_uid':'1234','dst_uid':['1235','1236'],'call_time':'2020-02-02 20:20:00','id':1}
+        data = {'src_uid':'1234','dst_uid':['1235','1236'],'call_time':'2020-02-02 20:20:00',}
         rt = cl.post('/dapi/calltask/update',data=json.dumps(data),content_type='application/json')
         self.assertTrue( CallTask.objects.filter(src_uid='1234').count() == 1 )
         
