@@ -34,4 +34,5 @@ class CallTask(models.Model):
     src_uid = models.CharField('拨打用户',max_length=30)
     dst_uid = JsonAbleField('接收用户',)
     call_time = models.DateTimeField('拨打时间')
+    tone_list = JsonAbleField('拨打内容',blank=True,default=[])
     

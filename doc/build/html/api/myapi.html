@@ -571,7 +571,11 @@ B-&gt;&gt;RTC:离开频道
     <span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
     <span class="s1">&#39;src_uid&#39;</span><span class="p">:</span><span class="s1">&#39;1234&#39;</span><span class="p">,</span>
     <span class="s1">&#39;dst_uid&#39;</span><span class="p">:[</span><span class="s1">&#39;1235&#39;</span><span class="p">,</span><span class="s1">&#39;1236&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;call_time&#39;</span><span class="p">:</span><span class="s1">&#39;2020-02-02 20:20:00&#39;</span>
+    <span class="s1">&#39;call_time&#39;</span><span class="p">:</span><span class="s1">&#39;2020-02-02 20:20:00&#39;</span><span class="p">,</span>
+    <span class="s2">&quot;tone_list&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s2">&quot;url&quot;</span><span class="p">:</span><span class="s2">&quot;/media/userfile/mytone1.mp3&quot;</span><span class="p">,</span><span class="s2">&quot;before_second&quot;</span><span class="p">:</span><span class="mi">10</span><span class="p">},</span>                      
+        <span class="p">{</span><span class="s2">&quot;url&quot;</span><span class="p">:</span><span class="s2">&quot;/media/userfile/mytone2.mp3&quot;</span><span class="p">,</span><span class="s2">&quot;before_second&quot;</span><span class="p">:</span><span class="mi">20</span><span class="p">}</span>
+    <span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -602,6 +606,11 @@ B-&gt;&gt;RTC:离开频道
 <tr>
 <td>call_time</td>
 <td>拨打时间，注意时间格式</td>
+<td>是</td>
+</tr>
+<tr>
+<td>tone_list</td>
+<td>拨打内容</td>
 <td>是</td>
 </tr>
 </tbody>
@@ -639,6 +648,7 @@ B-&gt;&gt;RTC:离开频道
             <span class="s1">&#39;src_uid&#39;</span><span class="p">:</span> <span class="s1">&#39;1234&#39;</span><span class="p">,</span> 
             <span class="s1">&#39;dst_uid&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;1235&#39;</span><span class="p">,</span> <span class="s1">&#39;1236&#39;</span><span class="p">],</span> 
             <span class="s1">&#39;call_time&#39;</span><span class="p">:</span> <span class="s1">&#39;2020-02-02 20:20:00&#39;</span><span class="p">,</span> 
+            <span class="s1">&#39;tone_list&#39;</span><span class="p">:[],</span>
             <span class="s1">&#39;pk&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">}],</span> 
             <span class="s1">&#39;row_pages&#39;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s1">&#39;crt_page&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> 
@@ -674,7 +684,7 @@ B-&gt;&gt;RTC:离开频道
   <div role="contentinfo">
     <p>
         &copy; Copyright 2019, coblan
-      Last updated on 2020-02-01 19:48:43.
+      Last updated on 2020-02-05 11:09:21.
 
     </p>
   </div>

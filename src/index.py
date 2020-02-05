@@ -29,6 +29,10 @@ director = {
     "authuser.regist"	:helpers.authuser.admin_regist.RegistFormPage.fieldsCls,
     "accountinfo"	:maindb.admin_accountinfo.AccountInfoPage.tableCls,
     "accountinfo.edit"	:maindb.admin_accountinfo.AccountForm,
+    
+    "calltask"	:maindb.admin_calltask.CallTaskPage,
+    "calltask.edit"	:maindb.admin_calltask.CallTaskForm,
+    "calltask/list"	:maindb.admin_calltask.UserCallTask,
 }
 director_views = {
     "d.save_row"	:helpers.director.dapi.save_row,
@@ -61,4 +65,7 @@ director_views = {
     "agora/token"	:part3.Agora_interface.get_token,
     "agora/rtc-option"	:part3.Agora_interface.get_option,
     "agora/rtm-option"	:part3.Agora_interface.get_option,
+    
+    "account/get-reject-tone"	:maindb.admin_accountinfo.get_reject_tone,
+    "calltask/update"	:maindb.admin_calltask.update_calltask,
 }
