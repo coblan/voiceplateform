@@ -17,7 +17,7 @@ class RTCSendPage(object):
             
         return {
             'tops':[
-                {'editor':'com-rtc-send','appid':settings.AGORA.get('appID')}
+                {'editor':'com-rtc-send','appid':settings.AGORA.get('appID'),'websocket_host':settings.WEBSOCKET.get('host')}
                 #{'editor':'com-rtc-trigger'},
                 #*rtc_send,
                 #{'editor':'com-rtc-send'},

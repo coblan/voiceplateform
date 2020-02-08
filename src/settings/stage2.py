@@ -29,6 +29,9 @@ RABBIT={
     'user':'guest',
     'pswd':'guest',
 }
+WEBSOCKET = {
+    'host':'liu.enjoyst.com'
+}
 
 ELK={
     'host':'http://localhost:9200',

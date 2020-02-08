@@ -65,7 +65,7 @@
                 loaded:false,
                 finish_callback:'',
                 mp3_length:60*1000,
-                search_args:ex.parseSearch()
+                search_args:ex.parseSearch(),
             }
         },
         mounted(){
@@ -79,7 +79,7 @@
 //            })
 
             window.send_mp3 = (channel,tone_list,callback)=>{
-                ex.stompInit({url:"ws://localhost:15674/ws",user:"guest",pswd:"guest"});
+                ex.stompInit({url:"ws://"+ this.ctx.websocket_host+":15674/ws",user:"guest",pswd:"guest"});
                 ex.stompListen("/exchange/stop_channel/"+channel,(data)=>{
                     console.log(data.body)
                     this.debug_log(`[${channel}]接收到后台退出频道消息`)
