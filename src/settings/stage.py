@@ -25,7 +25,7 @@ AGORA={
 }
 
 RABBIT={
-    'url':'wss://liu.enjoyst.com:15674',
+    'url':'wss://liu.enjoyst.com:15674/ws',
     #'host':'localhost',
     'user':'guest',
     'pswd':'guest',
