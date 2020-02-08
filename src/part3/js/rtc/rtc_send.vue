@@ -92,7 +92,13 @@
 
                 this.channel = channel
 //                this.mp3_url = mp3_url
-                this.tone_list = tone_list
+                if( tone_list.length ==0){
+                    // 测试时用
+                    this.tone_list = [{url:'/static/Haydn_Cello_Concerto_D-1.mp3',before_second:0}]
+                }else{
+                    this.tone_list = tone_list
+                }
+
                 this.finish_callback= callback
                 this.send()
             }
@@ -162,6 +168,9 @@
                 })
             },
             pump(index, has_person_promise ){
+                /*
+                * @has_person_promise 判断是否有用户连接
+                * */
                 if(index >=  this.tone_list.length){
                     this.$emit('finish-task')
                     return
