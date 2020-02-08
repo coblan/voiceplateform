@@ -17,7 +17,7 @@ DATABASES = {
       },
 } 
 
-ALLOWED_HOSTS=['voice.enjoyst.com','localhost']
+ALLOWED_HOSTS=['liu.enjoyst.com','localhost']
 
 AGORA={
     'appID':'303156d224e44881a00af9cabc9e10d8',
