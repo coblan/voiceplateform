@@ -30,7 +30,7 @@ RABBIT={
     'pswd':'guest',
 }
 WEBSOCKET = {
-    'url':'wss://liu.enjoyst.com:15673',
+    'url':'wss://liu.enjoyst.com:10831',
     'user':'voice',
     'pswd':'voice',
 }
