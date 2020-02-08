@@ -15,6 +15,8 @@ import json
 import logging
 general_log = logging.getLogger('general_log')
 
+general_log.info('服务器重启')
+
 '''{"doc":'api/call.md','sort':50}
 ### 拨打序列图
 
