@@ -7,7 +7,16 @@ host = settings.RABBIT.get('host')
 user = settings.RABBIT.get('user')
 pswd = settings.RABBIT.get('pswd')
 credentials = pika.PlainCredentials(user,pswd)
- 
+
+def init():
+    connection =pika.BlockingConnection(pika.ConnectionParameters(host=host,credentials=credentials))
+    channel = connection.channel()
+    channel.exchange_declare(exchange='usermsg', exchange_type='topic')
+    channel.exchange_declare(exchange='user_rtc', exchange_type='topic')
+    channel.exchange_declare(exchange='stop_channel', exchange_type='topic')
+
+init()
+
 def send_msg(msg,uid):
     connection =pika.BlockingConnection(pika.ConnectionParameters(host=host,credentials=credentials))
     channel = connection.channel()
