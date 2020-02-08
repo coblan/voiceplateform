@@ -30,7 +30,9 @@ RABBIT={
     'pswd':'guest',
 }
 WEBSOCKET = {
-    'host':'liu.enjoyst.com'
+    'host':'liu.enjoyst.com',
+    'user':'voice',
+    'pswd':'voice',
 }
 
 ELK={

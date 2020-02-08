@@ -79,7 +79,7 @@
 //            })
 
             window.send_mp3 = (channel,tone_list,callback)=>{
-                ex.stompInit({url:"ws://"+ this.ctx.websocket_host+":15674/ws",user:"guest",pswd:"guest"});
+                ex.stompInit({url:"ws://"+ this.ctx.websocket.host+":15674/ws",user:this.ctx.websocket.user,pswd:this.ctx.websocket.pswd});
                 ex.stompListen("/exchange/stop_channel/"+channel,(data)=>{
                     console.log(data.body)
                     this.debug_log(`[${channel}]接收到后台退出频道消息`)
