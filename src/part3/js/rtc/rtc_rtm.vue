@@ -39,7 +39,7 @@
                         "accountSender" : this.parStore.vc.uid,
                         "timeStamp" : now
                 }
-                Promise.all(this.channel_promise).then(()=>{
+                Promise.all([this.channel_promise]).then(()=>{
                     this.channel_obj.sendMessage( msg_body ).then(() => {
                         /* 频道消息发送成功的处理逻辑 */
                         self.parStore.vc.debug_log("RTM IN RTC  发送消息成功:"+tone_obj)

@@ -167,7 +167,7 @@ import rtc_rtc from './rtc_rtm.vue'
                 })
                 return Promise.all([p1,p2,has_person_promise]).then((values)=>{
                      this.playing = true
-                    this.$emit('play-tone-obj',tone_obj)
+                    this.childStore.$emit('play-tone-obj',tone_obj)
                      this.onstart()
                     var mp3_length = values[0]
                     return new Promise((resolve,reject)=>{
