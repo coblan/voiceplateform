@@ -42,9 +42,9 @@
                 Promise.all(this.channel_promise).then(()=>{
                     this.channel_obj.sendMessage( msg_body ).then(() => {
                         /* 频道消息发送成功的处理逻辑 */
-                        self.parStore.vc.debug_log("RTM IN RTC tone_obj 发送消息成功")
+                        self.parStore.vc.debug_log("RTM IN RTC  发送消息成功:"+tone_obj)
                     }).catch(error => {
-                        self.parStore.vc.debug_log("RTM IN RTC tone_obj 发送消息报错")
+                        self.parStore.vc.debug_log("RTM IN RTC 发送消息报错:"+tone_obj +"; 错误是:"+ error)
                         /* 频道消息发送失败的处理逻辑 */
                     });
                 })
@@ -86,10 +86,10 @@
                         this.channel_obj.join().then(() => {
                             /* 加入频道成功的处理逻辑 */
                             this.channel_promise.resolve()
-                            this.parStore.vc.debug_log("机器人加入"+ this.ctx.channel +"频道成功")
+                            this.parStore.vc.debug_log("机器人加入RTM"+ this.ctx.channel +"频道成功")
                         }).catch(error => {
                             /* 加入频道失败的处理逻辑 */
-                            this.parStore.vc.warning_log("机器人加入"+ this.ctx.channel +"频道失败")
+                            this.parStore.vc.warning_log("机器人加入RTM"+ this.ctx.channel +"频道失败:"+error)
                         });
                 })
             },
