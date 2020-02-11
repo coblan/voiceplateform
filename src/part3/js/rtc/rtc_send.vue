@@ -158,13 +158,16 @@ import rtc_rtc from './rtc_rtm.vue'
                 })
                 return p1
             },
-            play(mp3_url,second,has_person_promise){
+            play( tone_obj,second,has_person_promise){
+                var mp3_url = tone_obj.url
+                var second = tone_obj.before_second
                 var p1 = this.load_mp3(mp3_url)
                 var p2 = new Promise((resolve,reject)=>{
                     setTimeout(resolve,1000*second)
                 })
                 return Promise.all([p1,p2,has_person_promise]).then((values)=>{
                      this.playing = true
+                    this.$emit('play-tone-obj',tone_obj)
                      this.onstart()
                     var mp3_length = values[0]
                     return new Promise((resolve,reject)=>{
@@ -185,7 +188,7 @@ import rtc_rtc from './rtc_rtm.vue'
                 }
                 var tone_obj = this.tone_list[index]
                 this.debug_log(`播放第${index}个tone,等待时间${tone_obj.before_second}`)
-                return this.play(tone_obj.url,tone_obj.before_second,has_person_promise).then(()=>{
+                return this.play(tone_obj ,has_person_promise).then(()=>{
 
                     return this.pump(index+1,has_person_promise)
                 })
@@ -345,6 +348,7 @@ import rtc_rtc from './rtc_rtm.vue'
                 self.localStream.unmuteAudio()
                 self.localStream.setAudioMixingPosition(0)
                 self.localStream.resumeAudioMixing()
+
             },
             stopPlay(){
                 var self=this

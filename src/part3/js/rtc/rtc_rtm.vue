@@ -19,12 +19,33 @@
                 recieved:'',
                 loaded:false,
                 sending:false,
+                channel_obj:null,
             }
         },
         mounted(){
           this.init()
+            this.parStore.$on('play-tone-obj',this.on_play)
         },
         methods:{
+            on_play(tone_obj){
+                var now =Date.now()
+                var msg_body = {
+                        "asrData" : tone_obj.Content || "",
+                        "msgTimeStamp" : now,
+                        "isFinished" : "true",
+                        "title" : "ASRSync",
+                        "accountSender" : this.parStore.vc.uid,
+                        "timeStamp" : now
+                }
+
+                this.channel_obj.sendMessage( msg_body ).then(() => {
+                    /* 频道消息发送成功的处理逻辑 */
+                    this.parStore.vc.debug_log("RTM IN RTC tone_obj 发送消息成功")
+                }).catch(error => {
+                    this.parStore.vc.debug_log("RTM IN RTC tone_obj 发送消息报错")
+                    /* 频道消息发送失败的处理逻辑 */
+                });
+            },
             init(){
 
                 var self =this
@@ -56,8 +77,8 @@
 
                 }).then(()=>{
                         this. loaded =true
-                        const channel = this.client.createChannel(this.ctx.channel);
-                        channel.join().then(() => {
+                        this.channel_obj = this.client.createChannel(this.ctx.channel);
+                        this.channel_obj.join().then(() => {
                             /* 加入频道成功的处理逻辑 */
                             this.parStore.vc.debug_log("机器人加入"+ this.ctx.channel +"频道成功")
                         }).catch(error => {
