@@ -21,9 +21,10 @@ class Command(BaseCommand):
         general_log.debug('启动定时拨打任务')
         for task in CallTask.objects.filter(status = 0,call_time__lte= now):
             #general_log.debug('定时拨打src_uid=%s;dst_uid=%s'%(task.src_uid,task.dst_uid))
-            call_user(task.src_uid,task.dst_uid,task.tone_list)
             task.status = 1
             task.save()
+            call_user(task.src_uid,task.dst_uid,task.tone_list)
+            
         general_log.debug('定时拨打任务结束')
     
 def call_user(src_uid,dst_uid,tone_list):
@@ -38,7 +39,7 @@ def call_user(src_uid,dst_uid,tone_list):
     #Role_Attendee = 2
     #privilegeExpiredTs = time.time() + 600
     #token = RtcTokenBuilder.buildTokenWithAccount(appID, appCertificate, channelName, userAccount, Role_Attendee, privilegeExpiredTs)
-    general_log.info('[%s]向[%s]拨打语音'%(src_uid,dst_uid))
+    general_log.info('机器人模拟[%s]向[%s]拨打语音'%(src_uid,dst_uid))
     #VoiceMsgList.objects.create(uid = src_uid,channel=channelName,status=1,extra_msg=extra_msg)
     send_mp3(channelName, tone_list)
     if dst_uid:
