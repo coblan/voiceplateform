@@ -20,7 +20,7 @@
                 loaded:false,
                 sending:false,
                 channel_obj:null,
-                channel_promise : new Promise(),
+                channel_promise : new ex.DefPromise(),
             }
         },
         mounted(){
