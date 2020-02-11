@@ -30,6 +30,8 @@
             <span>channel</span>
             <span v-text="channel"></span>
         </div>
+
+        <rtc_rtc v-if="channel" :ctx="{channel:channel,par:this}"></rtc_rtc>
     </div>
 </template>
 <script>
@@ -45,12 +47,18 @@
 *
 * 机器人退出后，后端进程会重新刷新页面。
 * */
+import rtc_rtc from './rtc_rtm.vue'
     export default {
         props:['ctx'],
+        components:{
+            rtc_rtc
+        },
         data(){
-
+            var childStore = new Vue()
+            childStore.vc = this
             return {
                 parStore:ex.vueParStore(this),
+                childStore:childStore,
                 uid: ''+parseInt( Math.random()*100000000 ),
                 appid:this.ctx.appid,
                 token:'',

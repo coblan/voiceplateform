@@ -82,7 +82,10 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="abstract.html">1. 外部链接</a></li>
 <li class="toctree-l1"><a class="reference internal" href="agora/api.html">2. 语音对接</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">3. RTM发送消息</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">3. RTM发送消息</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#rtmtoken">3.1. rtm获取token</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">4. 接口文档</a></li>
 </ul>
 
@@ -150,7 +153,7 @@
             
   <div class="section" id="rtm">
 <h1>3. RTM发送消息<a class="headerlink" href="#rtm" title="Permalink to this headline">¶</a></h1>
-<p><a class="reference external" href="http://voice.enjoyst.com/rtm">测试网址</a> <code class="docutils literal notranslate"><span class="pre">http://voice.enjoyst.com/rtm</span></code>。如下截图</p>
+<p><a class="reference external" href="/rtm">测试网址</a>。如下截图</p>
 <p><img alt="Image" src="_images/rtm_msg.png" /></p>
 <p>上部用于浏览器端调用rtm webclient进行本地发送消息。<em>不能给自己发送消息</em>,只能发消息给其他用户。</p>
 <p>下部分是向后台发送消息，可以发送给任何人。</p>
@@ -168,7 +171,49 @@ A[Client] --&gt;|send message via http| B(Logic)
 B --&gt; C{rabbitMq}
 C --&gt;|One| D[rtm client on backend]
 D --&gt;|RTM| E[User]
-        </div></div>
+        </div><div class="section" id="rtmtoken">
+<h2>3.1. rtm获取token<a class="headerlink" href="#rtmtoken" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">agora</span><span class="o">/</span><span class="n">rtm</span><span class="o">-</span><span class="n">option</span>
+<span class="n">参数示例</span>
+<span class="p">{</span>
+    <span class="n">uid</span><span class="p">:</span><span class="s1">&#39;12345&#39;</span><span class="p">,</span>
+    <span class="n">channel</span><span class="p">:</span><span class="s1">&#39;cha_12356&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+<th>必填</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uid</td>
+<td>用户的uid</td>
+<td>是</td>
+</tr>
+<tr>
+<td>channel</td>
+<td>频道</td>
+<td>否 (可以不用频道，加入到全局环境中)</td>
+</tr>
+</tbody>
+</table><p>返回</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="s2">&quot;success&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;appID&quot;</span><span class="p">:</span> <span class="s2">&quot;303156d224e44881a00af9cabc9e10d8&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;uid&quot;</span><span class="p">:</span> <span class="s2">&quot;1234&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="s2">&quot;006303156d224e44881a00af9cabc9e10d8IADbkoI7G6PpyKYhfG8nW2MqV3CI6b3MVIyYmSnszC29y6Pg45sAAAAAEAAexvQE7alCXgEA6APFWkFe&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
 
 
            </div>
@@ -191,7 +236,7 @@ D --&gt;|RTM| E[User]
   <div role="contentinfo">
     <p>
         &copy; Copyright 2019, coblan
-      Last updated on 2020-02-05 11:09:21.
+      Last updated on 2020-02-10 21:30:06.
 
     </p>
   </div>

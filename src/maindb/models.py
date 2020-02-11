@@ -30,9 +30,15 @@ class VoiceMsgList(models.Model):
     #starter = models.IntegerField('发起人UID',)
     #createtime = models.DateTimeField('创建时间',auto_now_add=True)
 
+CALLTASK_STATUS=(
+    (0,'初始'),
+    (1,'已经拨打'),
+)
+
 class CallTask(models.Model):
     src_uid = models.CharField('拨打用户',max_length=30)
     dst_uid = JsonAbleField('接收用户',)
     call_time = models.DateTimeField('拨打时间')
     tone_list = JsonAbleField('拨打内容',blank=True,default=[])
+    status = models.IntegerField('状态',blank=True,default=0,choices=CALLTASK_STATUS)
     
