@@ -8,7 +8,8 @@ def call_start(uid,channel,src_uid=None,dst_uid=None,extra_msg=None):
         extra_msg_dc ={
             'Subscribers':dst_uid,
             'CallerId':src_uid,
-            'Type':1
+            'Type':1,
+            'robot':True
         }
         extra_msg = json.dumps(extra_msg_dc,ensure_ascii=False)
     
