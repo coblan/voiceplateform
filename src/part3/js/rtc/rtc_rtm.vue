@@ -42,9 +42,9 @@
                 Promise.all([this.channel_promise]).then(()=>{
                     this.channel_obj.sendMessage( msg_body ).then(() => {
                         /* 频道消息发送成功的处理逻辑 */
-                        self.parStore.vc.debug_log("RTM IN RTC  发送消息成功:"+tone_obj)
+                        self.parStore.vc.debug_log("RTM IN RTC  发送消息成功:"+JSON.stringify(tone_obj) )
                     }).catch(error => {
-                        self.parStore.vc.debug_log("RTM IN RTC 发送消息报错:"+tone_obj +"; 错误是:"+ error)
+                        self.parStore.vc.debug_log("RTM IN RTC 发送消息报错:"+ JSON.stringify(tone_obj)  +"; 错误是:"+ error)
                         /* 频道消息发送失败的处理逻辑 */
                     });
                 })
