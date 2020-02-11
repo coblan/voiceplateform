@@ -158,7 +158,7 @@ import rtc_rtc from './rtc_rtm.vue'
                 })
                 return p1
             },
-            play( tone_obj,second,has_person_promise){
+            play( tone_obj,has_person_promise){
                 var mp3_url = tone_obj.url
                 var second = tone_obj.before_second
                 var p1 = this.load_mp3(mp3_url)
