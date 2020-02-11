@@ -46,7 +46,7 @@ def call_user(src_uid,dst_uid,tone_list):
     if dst_uid:
         for uid in dst_uid:
             #VoiceMsgList.objects.create(uid = uid,channel=channelName,extra_msg=extra_msg)
-            sim_signal.send('call.start',uid = uid,channel=channelName)
+            sim_signal.send('call.start',uid = uid,channel=channelName,src_uid=src_uid,dst_uid=dst_uid)
             
             dc = {
                 "title" : "audiocall",
