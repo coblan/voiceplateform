@@ -20,6 +20,7 @@
                 loaded:false,
                 sending:false,
                 channel_obj:null,
+                channel_promise : new Promise(),
             }
         },
         mounted(){
@@ -28,6 +29,7 @@
         },
         methods:{
             on_play(tone_obj){
+                var self =this
                 var now =Date.now()
                 var msg_body = {
                         "asrData" : tone_obj.Content || "",
@@ -37,18 +39,21 @@
                         "accountSender" : this.parStore.vc.uid,
                         "timeStamp" : now
                 }
+                Promise.all(this.channel_promise).then(()=>{
+                    this.channel_obj.sendMessage( msg_body ).then(() => {
+                        /* 频道消息发送成功的处理逻辑 */
+                        self.parStore.vc.debug_log("RTM IN RTC tone_obj 发送消息成功")
+                    }).catch(error => {
+                        self.parStore.vc.debug_log("RTM IN RTC tone_obj 发送消息报错")
+                        /* 频道消息发送失败的处理逻辑 */
+                    });
+                })
 
-                this.channel_obj.sendMessage( msg_body ).then(() => {
-                    /* 频道消息发送成功的处理逻辑 */
-                    this.parStore.vc.debug_log("RTM IN RTC tone_obj 发送消息成功")
-                }).catch(error => {
-                    this.parStore.vc.debug_log("RTM IN RTC tone_obj 发送消息报错")
-                    /* 频道消息发送失败的处理逻辑 */
-                });
             },
             init(){
 
                 var self =this
+
                 new Promise((resolve,reject) =>{
                     $.get('/dapi/agora/rtm-option?channel=mychanel&uid='+this.uid,function(resp){
                     self.token = resp.data.token
@@ -80,6 +85,7 @@
                         this.channel_obj = this.client.createChannel(this.ctx.channel);
                         this.channel_obj.join().then(() => {
                             /* 加入频道成功的处理逻辑 */
+                            this.channel_promise.resolve()
                             this.parStore.vc.debug_log("机器人加入"+ this.ctx.channel +"频道成功")
                         }).catch(error => {
                             /* 加入频道失败的处理逻辑 */
