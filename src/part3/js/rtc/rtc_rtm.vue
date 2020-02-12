@@ -37,7 +37,8 @@
                         "isFinished" : "true",
                         "title" : "ASRSync",
                         "accountSender" : this.parStore.vc.uid,
-                        "timeStamp" : now
+                        "timeStamp" : now,
+                        proxUid:this.parStore.vc.src_uid,
                 }
                 Promise.all([this.channel_promise]).then(()=>{
                     this.channel_obj.sendMessage( {text:JSON.stringify(msg_body )}  ).then(() => {

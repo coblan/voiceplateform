@@ -9,7 +9,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports =
 {
-    mode: 'development', // 'production',
+    mode: 'production',//'development', //
     //context:__dirname,
     entry: {
         myagora:'./main.js',

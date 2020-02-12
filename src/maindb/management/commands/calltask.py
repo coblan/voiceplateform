@@ -42,7 +42,7 @@ def call_user(src_uid,dst_uid,tone_list):
     #token = RtcTokenBuilder.buildTokenWithAccount(appID, appCertificate, channelName, userAccount, Role_Attendee, privilegeExpiredTs)
     
     #VoiceMsgList.objects.create(uid = src_uid,channel=channelName,status=1,extra_msg=extra_msg)
-    send_mp3(channelName, tone_list)
+    send_mp3(channelName, tone_list,src_uid)
     if dst_uid:
         for uid in dst_uid:
             #VoiceMsgList.objects.create(uid = uid,channel=channelName,extra_msg=extra_msg)

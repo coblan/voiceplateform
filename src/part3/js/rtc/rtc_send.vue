@@ -74,6 +74,7 @@ import rtc_rtc from './rtc_rtm.vue'
                 finish_callback:'',
                 mp3_length:60*1000,
                 search_args:ex.parseSearch(),
+                src_uid:'',
             }
         },
         mounted(){
@@ -86,7 +87,11 @@ import rtc_rtc from './rtc_rtm.vue'
 //                }
 //            })
 
-            window.send_mp3 = (channel,tone_list,callback)=>{
+            window.send_mp3 = (dc,callback)=>{
+                debugger
+                var channel= dc.channel
+                var tone_list = dc.tone_list
+                var src_uid = dc.src_uid
                 ex.stompInit({url: this.ctx.websocket.url,user:this.ctx.websocket.user,pswd:this.ctx.websocket.pswd});
                 ex.stompListen("/exchange/stop_channel/"+channel,(data)=>{
                     console.log(data.body)
@@ -99,6 +104,7 @@ import rtc_rtc from './rtc_rtm.vue'
                 this.debug_log('播放语音数据:'+JSON.stringify(tone_list))
 
                 this.channel = channel
+                this.src_uid = src_uid
 //                this.mp3_url = mp3_url
                 if( tone_list.length ==0){
                     // 测试时用

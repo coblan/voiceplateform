@@ -177,9 +177,9 @@ def invite_robot(uid,channel):
     
     userinfo = Accountinfo.objects.filter(uid=uid).first()
     if userinfo and userinfo.reject_tone:
-        send_mp3(channel,tone_list=json.loads(userinfo.reject_tone))
+        send_mp3(channel,tone_list=json.loads(userinfo.reject_tone),src_uid= uid)
     else:
-        send_mp3(channel,tone_list=[{'url':'/static/reject_tone.mp3','before_second':0},])
+        send_mp3(channel,tone_list=[{'url':'/static/reject_tone.mp3','before_second':0},],src_uid= uid)
     general_log.debug('[%(uid)s]拒绝接听,要求机器人进入[%(channel)s]'%locals() )
     VoiceMsgList.objects.filter(uid = uid,channel=channel).update(status=2)
     
@@ -195,6 +195,7 @@ def call_robot(src_uid):
     '''{"doc":"agora/early_test.md"}
     ### 直接拨打机器
     直接拨打机器人，演示用
+    废弃[2020/2/12]
     '''
    
     appID = settings.AGORA.get('appID')
@@ -354,4 +355,5 @@ def celery_send_msg(msg,uid):
 
 @director_view('try_send_mp3')
 def try_send_mp3(channel,mp3_url):
+    "废弃[2020/2/12]"
     send_mp3(channel, mp3_url)
