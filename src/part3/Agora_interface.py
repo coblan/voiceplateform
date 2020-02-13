@@ -11,7 +11,7 @@ from django.utils import timezone
 from helpers.director.model_func.dictfy import sim_dict
 from helpers.director.network import argument
 import json
-
+from helpers.func.sim_signal import sim_signal
 import logging
 general_log = logging.getLogger('general_log')
 
@@ -57,6 +57,9 @@ def call_user(src_uid,dst_uid =None,extra_msg=''):
     
     @dst_uid:list
     '''
+    if isinstance(dst_uid,str):
+        dst_uid = dst_uid.split(',')
+            
     appID = settings.AGORA.get('appID')
     appCertificate = settings.AGORA.get('appCertificate')
     channelName= 'ch_'+ get_str(length=10)
@@ -65,13 +68,12 @@ def call_user(src_uid,dst_uid =None,extra_msg=''):
     privilegeExpiredTs = time.time() + 600
     token = RtcTokenBuilder.buildTokenWithAccount(appID, appCertificate, channelName, userAccount, Role_Attendee, privilegeExpiredTs)
     general_log.info('[%s]向[%s]拨打语音'%(src_uid,dst_uid))
-    VoiceMsgList.objects.create(uid = src_uid,channel=channelName,status=1,extra_msg=extra_msg)
-    
+    #VoiceMsgList.objects.create(uid = src_uid,channel=channelName,status=1,extra_msg=extra_msg)
+    sim_signal.send('call.call',uid=src_uid,channel=channelName,src_uid=src_uid,dst_uid=dst_uid,extra_msg=extra_msg,is_robot=False)
     if dst_uid:
-        if isinstance(dst_uid,str):
-            dst_uid = dst_uid.split(',')
         for uid in dst_uid:
-            VoiceMsgList.objects.create(uid = uid,channel=channelName,extra_msg=extra_msg)
+            sim_signal.send('call.call',uid=uid,channel=channelName,src_uid=src_uid,dst_uid=dst_uid,extra_msg=extra_msg)
+            #VoiceMsgList.objects.create(uid = uid,channel=channelName,extra_msg=extra_msg)
         
         users = Accountinfo.objects.filter(uid__in = dst_uid).exclude(apns_token="")
         for user in users:
@@ -106,7 +108,8 @@ def end_call(uid,channel):
     }
     ```
     '''
-    VoiceMsgList.objects.filter(uid = uid,channel=channel).update(status=2)
+    sim_signal.send('call.quit',uid=uid,channel=channel)
+    #VoiceMsgList.objects.filter(uid = uid,channel=channel).update(status=2)
     general_log.debug('[%(uid)s]结束[%(channel)s]通话'%locals() )
 
 @director_view('call/msg')
@@ -145,7 +148,7 @@ def recieve(uid,channel):
     token = RtcTokenBuilder.buildTokenWithAccount(appID, appCertificate, channelName, userAccount, Role_Attendee, privilegeExpiredTs)
     
     general_log.debug('[%(uid)s]接听[%(channel)s]通话'%locals() )
-    VoiceMsgList.objects.filter(uid = uid,channel=channel,status=0).update(status=1)
+    sim_signal.send('call.enter',uid,channel)
     return {
         'appID':appID,
         'channel':channelName,
@@ -355,5 +358,5 @@ def celery_send_msg(msg,uid):
 
 @director_view('try_send_mp3')
 def try_send_mp3(channel,mp3_url):
-    "废弃[2020/2/12]"
+    "/rtc 页面会调用"
     send_mp3(channel, mp3_url)

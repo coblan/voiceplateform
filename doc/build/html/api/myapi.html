@@ -97,6 +97,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#id10">4.2.9. 定时拨打电话</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id11">上传拨打信息</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id12">获取拨打列表</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id13">心跳检查通话</a></li>
 </ul>
 </li>
 </ul>
@@ -660,6 +661,38 @@ B-&gt;&gt;RTC:离开频道
 </pre></div>
 </div>
 </div>
+<div class="section" id="id13">
+<h3>心跳检查通话<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<p>当处在某个频道通话时，客户端需要每隔20内通知一次后台，否则后台可能会判断客户端已经掉线。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">call</span><span class="o">/</span><span class="n">heartbeat</span>
+<span class="n">参数</span>
+<span class="p">{</span>
+    <span class="n">uid</span><span class="p">:</span><span class="s1">&#39;1234&#39;</span><span class="p">,</span>
+    <span class="n">channel</span><span class="p">:</span><span class="s1">&#39;cha_235&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+<th>必填</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uid</td>
+<td>用户id</td>
+<td>是</td>
+</tr>
+<tr>
+<td>channel</td>
+<td>频道名称</td>
+<td>是</td>
+</tr>
+</tbody>
+</table></div>
 </div>
 </div>
 
@@ -684,7 +717,7 @@ B-&gt;&gt;RTC:离开频道
   <div role="contentinfo">
     <p>
         &copy; Copyright 2019, coblan
-      Last updated on 2020-02-05 11:09:21.
+      Last updated on 2020-02-13 15:20:31.
 
     </p>
   </div>

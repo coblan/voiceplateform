@@ -46,7 +46,15 @@ def call_user(src_uid,dst_uid,tone_list):
     if dst_uid:
         for uid in dst_uid:
             #VoiceMsgList.objects.create(uid = uid,channel=channelName,extra_msg=extra_msg)
-            sim_signal.send('call.start',uid = uid,channel=channelName,src_uid=src_uid,dst_uid=dst_uid)
+            extra_msg_dc ={
+                'Subscribers':dst_uid,
+                'CallerId':src_uid,
+                'Type':1,
+                'robot':True
+            }
+            extra_msg = json.dumps(extra_msg_dc,ensure_ascii=False)
+        
+            sim_signal.send('call.call',uid = uid,channel=channelName,src_uid=src_uid,dst_uid=dst_uid,extra_msg=extra_msg,is_robot=True)
             
             dc = {
                 "title" : "audiocall",

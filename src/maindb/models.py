@@ -11,9 +11,9 @@ class Accountinfo(models.Model):
     reject_tone = models.TextField('拒接电话语音',blank=True)
 
 MSG_STATUS=(
-    (0,'初始化'),
-    (1,'已获取'),
-    (2,'已完成'),
+    (0,'未接通'),
+    (1,'已接通'),
+    (2,'已挂断'),
 )
 
 class VoiceMsgList(models.Model):
@@ -41,4 +41,15 @@ class CallTask(models.Model):
     call_time = models.DateTimeField('拨打时间')
     tone_list = JsonAbleField('拨打内容',blank=True,default=[])
     status = models.IntegerField('状态',blank=True,default=0,choices=CALLTASK_STATUS)
+
+class CallRecord(models.Model):
+    src_uid = models.CharField('拨打用户',max_length=30)
+    dst_uid = JsonAbleField('接收用户',)
+    channel = models.CharField('通话频道',max_length=30)
+    starttime = models.DateTimeField('开始时间',blank=True,null=True)
+    endtime = models.DateTimeField('结束时间',blank=True,null=True)
+    refreshtime = models.DateTimeField('心跳刷新时间',blank=True,null=True)
+    count = models.IntegerField('人员计数',default=0)
+    is_robot = models.BooleanField('是否机器人',default=False)
+    
     

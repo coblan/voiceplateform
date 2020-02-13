@@ -4,3 +4,4 @@ from django.contrib import admin
 from . import signal
 from . import admin_accountinfo
 from . import admin_calltask
+from . import admin_callrecord

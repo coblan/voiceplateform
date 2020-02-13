@@ -1,5 +1,5 @@
 from django.test import TestCase,Client
-from .models import VoiceMsgList,CallTask
+from .models import VoiceMsgList,CallTask,CallRecord
 import json
 from django.core.management import call_command
 from unittest import mock
@@ -32,22 +32,32 @@ class TestSimpleWash(TestCase):
         #A 拨打
         rt = cl.post('/dapi/call/user',data={'src_uid':"1234",'dst_uid':'4321'})
         self.assertTrue( VoiceMsgList.objects.count() == 2)
+        self.assertTrue( CallRecord.objects.count() == 1)
+        
+        # A 进入频道
+        rt = cl.post('/dapi/call/recieve',data={'uid':'1234','channel':rt.json().get('data').get('channel')})
+        self.assertTrue( CallRecord.objects.first().count == 1)
         
         #B 拉取消息
         rt = cl.post('/dapi/call/msg',data={'uid':'4321'})
         channel = rt.json().get('data')[0].get('channel')
+        self.assertTrue(CallRecord.objects.first().channel == channel)
         
         #B 接收
         rt = cl.post('/dapi/call/recieve',data={'uid':'4321','channel':channel})
         self.assertTrue( VoiceMsgList.objects.get(uid='4321').status == 1 )
+        self.assertTrue(CallRecord.objects.first().count == 2)
         
         #B 挂断
         rt = cl.post('/dapi/call/end',data={'uid':'4321','channel':channel})
         self.assertTrue( VoiceMsgList.objects.get(uid='4321').status == 2 )
+        self.assertTrue(CallRecord.objects.first().count == 1)
         
         #A 挂断
         rt = cl.post('/dapi/call/end',data={'uid':'1234','channel':channel})
         self.assertTrue( VoiceMsgList.objects.get(uid='1234').status == 2 )
+        self.assertTrue(CallRecord.objects.first().count == 0)
+        self.assertTrue(CallRecord.objects.first().endtime)
         
         # 上传拨打任务
         data = {'src_uid':'1234','dst_uid':['1235','1236'],'call_time':'2020-01-01 10:09:00',
@@ -60,8 +70,12 @@ class TestSimpleWash(TestCase):
         
         # 获取拨打任务列表
         rt = cl.post('/dapi/calltask/list',data={'uid':'1234'})
-        print('ss')
         
         call_command('calltask')
         self.assertTrue(len(rabmq) ==1)
+        
+        CallRecord.objects.create(src_uid='11',dst_uid=['23','44'],channel='12321',starttime='2020-01-01 10:06:00',refreshtime='2020-01-01 10:07:00')
+        call_command('check_call_over')
+        
         print('yy')
+        

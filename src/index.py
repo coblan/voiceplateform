@@ -17,6 +17,7 @@ page_dc = {
     "jb_user"	:helpers.case.jb_admin.admin.UserPage,
     "jb_group"	:helpers.case.jb_admin.admin.GroupPage,
     "accountinfo"	:maindb.admin_accountinfo.AccountInfoPage,
+     "callrecord"	:maindb.admin_callrecord.CallRecordPage,
 }
 director = {
     "permit.programer"	:helpers.director.admin.PermitPage.PermitTable,
@@ -33,6 +34,8 @@ director = {
     "calltask"	:maindb.admin_calltask.CallTaskPage,
     "calltask.edit"	:maindb.admin_calltask.CallTaskForm,
     "calltask/list"	:maindb.admin_calltask.UserCallTask,
+    
+    "callrecord"	:maindb.admin_callrecord.CallRecordPage.tableCls,
 }
 director_views = {
     "d.save_row"	:helpers.director.dapi.save_row,
@@ -59,6 +62,8 @@ director_views = {
     "call/end"	:part3.Agora_interface.end_call,
     "call/msg"	:part3.Agora_interface.get_voice_msg,
     "call/recieve"	:part3.Agora_interface.recieve,
+    "call/heartbeat"	:maindb.admin_callrecord.refresh_call_record,
+    
     "invite/robot"	:part3.Agora_interface.invite_robot,
     "call/robot"	:part3.Agora_interface.call_robot,
     "quit/robot"	:part3.Agora_interface.quit_robot,
@@ -68,4 +73,13 @@ director_views = {
     
     "account/get-reject-tone"	:maindb.admin_accountinfo.get_reject_tone,
     "calltask/update"	:maindb.admin_calltask.update_calltask,
+    
+   
+}
+
+sim_signal = {
+    "call.call"	:[maindb.signal.call_call],
+    "call.enter"	:[maindb.signal.call_start],
+    "call.quit"	:[maindb.signal.call_quit],
+    "call.end"	:[maindb.signal.call_end],
 }

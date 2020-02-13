@@ -23,7 +23,7 @@ from django.views.generic import RedirectView
 from helpers.authuser.engin_view import AuthEngine
 from hello.views import relay
 from part3 import views as part3_views
-from hello.engin_menu import AgoraProcessEngin
+from hello.engin_menu import AgoraProcessEngin,PcAdminMenu
 
 urlpatterns = [
     #url(r'^admin/', admin.site.urls),
@@ -37,10 +37,10 @@ urlpatterns = [
     
     url(r'^relay/?$',relay),
     url(r'^accounts/([\w\.]+)/?$',AuthEngine.as_view(),name=AuthEngine.url_name),
-    #url(r'^pc/([\w\.]+)/?$',PcAdminMenu.as_view(),name=PcAdminMenu.url_name),
+    url(r'^pc/([\w\.-]+)/?$',PcAdminMenu.as_view(),name=PcAdminMenu.url_name),
     url(r'^d/',include('helpers.director.urls'),name='director'),
     url(r'^dapi/(?P<director_name>[\w\/\.-]+)?/?$',director_view),
-    url(r'^$',RedirectView.as_view(url='/web/home')) ,
+    url(r'^$',RedirectView.as_view(url='/pc/callrecord')) ,
 ]
 
 if settings.DEBUG:

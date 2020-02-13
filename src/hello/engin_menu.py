@@ -9,27 +9,25 @@ from django.conf import settings
 from helpers.director.access.permit import has_permit
 from helpers.pcweb.shotcut import web_page_dc
 
-#class PcAdminMenu(BaseEngine):
-    #url_name = 'BackEnd'
-    #title = 'BackEnd'
-    #brand = 'BackEnd'
-    #mini_brand = 'BackEnd'
-    #need_staff=True
-    #need_login=True
-    #access_from_internet=True
-    #@property
-    #def menu(self):
-        #crt_user = self.request.user
-        #menu = [
-        
-            #{'label': '文章管理', 'url': page('admin_article'), 'visible': True},
-            #{'label':'首页广告图','url':page('banner'),'visible':True}
-        #]
+class PcAdminMenu(BaseEngine):
+    url_name = 'BackEnd'
+    title = 'BackEnd'
+    brand = 'BackEnd'
+    mini_brand = 'BackEnd'
+    need_staff=True
+    need_login=True
+    access_from_internet=True
+    @property
+    def menu(self):
+        crt_user = self.request.user
+        menu = [
+            {'label': '通话记录', 'url': page('callrecord'), 'visible': True},
+        ]
 
-        #return menu
+        return menu
     
 
-#PcAdminMenu.add_pages(page_dc)
+PcAdminMenu.add_pages(page_dc)
 
 
 class AgoraProcessEngin(BaseEngine):
