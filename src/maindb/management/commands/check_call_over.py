@@ -23,8 +23,8 @@ class Command(BaseCommand):
             record.endtime = now
             record.save()
             sim_signal.send('call.end',record)
+            general_log.debug('检测到刷新时间过期，关闭通话记录%s'%record.pk)
         
-        general_log.debug('定时拨打任务结束')
     
 
     
