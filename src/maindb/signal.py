@@ -7,8 +7,9 @@ from django.utils import timezone
 @sim_signal.recieve('call.call')
 def call_call(uid,channel,src_uid=None,dst_uid=None,extra_msg=None,is_robot=False):
     VoiceMsgList.objects.create(uid = uid,channel=channel,status=0,extra_msg = extra_msg )
-    obj = CallRecord.objects.get_or_create(src_uid=src_uid,dst_uid=dst_uid,channel = channel,is_robot=is_robot)
-    CallEvent.objects.filter(channel=channel).update(record=obj)
+    obj,created = CallRecord.objects.get_or_create(src_uid=src_uid,dst_uid=dst_uid,channel = channel,is_robot=is_robot)
+    if created:
+        CallEvent.objects.filter(channel=channel).update(record=obj)
     
 
 @sim_signal.recieve('call.enter')
