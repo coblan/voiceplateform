@@ -35,7 +35,7 @@ class TestSimpleWash(TestCase):
         self.assertTrue( CallRecord.objects.count() == 1)
         
         # A 进入频道
-        rt = cl.post('/dapi/call/recieve',data={'uid':'1234','channel':rt.json().get('data').get('channel')})
+        rt = cl.post('/dapi/call/enter',data={'uid':'1234','channel':rt.json().get('data').get('channel')})
         self.assertTrue( CallRecord.objects.first().count == 1)
         
         #B 拉取消息
@@ -44,7 +44,7 @@ class TestSimpleWash(TestCase):
         self.assertTrue(CallRecord.objects.first().channel == channel)
         
         #B 接收
-        rt = cl.post('/dapi/call/recieve',data={'uid':'4321','channel':channel})
+        rt = cl.post('/dapi/call/enter',data={'uid':'4321','channel':channel})
         self.assertTrue( VoiceMsgList.objects.get(uid='4321').status == 1 )
         self.assertTrue(CallRecord.objects.first().count == 2)
         

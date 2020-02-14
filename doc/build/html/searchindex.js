@@ -4,7 +4,8 @@ Search.setIndex({docnames:["abstract","agora/api","api/index","api/myapi","api/o
 :[3,9],channel:[1,3,9,10],content:[2,8],cooki:7,createtim:3,cross:7,crt:3,dapi:[1,3,6,7,9],data:[1,3,6,7,9],devic:6,device
 :6,dgfd2et123:3,docutil:1,domain:7,dst:3,dst_uid
 :3,end
-:3,end:3,extra:3,extra_msg
+:3,end:3,enter
+:3,enter:3,extra:3,extra_msg
 :3,gaxmwinkozjweaybm10otseabu3laahhwcxgeaaqd2zbp:3,gener:4,get:[1,6],header:7,heartbeat
 :3,heartbeat:3,http:7,i7u62v4o5340950xt3jguyilxgmodvxp:7,icuufyy9auh4bal8beabxwigbpev5xqeaaqb9nphd:1,id
 :3,id:[1,3,6],index:8,invit:3,ix48sle954:3,javascript
@@ -14,8 +15,7 @@ Search.setIndex({docnames:["abstract","agora/api","api/index","api/myapi","api/o
 :3,msg:3,mychanel:1,mytone1:[3,6],mytone2:[3,6],null
 :3,option
 :9,option:[1,9],oz08xioyoy1xae4y0clfagsx6dxqr6i35iucovxleabnbng:3,page:[3,8],password:7,perpag:3,pk:3,post
-:7,post:[3,4,6,7,9],push:3,python:1,quit:3,reciev:3,recieve
-:3,reject:6,robot
+:7,post:[3,4,6,7,9],push:3,python:1,quit:3,reject:6,robot
 :3,robot:3,row:3,rq:3,rtc:1,rtm:[1,8],sdgsdgsg:3,sdgsdgsgwe:3,search:8,second:[3,6],send:3,src:3,src_uid
 :3,statu:3,stop:10,success:[1,3,6,7,9],sx0:3,tabl:1,tbodi:1,td:1,test:1,th:1,thead:1,time:3,token
 :1,token:[3,6,7,8],tone

@@ -8,7 +8,11 @@ from django.utils import timezone
 def call_call(uid,channel,src_uid=None,dst_uid=None,extra_msg=None,is_robot=False):
     VoiceMsgList.objects.create(uid = uid,channel=channel,status=0,extra_msg = extra_msg )
     CallRecord.objects.get_or_create(src_uid=src_uid,dst_uid=dst_uid,channel = channel,is_robot=is_robot)
-    
+
+@sim_signal.recieve('call.reject')
+def call_reject(channel):
+    pass
+
 @sim_signal.recieve('call.enter')
 def call_start(uid,channel):
     VoiceMsgList.objects.filter(uid = uid,channel=channel).update(status=1)

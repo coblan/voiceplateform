@@ -125,13 +125,13 @@ def get_voice_msg(uid):
         rows.append(sim_dict(item))
     return rows
 
-@director_view('call/recieve')
+@director_view('call/enter')
 def recieve(uid,channel):
     '''{"doc":"api/call.md"}
     ### 接收频道
     SDK接听电话时，需要通知服务器，服务器会更新相关信息。
     ```
-    [POST]    /dapi/call/recieve
+    [POST]    /dapi/call/enter
     参数
     {
         uid:'12343',# 用户uid，必填

@@ -169,7 +169,7 @@
 被叫用户接听电话时，客户端调用该接口通知后台，并且获取相应的token
 
 ```
-[POST]  /dapi/call/recieve
+[POST]  /dapi/call/enter
 
 示例参数:
 {

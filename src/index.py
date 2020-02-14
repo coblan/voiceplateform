@@ -61,7 +61,7 @@ director_views = {
     "call/user"	:part3.Agora_interface.call_user,
     "call/end"	:part3.Agora_interface.end_call,
     "call/msg"	:part3.Agora_interface.get_voice_msg,
-    "call/recieve"	:part3.Agora_interface.recieve,
+    "call/enter"	:part3.Agora_interface.recieve,
     "call/heartbeat"	:maindb.admin_callrecord.refresh_call_record,
     
     "invite/robot"	:part3.Agora_interface.invite_robot,

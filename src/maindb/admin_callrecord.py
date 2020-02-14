@@ -21,7 +21,11 @@ class CallRecordPage(TablePage):
 @director_view('call/heartbeat')
 def refresh_call_record(channel):
     CallRecord.objects.filter(channel=channel).update(refreshtime=timezone.now())
-    
+
+@director_view('call/reject')
+def reject_call_record(channel):
+    sim_signal.send('call.reject',channel)
+    CallRecord.objects.filter(channel=channel).update(refreshtime=timezone.now())
 
 director.update({
     'callrecord':CallRecordPage.tableCls
