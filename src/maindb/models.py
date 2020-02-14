@@ -52,4 +52,22 @@ class CallRecord(models.Model):
     count = models.IntegerField('人员计数',default=0)
     is_robot = models.BooleanField('是否机器人',default=False)
     
+    class Meta:
+        indexes = [
+            models.Index(fields=['channel',]),
+        ]
+
+
     
+class CallEvent(models.Model):
+    record = models.ForeignKey(CallRecord,blank=True,null=True)
+    uid = models.IntegerField('上报用户',blank=True,null=True)
+    channel = models.CharField('通话频道',max_length=30)
+    code = models.IntegerField('事件编码',blank=True,null=True)
+    desp = models.TextField('时间描述',blank=True)
+    createtime = models.DateTimeField('产生时间',auto_now_add=True)
+    
+    class Meta:
+        indexes = [
+            models.Index(fields=['channel',]),
+        ]

@@ -1,5 +1,6 @@
 from helpers.director.shortcut import FieldsPage,Fields,page_dc,director,director_view
 from helpers.director.kv import get_json,set_json
+from django.conf import settings
 
 class ConfigFormPage(FieldsPage):
     def get_label(self):
@@ -25,7 +26,8 @@ class ConfigFormPage(FieldsPage):
 @director_view('system/config')
 def get_config():
     return {
-        'channel_heartbeat':get_json('cfg_channel_heartbeat',30)
+        'channel_heartbeat':get_json('cfg_channel_heartbeat',30),
+        'agora_appid':settings.AGORA.get('appID'),
     }
 
 director.update({

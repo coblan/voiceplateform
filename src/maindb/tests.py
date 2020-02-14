@@ -1,5 +1,5 @@
 from django.test import TestCase,Client
-from .models import VoiceMsgList,CallTask,CallRecord
+from .models import VoiceMsgList,CallTask,CallRecord,CallEvent
 import json
 from django.core.management import call_command
 from unittest import mock
@@ -74,8 +74,11 @@ class TestSimpleWash(TestCase):
         call_command('calltask')
         self.assertTrue(len(rabmq) ==1)
         
-        CallRecord.objects.create(src_uid='11',dst_uid=['23','44'],channel='12321',starttime='2020-01-01 10:06:00',refreshtime='2020-01-01 10:07:00')
+        call_record = CallRecord.objects.create(src_uid='11',dst_uid=['23','44'],channel='ch_12345',starttime='2020-01-01 10:06:00',refreshtime='2020-01-01 10:07:00')
         call_command('check_call_over')
         
+        rt = cl.post('/dapi/call/event',data={'uid':'1234','channel':"ch_12345",'code':123,"desp":'ppp'})
+        self.assertEqual(CallEvent.objects.count(),1)
+        self.assertEqual(CallEvent.objects.first().record,call_record)
         print('yy')
         

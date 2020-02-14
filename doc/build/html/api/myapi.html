@@ -92,14 +92,15 @@
 <li class="toctree-l3"><a class="reference internal" href="#id5">4.2.4. 最近通话消息</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id6">4.2.5. 用户进入频道通话</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id7">4.2.6. 挂断电话</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id8">4.2.7. 请求机器人进入频道</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id9">4.2.8. 将机器人踢出频道</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id10">4.2.9. 定时拨打电话</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id11">上传拨打信息</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id12">获取拨打列表</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">4.2.7. 通话事件上报</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">4.2.8. 请求机器人进入频道</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">4.2.9. 将机器人踢出频道</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">4.2.10. 定时拨打电话</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id12">上传拨打信息</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id13">获取拨打列表</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id13">4.2.10. 心跳检查通话</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">4.2.11. 心跳检查通话</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="other_api.html">4.3. 其他接口</a></li>
@@ -485,7 +486,50 @@ B-&gt;&gt;RTC:离开频道
 </tbody>
 </table></div>
 <div class="section" id="id8">
-<h2>4.2.7. 请求机器人进入频道<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<h2>4.2.7. 通话事件上报<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">call</span><span class="o">/</span><span class="n">event</span>
+
+<span class="n">参数</span><span class="p">{</span>
+    <span class="s2">&quot;uid&quot;</span><span class="p">:</span><span class="s2">&quot;12345&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;channel&quot;</span><span class="p">:</span><span class="s2">&quot;ch_1235&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;code&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> 
+    <span class="s2">&quot;desp&quot;</span><span class="p">:</span><span class="s2">&quot;接通&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+<th>必填</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uid</td>
+<td>用户的uid</td>
+<td>是</td>
+</tr>
+<tr>
+<td>channel</td>
+<td>频道</td>
+<td>是</td>
+</tr>
+<tr>
+<td>code</td>
+<td>事件编码</td>
+<td>是</td>
+</tr>
+<tr>
+<td>desp</td>
+<td>详细描述</td>
+<td>否</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id9">
+<h2>4.2.8. 请求机器人进入频道<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <p>当用户拒接电话时，可以请求机器人接入该频道</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">invite</span><span class="o">/</span><span class="n">robot</span>
 
@@ -529,8 +573,8 @@ B-&gt;&gt;RTC:离开频道
 </pre></div>
 </div>
 </div>
-<div class="section" id="id9">
-<h2>4.2.8. 将机器人踢出频道<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id10">
+<h2>4.2.9. 将机器人踢出频道<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">quit</span><span class="o">/</span><span class="n">robot</span>
 
 <span class="n">示例参数</span>
@@ -560,11 +604,11 @@ B-&gt;&gt;RTC:离开频道
 </pre></div>
 </div>
 </div>
-<div class="section" id="id10">
-<h2>4.2.9. 定时拨打电话<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
-<p>定时拨打需要更新拨打信息</p>
 <div class="section" id="id11">
-<h3>上传拨打信息<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<h2>4.2.10. 定时拨打电话<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<p>定时拨打需要更新拨打信息</p>
+<div class="section" id="id12">
+<h3>上传拨打信息<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">calltask</span><span class="o">/</span><span class="n">update</span>
 
 <span class="n">参数</span>
@@ -616,8 +660,8 @@ B-&gt;&gt;RTC:离开频道
 </tr>
 </tbody>
 </table></div>
-<div class="section" id="id12">
-<h3>获取拨打列表<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id13">
+<h3>获取拨打列表<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">calltask</span><span class="o">/</span><span class="nb">list</span>
 <span class="n">参数示例</span>
 <span class="p">{</span>
@@ -662,8 +706,8 @@ B-&gt;&gt;RTC:离开频道
 </div>
 </div>
 </div>
-<div class="section" id="id13">
-<h2>4.2.10. 心跳检查通话<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id14">
+<h2>4.2.11. 心跳检查通话<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
 <p>当处在某个频道通话时，客户端需要每隔30内通知一次后台，否则后台可能会判断客户端已经掉线。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">call</span><span class="o">/</span><span class="n">heartbeat</span>
 <span class="n">参数</span>
@@ -717,7 +761,7 @@ B-&gt;&gt;RTC:离开频道
   <div role="contentinfo">
     <p>
         &copy; Copyright 2019, coblan
-      Last updated on 2020-02-14 12:54:31.
+      Last updated on 2020-02-14 15:20:02.
 
     </p>
   </div>
