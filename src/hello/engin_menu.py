@@ -22,6 +22,7 @@ class PcAdminMenu(BaseEngine):
         crt_user = self.request.user
         menu = [
             {'label': '通话记录', 'url': page('callrecord'), 'visible': True},
+            {'label': '配置管理', 'url': page('config'), 'visible': True},
         ]
 
         return menu

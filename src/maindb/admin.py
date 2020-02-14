@@ -5,3 +5,4 @@ from . import signal
 from . import admin_accountinfo
 from . import admin_calltask
 from . import admin_callrecord
+from . import admin_config
