@@ -20,7 +20,7 @@ class CallRecordPage(TablePage):
     #sim_signal.send('call.enter',uid=uid,channel=channel)
 
 @director_view('call/heartbeat')
-def refresh_call_record(channel):
+def refresh_call_record(uid,channel):
     CallRecord.objects.filter(channel=channel).update(refreshtime=timezone.now())
 
 @director_view('call/event')
