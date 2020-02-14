@@ -17,3 +17,20 @@
     "/media/general_upload/0a2533c28a18ac79057a93b5817da886.jpg"
 ]
 ```
+
+## 系统设置
+
+```
+[GET]  /dapi/system/config
+```
+
+返回:
+
+```
+{
+    "success": true,
+    "data": {
+        "channel_heartbeat": 30，// 频道心跳间隔
+    }
+}
+```

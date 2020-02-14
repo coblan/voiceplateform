@@ -87,6 +87,7 @@
 <li class="toctree-l2"><a class="reference internal" href="myapi.html">4.2. 拨打</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">4.3. 其他接口</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#upload">4.3.1. 文件上传</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">4.3.2. 系统设置</a></li>
 </ul>
 </li>
 </ul>
@@ -172,6 +173,21 @@
 </pre></div>
 </div>
 </div>
+<div class="section" id="id3">
+<h2>4.3.2. 系统设置<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">GET</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">system</span><span class="o">/</span><span class="n">config</span>
+</pre></div>
+</div>
+<p>返回:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>{
+    &quot;success&quot;: true,
+    &quot;data&quot;: {
+        &quot;channel_heartbeat&quot;: 30，// 频道心跳间隔
+    }
+}
+</pre></div>
+</div>
+</div>
 </div>
 
 
@@ -193,7 +209,7 @@
   <div role="contentinfo">
     <p>
         &copy; Copyright 2019, coblan
-      Last updated on 2020-02-14 12:47:42.
+      Last updated on 2020-02-14 14:02:03.
 
     </p>
   </div>
@@ -219,7 +235,6 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script type="text/javascript" src="https://unpkg.com/mermaid@7.1.0/dist/mermaid.min.js"></script>
     
 
   
