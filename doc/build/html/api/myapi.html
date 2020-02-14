@@ -90,7 +90,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#id3">4.2.2. 用户拨打</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id4">4.2.3. 直接拨打机器人</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id5">4.2.4. 最近通话消息</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id6">4.2.5. 被叫用户接听</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">4.2.5. 用户进入频道通话</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id7">4.2.6. 挂断电话</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id8">4.2.7. 请求机器人进入频道</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id9">4.2.8. 将机器人踢出频道</a></li>
@@ -408,8 +408,8 @@ B-&gt;&gt;RTC:离开频道
 </table><p>当客户端退出频道时，必须通知服务器，以维持该状态值的准确性。</p>
 </div>
 <div class="section" id="id6">
-<h2>4.2.5. 被叫用户接听<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
-<p>任何进入频道时，客户端调用该接口通知后台，并且获取相应的token。后台会通过计数，判断频道是否通过结束。</p>
+<h2>4.2.5. 用户进入频道通话<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>任何用户频道通话时，客户端调用该接口通知后台，并且获取相应的token。后台会通过计数，判断频道是否通过结束。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">call</span><span class="o">/</span><span class="n">enter</span>
 
 <span class="n">示例参数</span><span class="p">:</span>
@@ -717,7 +717,7 @@ B-&gt;&gt;RTC:离开频道
   <div role="contentinfo">
     <p>
         &copy; Copyright 2019, coblan
-      Last updated on 2020-02-14 12:52:33.
+      Last updated on 2020-02-14 12:54:31.
 
     </p>
   </div>
