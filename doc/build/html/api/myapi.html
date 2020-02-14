@@ -409,7 +409,7 @@ B-&gt;&gt;RTC:离开频道
 </div>
 <div class="section" id="id6">
 <h2>4.2.5. 被叫用户接听<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
-<p>被叫用户接听电话时，客户端调用该接口通知后台，并且获取相应的token</p>
+<p>任何进入频道时，客户端调用该接口通知后台，并且获取相应的token。后台会通过计数，判断频道是否通过结束。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">call</span><span class="o">/</span><span class="n">enter</span>
 
 <span class="n">示例参数</span><span class="p">:</span>
@@ -717,7 +717,7 @@ B-&gt;&gt;RTC:离开频道
   <div role="contentinfo">
     <p>
         &copy; Copyright 2019, coblan
-      Last updated on 2020-02-14 12:47:42.
+      Last updated on 2020-02-14 12:52:33.
 
     </p>
   </div>
