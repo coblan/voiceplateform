@@ -3,6 +3,11 @@ from .models import VoiceMsgList,CallRecord,CallEvent
 from django.db.models import F
 import json
 from django.utils import timezone
+import requests
+from helpers.director.kv import get_json
+from helpers.director.model_func.dictfy import sim_dict
+import logging
+general_log = logging.getLogger('general_log')
 
 @sim_signal.recieve('call.call')
 def call_call(uid,channel,src_uid=None,dst_uid=None,extra_msg=None,is_robot=False):
@@ -33,6 +38,21 @@ def call_quit(uid,channel):
 
 @sim_signal.recieve('call.end')
 def call_end(record):
-    pass
-    
+    url = get_json('cfg_push_call_record')
+    if url:
+        dc = sim_dict(record)
+        event = []
+        for item in record.callevent_set.all():
+            item_dc = sim_dict(item)
+            for k,v in dict(item_dc).items():
+                if k.startswith('_'):
+                    item_dc.pop(k)
+            event.append(item_dc)
+        dc['event'] = event
+        rt = requests.post(url,json= {'callrecord':dc})
+        
+        general_log.info('推送拨打记录给客户,返回状态码%s,返回结果%s'%(rt.status_code,rt.text))
+        
+    else:
+        general_log.info('推送拨打记录给客户，但是没有设置推送地址!')
 

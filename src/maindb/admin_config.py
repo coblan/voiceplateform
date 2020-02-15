@@ -12,16 +12,19 @@ class ConfigFormPage(FieldsPage):
     class fieldsCls(Fields):
         def get_heads(self):
             return [
-                {'name':'cfg_channel_heartbeat','label':'频道心跳间隔','editor':'com-field-number','fv_rule':'integer(+)','suffix':'秒'}
+                {'name':'cfg_channel_heartbeat','label':'频道心跳间隔','editor':'com-field-number','fv_rule':'integer(+)','suffix':'秒'},
+                {'name':'cfg_push_call_record','label':'电话记录推送地址','editor':'com-field-linetext'},
             ]
         
         def dict_row(self):
             return {
-                'cfg_channel_heartbeat':get_json('cfg_channel_heartbeat',30)
+                'cfg_channel_heartbeat':get_json('cfg_channel_heartbeat',30),
+                'cfg_push_call_record':get_json('cfg_push_call_record','')
             }
         
         def save_form(self):
             set_json('cfg_channel_heartbeat',self.kw.get('cfg_channel_heartbeat'))
+            set_json('cfg_push_call_record',self.kw.get('cfg_push_call_record'))
 
 @director_view('system/config')
 def get_config():

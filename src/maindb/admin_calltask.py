@@ -36,6 +36,10 @@ def update_calltask(**row):
     row['_director_name'] = 'calltask.edit'
     return director_save_row(row)
 
+#@director_view('call/test')
+#def testmy(**kws):
+# "测试了下推送通话记录到外部系统"
+    #print(kws)
 
 director.update({
     'calltask':CallTaskPage,

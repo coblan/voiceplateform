@@ -88,6 +88,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">4.3. 其他接口</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#upload">4.3.1. 文件上传</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id3">4.3.2. 系统设置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">4.3.3. 外部系统</a></li>
 </ul>
 </li>
 </ul>
@@ -189,6 +190,49 @@
 </pre></div>
 </div>
 </div>
+<div class="section" id="id4">
+<h2>4.3.3. 外部系统<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>客户如果需要同步通话记录，可以在后台设置回调API地址。每当通话结束时，后台会向这个回调地址发送通话记录数据。</p>
+<ol class="simple">
+<li>在后台配置推送地址。该地址的接口API，应该能够接受POST请求,json格式。</li>
+<li>后台在通话结束时，如果配置了回调api地址，会向该api推送该条通话记录。</li>
+</ol>
+<p>推送的通话记录数据结构如下。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;callrecord&#39;</span><span class="p">:{</span>
+        <span class="s1">&#39;channel&#39;</span><span class="p">:</span> <span class="s1">&#39;ch_56Cm7p82K5&#39;</span><span class="p">,</span>  <span class="o">//</span> <span class="n">通话频道</span>
+        
+        <span class="s1">&#39;dst_uid&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;511&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+        <span class="s1">&#39;is_robot&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s1">&#39;src_uid&#39;</span><span class="p">:</span> <span class="s1">&#39;515&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;starttime&#39;</span><span class="p">:</span> <span class="s1">&#39;2020-02-12 21:02:27&#39;</span>
+        <span class="s1">&#39;endtime&#39;</span><span class="p">:</span> <span class="s1">&#39;2020-02-12 21:026:27&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;event&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;channel&#39;</span><span class="p">:</span> <span class="s1">&#39;ch_56Cm7p82K5&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;code&#39;</span><span class="p">:</span> <span class="mi">102</span><span class="p">,</span>
+                    <span class="s1">&#39;createtime&#39;</span><span class="p">:</span> <span class="s1">&#39;2020-02-14 21:02:27&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;desp&#39;</span><span class="p">:</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+                    <span class="s1">&#39;pk&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+                    <span class="s1">&#39;record&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+                    <span class="s1">&#39;uid&#39;</span><span class="p">:</span> <span class="mi">515</span><span class="p">},</span>
+                <span class="p">{</span><span class="s1">&#39;channel&#39;</span><span class="p">:</span> <span class="s1">&#39;ch_56Cm7p82K5&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;code&#39;</span><span class="p">:</span> <span class="mi">103</span><span class="p">,</span>
+                    <span class="s1">&#39;createtime&#39;</span><span class="p">:</span> <span class="s1">&#39;2020-02-14 21:02:27&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;desp&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+                    <span class="s1">&#39;pk&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+                    <span class="s1">&#39;record&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+                    <span class="s1">&#39;uid&#39;</span><span class="p">:</span> <span class="mi">511</span><span class="p">}],</span>
+
+        <span class="s1">&#39;pk&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+        <span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>  
+        <span class="s1">&#39;refreshtime&#39;</span><span class="p">:</span> <span class="s1">&#39;2020-02-14 21:02:27&#39;</span><span class="p">,</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 
@@ -210,7 +254,7 @@
   <div role="contentinfo">
     <p>
         &copy; Copyright 2019, coblan
-      Last updated on 2020-02-14 15:20:02.
+      Last updated on 2020-02-15 18:37:07.
 
     </p>
   </div>
