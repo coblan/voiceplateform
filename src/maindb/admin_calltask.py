@@ -11,7 +11,7 @@ class CallTaskPage(TablePage):
     class tableCls(ModelTable):
         model = CallTask
         exclude =[]
-
+        
 class CallTaskForm(ModelFields):
     nolimit = True
     class Meta:

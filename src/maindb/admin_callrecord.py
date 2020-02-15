@@ -2,7 +2,7 @@ from helpers.director.shortcut import TablePage,ModelTable,director,page_dc,dire
 from .models import CallRecord,CallEvent
 from django.utils import timezone
 from helpers.func.sim_signal import sim_signal
-from django.db.models import OuterRef, Subquery,F
+from django.db.models import OuterRef, Subquery,F,Count
 
 class CallRecordPage(TablePage):
     def get_label(self):
@@ -14,10 +14,33 @@ class CallRecordPage(TablePage):
     class tableCls(ModelTable):
         model = CallRecord
         exclude =[]
+        
+        def getExtraHead(self):
+            return [
+                {'name':'event_count','label':'事件数量','editor':'com-table-span'}
+            ]
+        
+        def inn_filter(self, query):
+            return query.annotate(event_count = Count('callevent') )
+        
+        def dict_row(self, inst):
+            return {
+                'event_count':inst.event_count
+            }
+        
+        def dict_head(self, head):
+            if head['name'] =='event_count':
+                head['editor']='com-table-click'
+                head['action']='scope.head.table_ctx.search_args._par=scope.row.pk;cfg.pop_vue_com("com-table-panel",scope.head.table_ctx)'
+                head['table_ctx']=CallEventTab().get_head_context()
+            return head
 
-#@director_view('call/enter')
-#def call_enter(uid,channel):
-    #sim_signal.send('call.enter',uid=uid,channel=channel)
+class CallEventTab(ModelTable):
+    model = CallEvent
+    exclude =['record']
+    
+    def inn_filter(self, query):
+        return query.filter(record_id = self.search_args.get('_par'))
 
 @director_view('call/heartbeat')
 def refresh_call_record(uid,channel):
@@ -39,7 +62,8 @@ def event_call_record(uid,channel,code,desp=''):
 
 
 director.update({
-    'callrecord':CallRecordPage.tableCls
+    'callrecord':CallRecordPage.tableCls,
+    'callevent-tab':CallEventTab
 })
 
 page_dc.update({

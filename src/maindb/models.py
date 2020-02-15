@@ -64,7 +64,7 @@ class CallEvent(models.Model):
     uid = models.IntegerField('上报用户',blank=True,null=True)
     channel = models.CharField('通话频道',max_length=30)
     code = models.IntegerField('事件编码',blank=True,null=True)
-    desp = models.TextField('时间描述',blank=True)
+    desp = models.TextField('事件描述',blank=True)
     createtime = models.DateTimeField('产生时间',auto_now_add=True)
     
     class Meta:
