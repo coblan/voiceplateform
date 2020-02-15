@@ -1,4 +1,4 @@
-from helpers.director.shortcut import TablePage,ModelTable,director,page_dc,director_view
+from helpers.director.shortcut import TablePage,ModelTable,director,page_dc,director_view,RowFilter
 from .models import CallRecord,CallEvent
 from django.utils import timezone
 from helpers.func.sim_signal import sim_signal
@@ -34,6 +34,9 @@ class CallRecordPage(TablePage):
                 head['action']='scope.head.table_ctx.search_args._par=scope.row.pk;cfg.pop_vue_com("com-table-panel",scope.head.table_ctx)'
                 head['table_ctx']=CallEventTab().get_head_context()
             return head
+        
+        class filters(RowFilter):
+            range_fields=['starttime']
 
 class CallEventTab(ModelTable):
     model = CallEvent
