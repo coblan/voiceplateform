@@ -17,7 +17,8 @@ page_dc = {
     "jb_user"	:helpers.case.jb_admin.admin.UserPage,
     "jb_group"	:helpers.case.jb_admin.admin.GroupPage,
     "accountinfo"	:maindb.admin_accountinfo.AccountInfoPage,
-     "callrecord"	:maindb.admin_callrecord.CallRecordPage,
+    "callrecord"	:maindb.admin_callrecord.CallRecordPage,
+    "config"	:maindb.admin_config.ConfigFormPage,
 }
 director = {
     "permit.programer"	:helpers.director.admin.PermitPage.PermitTable,
@@ -36,6 +37,9 @@ director = {
     "calltask/list"	:maindb.admin_calltask.UserCallTask,
     
     "callrecord"	:maindb.admin_callrecord.CallRecordPage.tableCls,
+    
+    "callevent-tab"	:maindb.admin_callrecord.CallEventTab,
+    "config"	:maindb.admin_config.ConfigFormPage.fieldsCls,
 }
 director_views = {
     "d.save_row"	:helpers.director.dapi.save_row,
@@ -59,11 +63,11 @@ director_views = {
     "account/update"	:maindb.admin_accountinfo.update_account_info,
     "account/reject-tone"	:maindb.admin_accountinfo.upload_reject_tone,
     "call/user"	:part3.Agora_interface.call_user,
-    "call/end"	:part3.Agora_interface.end_call,
     "call/msg"	:part3.Agora_interface.get_voice_msg,
-    "call/enter"	:part3.Agora_interface.recieve,
+    "call/token"	:part3.Agora_interface.recieve,
     "call/heartbeat"	:maindb.admin_callrecord.refresh_call_record,
-    
+    "call/event"	:maindb.admin_callrecord.event_call_record,
+      
     "invite/robot"	:part3.Agora_interface.invite_robot,
     "call/robot"	:part3.Agora_interface.call_robot,
     "quit/robot"	:part3.Agora_interface.quit_robot,
@@ -73,6 +77,8 @@ director_views = {
     
     "account/get-reject-tone"	:maindb.admin_accountinfo.get_reject_tone,
     "calltask/update"	:maindb.admin_calltask.update_calltask,
+  
+    "system/config"	:maindb.admin_config.get_config,
     
    
 }

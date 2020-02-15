@@ -35,8 +35,9 @@ class TestSimpleWash(TestCase):
         self.assertTrue( CallRecord.objects.count() == 1)
         
         # A 进入频道
-        rt = cl.post('/dapi/call/enter',data={'uid':'1234','channel':rt.json().get('data').get('channel')})
+        rt = cl.post('/dapi/call/event',data={'uid':'1234','channel':rt.json().get('data').get('channel'),'code':1})
         self.assertTrue( CallRecord.objects.first().count == 1)
+        self.assertEqual(CallEvent.objects.count(),1)
         
         #B 拉取消息
         rt = cl.post('/dapi/call/msg',data={'uid':'4321'})
@@ -44,20 +45,21 @@ class TestSimpleWash(TestCase):
         self.assertTrue(CallRecord.objects.first().channel == channel)
         
         #B 接收
-        rt = cl.post('/dapi/call/enter',data={'uid':'4321','channel':channel})
+        rt = cl.post('/dapi/call/event',data={'uid':'4321','channel':channel,'code':1})
         self.assertTrue( VoiceMsgList.objects.get(uid='4321').status == 1 )
         self.assertTrue(CallRecord.objects.first().count == 2)
         
         #B 挂断
-        rt = cl.post('/dapi/call/end',data={'uid':'4321','channel':channel})
+        rt = cl.post('/dapi/call/event',data={'uid':'4321','channel':channel,'code':2})
         self.assertTrue( VoiceMsgList.objects.get(uid='4321').status == 2 )
         self.assertTrue(CallRecord.objects.first().count == 1)
         
         #A 挂断
-        rt = cl.post('/dapi/call/end',data={'uid':'1234','channel':channel})
+        rt = cl.post('/dapi/call/event',data={'uid':'1234','channel':channel,'code':2})
         self.assertTrue( VoiceMsgList.objects.get(uid='1234').status == 2 )
         self.assertTrue(CallRecord.objects.first().count == 0)
         self.assertTrue(CallRecord.objects.first().endtime)
+        self.assertEqual(CallEvent.objects.count(),4)
         
         # 上传拨打任务
         data = {'src_uid':'1234','dst_uid':['1235','1236'],'call_time':'2020-01-01 10:09:00',
@@ -78,7 +80,6 @@ class TestSimpleWash(TestCase):
         call_command('check_call_over')
         
         rt = cl.post('/dapi/call/event',data={'uid':'1234','channel':"ch_12345",'code':123,"desp":'ppp'})
-        self.assertEqual(CallEvent.objects.count(),1)
-        self.assertEqual(CallEvent.objects.first().record,call_record)
+        self.assertEqual(CallEvent.objects.count(),6)
         print('yy')
         

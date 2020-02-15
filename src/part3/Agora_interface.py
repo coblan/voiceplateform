@@ -91,26 +91,26 @@ def call_user(src_uid,dst_uid =None,extra_msg=''):
         'token':token,
     }
 
-@director_view('call/end')
-def end_call(uid,channel):
-    '''{'doc':'api/call.md',}
-    ### 结束拨打
-    当用户挂断电话时，SDK通知后台，后台会更新用户的语音消息状态。
-    ```
-    [POST]    /dapi/call/end
-    参数:
-    {
-        uid:'12355', # 用户ID ,必填
-        channel:"ch_12356f34", # 频道名称，必填
-    }
-    返回:
-    {
-    }
-    ```
-    '''
-    sim_signal.send('call.quit',uid=uid,channel=channel)
-    #VoiceMsgList.objects.filter(uid = uid,channel=channel).update(status=2)
-    general_log.debug('[%(uid)s]结束[%(channel)s]通话'%locals() )
+#@director_view('call/end')
+#def end_call(uid,channel):
+    #'''{'doc':'api/call.md',}
+    #### 结束拨打
+    #当用户挂断电话时，SDK通知后台，后台会更新用户的语音消息状态。
+    #```
+    #[POST]    /dapi/call/end
+    #参数:
+    #{
+        #uid:'12355', # 用户ID ,必填
+        #channel:"ch_12356f34", # 频道名称，必填
+    #}
+    #返回:
+    #{
+    #}
+    #```
+    #'''
+    #sim_signal.send('call.quit',uid=uid,channel=channel)
+    ##VoiceMsgList.objects.filter(uid = uid,channel=channel).update(status=2)
+    #general_log.debug('[%(uid)s]结束[%(channel)s]通话'%locals() )
 
 @director_view('call/msg')
 def get_voice_msg(uid):
@@ -125,11 +125,11 @@ def get_voice_msg(uid):
         rows.append(sim_dict(item))
     return rows
 
-@director_view('call/enter')
+@director_view('call/token')
 def recieve(uid,channel):
     '''{"doc":"api/call.md"}
     ### 接收频道
-    SDK接听电话时，需要通知服务器，服务器会更新相关信息。
+    SDK接听电话时，获取token。
     ```
     [POST]    /dapi/call/enter
     参数
@@ -148,7 +148,7 @@ def recieve(uid,channel):
     token = RtcTokenBuilder.buildTokenWithAccount(appID, appCertificate, channelName, userAccount, Role_Attendee, privilegeExpiredTs)
     
     general_log.debug('[%(uid)s]接听[%(channel)s]通话'%locals() )
-    sim_signal.send('call.enter',uid,channel)
+    #sim_signal.send('call.enter',uid,channel)
     return {
         'appID':appID,
         'channel':channelName,

@@ -4,6 +4,7 @@ from django.utils import timezone
 from helpers.func.sim_signal import sim_signal
 from django.db.models import OuterRef, Subquery,F,Count
 
+
 class CallRecordPage(TablePage):
     def get_label(self):
         return '通话记录'
@@ -55,9 +56,18 @@ def event_call_record(uid,channel,code,desp=''):
         #record = CallRecord.objects.get(channel=channel)
     #except CallRecord.DoesNotExist:
         #record = None
+    """
+    code:
+    1. 用户进入
+    2. 用户退出
     
+    """
+    if int(code) == 1 :
+        sim_signal.send('call.enter',uid=uid,channel=channel)
+    if int(code) ==2:
+        sim_signal.send('call.quit',uid=uid,channel=channel)
+        
     obj = CallEvent.objects.create(uid=uid,channel=channel,code=code,desp=desp)
-    
     latest = CallRecord.objects.filter(channel=OuterRef('channel'))
     #CallEvent.objects.filter(pk = obj.pk).annotate(record_me = Subquery(latest.values('pk')[:1])).update(record_id=F('record_me'))
     CallEvent.objects.filter(pk = obj.pk).update(record_id= Subquery(latest.values('pk')[:1]) )

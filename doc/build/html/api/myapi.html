@@ -90,17 +90,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#id3">4.2.2. 用户拨打</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id4">4.2.3. 直接拨打机器人</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id5">4.2.4. 最近通话消息</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id6">4.2.5. 用户进入频道通话</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id7">4.2.6. 挂断电话</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id8">4.2.7. 通话事件上报</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id9">4.2.8. 请求机器人进入频道</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id10">4.2.9. 将机器人踢出频道</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id11">4.2.10. 定时拨打电话</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id12">上传拨打信息</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id13">获取拨打列表</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#id14">4.2.11. 心跳检查通话</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#token">4.2.5. 进入频道token</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="other_api.html">4.3. 其他接口</a></li>
@@ -408,10 +398,10 @@ B-&gt;&gt;RTC:离开频道
 </tbody>
 </table><p>当客户端退出频道时，必须通知服务器，以维持该状态值的准确性。</p>
 </div>
-<div class="section" id="id6">
-<h2>4.2.5. 用户进入频道通话<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
-<p>任何用户频道通话时，客户端调用该接口通知后台，并且获取相应的token。后台会通过计数，判断频道是否通过结束。</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">call</span><span class="o">/</span><span class="n">enter</span>
+<div class="section" id="token">
+<h2>4.2.5. 进入频道token<a class="headerlink" href="#token" title="Permalink to this headline">¶</a></h2>
+<p>任何用户频道通话时，通过该接口获取app token信息</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">call</span><span class="o">/</span><span class="n">token</span>
 
 <span class="n">示例参数</span><span class="p">:</span>
 <span class="p">{</span>
@@ -451,19 +441,18 @@ B-&gt;&gt;RTC:离开频道
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id7">
-<h2>4.2.6. 挂断电话<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
-<p>不管是接听用户还是主教用户挂断电话时，客户端都需要调用该接口，通知后台。</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">call</span><span class="o">/</span><span class="n">end</span>
+<!-- ### 挂断电话
+不管是接听用户还是主教用户挂断电话时，客户端都需要调用该接口，通知后台。
+```
+[POST]  /dapi/call/end
 
-<span class="n">示例参数</span><span class="p">:</span>
-<span class="p">{</span>
-<span class="s1">&#39;uid&#39;</span><span class="p">:</span><span class="s1">&#39;4321&#39;</span><span class="p">,</span>
-<span class="s1">&#39;channel&#39;</span><span class="p">:</span><span class="s1">&#39;ch_sdgsdgsgwe&#39;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
+示例参数:
+{
+'uid':'4321',
+'channel':'ch_sdgsdgsgwe'
+}
+```
+
 <table border="1" class="docutils">
 <thead>
 <tr>
@@ -484,19 +473,21 @@ B-&gt;&gt;RTC:离开频道
 <td>是</td>
 </tr>
 </tbody>
-</table></div>
-<div class="section" id="id8">
-<h2>4.2.7. 通话事件上报<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">call</span><span class="o">/</span><span class="n">event</span>
+</table>
 
-<span class="n">参数</span><span class="p">{</span>
-    <span class="s2">&quot;uid&quot;</span><span class="p">:</span><span class="s2">&quot;12345&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;channel&quot;</span><span class="p">:</span><span class="s2">&quot;ch_1235&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;code&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> 
-    <span class="s2">&quot;desp&quot;</span><span class="p">:</span><span class="s2">&quot;接通&quot;</span><span class="p">,</span>
-<span class="p">}</span>
-</pre></div>
-</div>
+### 通话事件上报
+
+```
+[POST]  /dapi/call/event
+
+参数{
+    "uid":"12345",
+    "channel":"ch_1235",
+    "code":1, 
+    "desp":"接通",
+}
+```
+
 <table border="1" class="docutils">
 <thead>
 <tr>
@@ -527,19 +518,21 @@ B-&gt;&gt;RTC:离开频道
 <td>否</td>
 </tr>
 </tbody>
-</table></div>
-<div class="section" id="id9">
-<h2>4.2.8. 请求机器人进入频道<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
-<p>当用户拒接电话时，可以请求机器人接入该频道</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">invite</span><span class="o">/</span><span class="n">robot</span>
+</table>
 
-<span class="n">示例参数</span><span class="p">:</span>
-<span class="p">{</span>
- <span class="s2">&quot;uid&quot;</span><span class="p">:</span><span class="s2">&quot;1235&quot;</span><span class="p">,</span>
-<span class="s1">&#39;channel&#39;</span><span class="p">:</span><span class="s1">&#39;ch_sdgsdgsgwe&#39;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
+### 请求机器人进入频道
+当用户拒接电话时，可以请求机器人接入该频道
+
+```
+[POST]  /dapi/invite/robot
+
+示例参数:
+{
+ "uid":"1235",
+'channel':'ch_sdgsdgsgwe'
+}
+```
+
 <table border="1" class="docutils">
 <thead>
 <tr>
@@ -560,27 +553,30 @@ B-&gt;&gt;RTC:离开频道
 <td>是</td>
 </tr>
 </tbody>
-</table><p>返回</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;success&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
-    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;appID&quot;</span><span class="p">:</span> <span class="s2">&quot;303156d224e44881a00af9cabc9e10d8&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;channel&quot;</span><span class="p">:</span> <span class="s2">&quot;ch_sdgsdgsgwe&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;uid&quot;</span><span class="p">:</span> <span class="s2">&quot;1235&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="s2">&quot;006303156d224e44881a00af9cabc9e10d8IADcxCL86Hiy0kAF/mKUdbNh2lBGVH+RQ+GAXMwinkoZjwEAybM10OTsEABu3lAAHhwcXgEAAQD2zBpe&quot;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="id10">
-<h2>4.2.9. 将机器人踢出频道<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">quit</span><span class="o">/</span><span class="n">robot</span>
+</table>
 
-<span class="n">示例参数</span>
-<span class="p">{</span><span class="s2">&quot;channel&quot;</span><span class="p">:</span><span class="s2">&quot;ch_dgfd2et123&quot;</span><span class="p">}</span>
-</pre></div>
-</div>
+返回
+```
+{
+    "success": true,
+    "data": {
+        "appID": "303156d224e44881a00af9cabc9e10d8",
+        "channel": "ch_sdgsdgsgwe",
+        "uid": "1235",
+        "token": "006303156d224e44881a00af9cabc9e10d8IADcxCL86Hiy0kAF/mKUdbNh2lBGVH+RQ+GAXMwinkoZjwEAybM10OTsEABu3lAAHhwcXgEAAQD2zBpe"
+    }
+}
+```
+
+### 将机器人踢出频道
+
+```
+[POST]  /dapi/quit/robot
+
+示例参数
+{"channel":"ch_dgfd2et123"}
+```
+
 <table border="1" class="docutils">
 <thead>
 <tr>
@@ -596,34 +592,37 @@ B-&gt;&gt;RTC:离开频道
 <td>是</td>
 </tr>
 </tbody>
-</table><p>返回</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;success&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
-    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">null</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="id11">
-<h2>4.2.10. 定时拨打电话<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
-<p>定时拨打需要更新拨打信息</p>
-<div class="section" id="id12">
-<h3>上传拨打信息<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">calltask</span><span class="o">/</span><span class="n">update</span>
+</table>
 
-<span class="n">参数</span>
-<span class="p">{</span>
-    <span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;src_uid&#39;</span><span class="p">:</span><span class="s1">&#39;1234&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;dst_uid&#39;</span><span class="p">:[</span><span class="s1">&#39;1235&#39;</span><span class="p">,</span><span class="s1">&#39;1236&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;call_time&#39;</span><span class="p">:</span><span class="s1">&#39;2020-02-02 20:20:00&#39;</span><span class="p">,</span>
-    <span class="s2">&quot;tone_list&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span><span class="s2">&quot;url&quot;</span><span class="p">:</span><span class="s2">&quot;/media/userfile/mytone1.mp3&quot;</span><span class="p">,</span><span class="s2">&quot;before_second&quot;</span><span class="p">:</span><span class="mi">10</span><span class="p">},</span>                      
-        <span class="p">{</span><span class="s2">&quot;url&quot;</span><span class="p">:</span><span class="s2">&quot;/media/userfile/mytone2.mp3&quot;</span><span class="p">,</span><span class="s2">&quot;before_second&quot;</span><span class="p">:</span><span class="mi">20</span><span class="p">}</span>
-    <span class="p">]</span>
-<span class="p">}</span>
-</pre></div>
-</div>
+返回
+```
+{
+    "success": true,
+    "data": null
+}
+```
+
+### 定时拨打电话
+
+定时拨打需要更新拨打信息
+
+#### 上传拨打信息
+```
+[POST]  /dapi/calltask/update
+
+参数
+{
+    'id':'',
+    'src_uid':'1234',
+    'dst_uid':['1235','1236'],
+    'call_time':'2020-02-02 20:20:00',
+    "tone_list": [
+        {"url":"/media/userfile/mytone1.mp3","before_second":10},                      
+        {"url":"/media/userfile/mytone2.mp3","before_second":20}
+    ]
+}
+```
+
 <table border="1" class="docutils">
 <thead>
 <tr>
@@ -659,16 +658,17 @@ B-&gt;&gt;RTC:离开频道
 <td>是</td>
 </tr>
 </tbody>
-</table></div>
-<div class="section" id="id13">
-<h3>获取拨打列表<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">calltask</span><span class="o">/</span><span class="nb">list</span>
-<span class="n">参数示例</span>
-<span class="p">{</span>
-    <span class="s1">&#39;uid&#39;</span><span class="p">:</span><span class="s1">&#39;1234&#39;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
+</table>
+
+#### 获取拨打列表
+```
+[POST]  /dapi/calltask/list
+参数示例
+{
+    'uid':'1234'
+}
+```
+
 <table border="1" class="docutils">
 <thead>
 <tr>
@@ -684,39 +684,43 @@ B-&gt;&gt;RTC:离开频道
 <td>是</td>
 </tr>
 </tbody>
-</table><p>返回:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s1">&#39;success&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> 
-    <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">&#39;rows&#39;</span><span class="p">:</span> <span class="p">[</span>
-            <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> 
-            <span class="s1">&#39;src_uid&#39;</span><span class="p">:</span> <span class="s1">&#39;1234&#39;</span><span class="p">,</span> 
-            <span class="s1">&#39;dst_uid&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;1235&#39;</span><span class="p">,</span> <span class="s1">&#39;1236&#39;</span><span class="p">],</span> 
-            <span class="s1">&#39;call_time&#39;</span><span class="p">:</span> <span class="s1">&#39;2020-02-02 20:20:00&#39;</span><span class="p">,</span> 
-            <span class="s1">&#39;tone_list&#39;</span><span class="p">:[],</span>
-            <span class="s1">&#39;pk&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">}],</span> 
-            <span class="s1">&#39;row_pages&#39;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s1">&#39;crt_page&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> 
-                <span class="s1">&#39;total&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> 
-                <span class="s1">&#39;perpage&#39;</span><span class="p">:</span> <span class="mi">20</span>
-                <span class="p">}</span>
-        <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="section" id="id14">
-<h2>4.2.11. 心跳检查通话<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
-<p>当处在某个频道通话时，客户端需要每隔30内通知一次后台，否则后台可能会判断客户端已经掉线。</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">call</span><span class="o">/</span><span class="n">heartbeat</span>
-<span class="n">参数</span>
-<span class="p">{</span>
-    <span class="n">uid</span><span class="p">:</span><span class="s1">&#39;1234&#39;</span><span class="p">,</span>
-    <span class="n">channel</span><span class="p">:</span><span class="s1">&#39;cha_235&#39;</span><span class="p">,</span>
-<span class="p">}</span>
-</pre></div>
-</div>
+</table>
+
+返回:
+```
+{
+    'success': True, 
+    'data': {
+        'rows': [
+            {'id': 8, 
+            'src_uid': '1234', 
+            'dst_uid': ['1235', '1236'], 
+            'call_time': '2020-02-02 20:20:00', 
+            'tone_list':[],
+            'pk': 8}], 
+            'row_pages': {
+                'crt_page': 1, 
+                'total': 1, 
+                'perpage': 20
+                }
+        }
+}
+
+```
+
+### 心跳检查通话
+
+当处在某个频道通话时，客户端需要每隔30内通知一次后台，否则后台可能会判断客户端已经掉线。
+
+```
+[POST]  /dapi/call/heartbeat
+参数
+{
+    uid:'1234',
+    channel:'cha_235',
+}
+```
+
 <table border="1" class="docutils">
 <thead>
 <tr>
@@ -761,7 +765,7 @@ B-&gt;&gt;RTC:离开频道
   <div role="contentinfo">
     <p>
         &copy; Copyright 2019, coblan
-      Last updated on 2020-02-15 18:37:07.
+      Last updated on 2020-02-16 03:45:54.
 
     </p>
   </div>
