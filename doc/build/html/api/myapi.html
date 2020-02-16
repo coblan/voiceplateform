@@ -493,6 +493,48 @@ B-&gt;&gt;RTC:离开频道
 <td>否</td>
 </tr>
 </tbody>
+</table><p>事件code具体描述</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>Code</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>开始通话 （指通话有2人或是多人进入通话）</td>
+</tr>
+<tr>
+<td>2</td>
+<td>通话结束 (在通话过程中结束通话，未进入通话前的拨号结束不是该事件)</td>
+</tr>
+<tr>
+<td>1000</td>
+<td>发起方事件：通话方取消通话，通话方发起通话，在通话在响铃未接通时通话方取消通话</td>
+</tr>
+<tr>
+<td>1001</td>
+<td>发起方事件：通话方发起通话，无人接听，超时结束通话</td>
+</tr>
+<tr>
+<td>1002  发起方事件：通话方发起通话，接听方拒接电话，通话结束</td>
+<td></td>
+</tr>
+<tr>
+<td>1003</td>
+<td>接听方事件：接听方拒接电话，通话结束</td>
+</tr>
+<tr>
+<td>1006 接听方事件：通话方取消通话，通话结束</td>
+<td></td>
+</tr>
+<tr>
+<td>1007</td>
+<td>通用事件：通话中遇到错误，通话失败，通话结束</td>
+</tr>
+</tbody>
 </table></div>
 <div class="section" id="id7">
 <h2>4.2.7. 请求机器人进入频道<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
@@ -727,7 +769,7 @@ B-&gt;&gt;RTC:离开频道
   <div role="contentinfo">
     <p>
         &copy; Copyright 2019, coblan
-      Last updated on 2020-02-16 03:48:49.
+      Last updated on 2020-02-16 21:25:48.
 
     </p>
   </div>
