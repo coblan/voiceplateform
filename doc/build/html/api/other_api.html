@@ -201,21 +201,20 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s1">&#39;callrecord&#39;</span><span class="p">:{</span>
         <span class="s1">&#39;channel&#39;</span><span class="p">:</span> <span class="s1">&#39;ch_56Cm7p82K5&#39;</span><span class="p">,</span>  <span class="o">//</span> <span class="n">通话频道</span>
-        
-        <span class="s1">&#39;dst_uid&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;511&#39;</span><span class="p">],</span>
-        <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
-        <span class="s1">&#39;is_robot&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="s1">&#39;src_uid&#39;</span><span class="p">:</span> <span class="s1">&#39;515&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;starttime&#39;</span><span class="p">:</span> <span class="s1">&#39;2020-02-12 21:02:27&#39;</span>
-        <span class="s1">&#39;endtime&#39;</span><span class="p">:</span> <span class="s1">&#39;2020-02-12 21:026:27&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;event&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;channel&#39;</span><span class="p">:</span> <span class="s1">&#39;ch_56Cm7p82K5&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;code&#39;</span><span class="p">:</span> <span class="mi">102</span><span class="p">,</span>
-                    <span class="s1">&#39;createtime&#39;</span><span class="p">:</span> <span class="s1">&#39;2020-02-14 21:02:27&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;desp&#39;</span><span class="p">:</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+        <span class="s1">&#39;dst_uid&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;511&#39;</span><span class="p">],</span>  <span class="o">//</span> <span class="n">被叫用户uid</span>
+        <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>  <span class="o">//</span> <span class="n">通话记录id</span>
+        <span class="s1">&#39;is_robot&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="o">//</span> <span class="n">是否机器人主动拨打</span>
+        <span class="s1">&#39;src_uid&#39;</span><span class="p">:</span> <span class="s1">&#39;515&#39;</span><span class="p">,</span>   <span class="o">//</span> <span class="n">拨打用户uid</span>
+        <span class="s1">&#39;starttime&#39;</span><span class="p">:</span> <span class="s1">&#39;2020-02-12 21:02:27&#39;</span>   <span class="o">//</span> <span class="n">通话开始时间</span>
+        <span class="s1">&#39;endtime&#39;</span><span class="p">:</span> <span class="s1">&#39;2020-02-12 21:026:27&#39;</span><span class="p">,</span>   <span class="o">//</span> <span class="n">通话结束时间</span>
+        <span class="s1">&#39;event&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;channel&#39;</span><span class="p">:</span> <span class="s1">&#39;ch_56Cm7p82K5&#39;</span><span class="p">,</span>  <span class="o">//</span> <span class="n">通话频道</span>
+                    <span class="s1">&#39;code&#39;</span><span class="p">:</span> <span class="mi">102</span><span class="p">,</span>   <span class="o">//</span> <span class="n">时间编码</span>
+                    <span class="s1">&#39;createtime&#39;</span><span class="p">:</span> <span class="s1">&#39;2020-02-14 21:02:27&#39;</span><span class="p">,</span>  <span class="o">//</span> <span class="n">事件发生时间</span>
+                    <span class="s1">&#39;desp&#39;</span><span class="p">:</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span>   <span class="o">//</span> <span class="n">事件详细描述</span>
+                    <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>   <span class="o">//</span> <span class="n">事件ID</span>
                     <span class="s1">&#39;pk&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
-                    <span class="s1">&#39;record&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
-                    <span class="s1">&#39;uid&#39;</span><span class="p">:</span> <span class="mi">515</span><span class="p">},</span>
+                    <span class="s1">&#39;record&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>  <span class="o">//</span> <span class="n">事件对应的通话记录ID</span>
+                    <span class="s1">&#39;uid&#39;</span><span class="p">:</span> <span class="mi">515</span><span class="p">},</span>   <span class="o">//</span> <span class="n">事件上报用户uid</span>
                 <span class="p">{</span><span class="s1">&#39;channel&#39;</span><span class="p">:</span> <span class="s1">&#39;ch_56Cm7p82K5&#39;</span><span class="p">,</span>
                     <span class="s1">&#39;code&#39;</span><span class="p">:</span> <span class="mi">103</span><span class="p">,</span>
                     <span class="s1">&#39;createtime&#39;</span><span class="p">:</span> <span class="s1">&#39;2020-02-14 21:02:27&#39;</span><span class="p">,</span>
@@ -232,7 +231,49 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
+<p>事件code具体描述:</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>Code</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>开始通话 （指通话有2人或是多人进入通话）</td>
+</tr>
+<tr>
+<td>2</td>
+<td>通话结束 (在通话过程中结束通话，未进入通话前的拨号结束不是该事件)</td>
+</tr>
+<tr>
+<td>1000</td>
+<td>发起方事件：通话方取消通话，通话方发起通话，在通话在响铃未接通时通话方取消通话</td>
+</tr>
+<tr>
+<td>1001</td>
+<td>发起方事件：通话方发起通话，无人接听，超时结束通话</td>
+</tr>
+<tr>
+<td>1002</td>
+<td>发起方事件：通话方发起通话，接听方拒接电话，通话结束</td>
+</tr>
+<tr>
+<td>1003</td>
+<td>接听方事件：接听方拒接电话，通话结束</td>
+</tr>
+<tr>
+<td>1006</td>
+<td>接听方事件：通话方取消通话，通话结束</td>
+</tr>
+<tr>
+<td>1007</td>
+<td>通用事件：通话中遇到错误，通话失败，通话结束</td>
+</tr>
+</tbody>
+</table></div>
 </div>
 
 
@@ -254,7 +295,7 @@
   <div role="contentinfo">
     <p>
         &copy; Copyright 2019, coblan
-      Last updated on 2020-02-16 21:25:48.
+      Last updated on 2020-02-16 21:34:13.
 
     </p>
   </div>
@@ -280,7 +321,6 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
-        <script type="text/javascript" src="https://unpkg.com/mermaid@7.1.0/dist/mermaid.min.js"></script>
     
 
   
