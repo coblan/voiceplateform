@@ -23,6 +23,8 @@ class PcAdminMenu(BaseEngine):
         menu = [
             {'label': '通话记录', 'url': page('callrecord'), 'visible': True},
             {'label': '配置管理', 'url': page('config'), 'visible': True},
+            {'label': '模拟api', 'url': page('mockapi'), 'visible': True},
+            
         ]
 
         return menu

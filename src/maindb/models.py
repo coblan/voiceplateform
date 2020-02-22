@@ -71,3 +71,9 @@ class CallEvent(models.Model):
         indexes = [
             models.Index(fields=['channel',]),
         ]
+        
+
+class MockApi(models.Model):
+    url = models.CharField('api地址',max_length=200)
+    content = models.TextField('返回内容',help_text='json字符串')
+    
