@@ -38,11 +38,11 @@ def dyn_mock_api(**kws):
     except MockApi.DoesNotExist:
         return {'msg':"api找不到"}
 
-#dc ={}
-#for inst in MockApi.objects.all():
-    #dc[inst.url] = dyn_mock_api
+dc ={}
+for inst in MockApi.objects.all():
+    dc[inst.url] = dyn_mock_api
 
-#director.update(dc)
+director.update(dc)
 
 director.update({
     'mockapi':MockapiPage.tableCls,
