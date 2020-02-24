@@ -20,19 +20,19 @@ class MockapiForm(ModelFields):
         model = MockApi
         exclude =[]
     
-    def after_save(self):
-        director.update({
-            self.instance.url:dyn_mock_api
-        })
+    #def after_save(self):
+        #director.update({
+            #self.instance.url:dyn_mock_api
+        #})
 
 
-@director_view('dyn_mock_api')
-def dyn_mock_api(**kws):
-    request = get_request_cache()['request']
-    path = request.get_full_path()
-    direcor_name = path[5:]
+@director_view('mock')
+def dyn_mock_api(api):
+    #request = get_request_cache()['request']
+    #path = request.get_full_path()
+    #direcor_name = path[5:]
     try:
-        mock = MockApi.objects.get(url=direcor_name)
+        mock = MockApi.objects.get(url=api)
 
         return json.loads(mock.content,encoding=False)
     except MockApi.DoesNotExist:
