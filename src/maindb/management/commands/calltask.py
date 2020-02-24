@@ -6,7 +6,7 @@ from django.utils import timezone
 from helpers.func.random_str import get_str
 from part3.apple.apns import VoiceCallPush
 from maindb.models import CallTask,Accountinfo
-from part3. rabbit_instance import send_msg,send_mp3
+from part3. rabbit_instance import send_msg,send_mp3,robot_call_user
 import json
 from helpers.func.sim_signal import sim_signal
 
@@ -24,11 +24,11 @@ class Command(BaseCommand):
             task.status = 1
             task.save()
             general_log.info('机器人拨打任务 %s'% task.pk )
-            call_user(task.src_uid,task.dst_uid,task.tone_list)
+            call_user(task.src_uid,task.dst_uid,task.taskid)
             
         general_log.debug('定时拨打任务结束')
     
-def call_user(src_uid,dst_uid,tone_list):
+def call_user(src_uid,dst_uid,taskid):
     '''
     机器人主动拨打电话给用户
     @dst_uid:list
@@ -42,7 +42,11 @@ def call_user(src_uid,dst_uid,tone_list):
     #token = RtcTokenBuilder.buildTokenWithAccount(appID, appCertificate, channelName, userAccount, Role_Attendee, privilegeExpiredTs)
     
     #VoiceMsgList.objects.create(uid = src_uid,channel=channelName,status=1,extra_msg=extra_msg)
-    send_mp3(channelName, tone_list,src_uid)
+    
+    
+    #send_mp3(channelName, tone_list,src_uid)
+    # 当前不需要推送mp3到前台，机器人自己去app后台拿
+    robot_call_user(src_uid, dst_list = dst_uid, channel =channelName,taskid=taskid)
     if dst_uid:
         for uid in dst_uid:
             #VoiceMsgList.objects.create(uid = uid,channel=channelName,extra_msg=extra_msg)

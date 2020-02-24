@@ -3,9 +3,9 @@ from django.conf import settings
 import time
 from . Agora.RtcTokenBuilder import RtcTokenBuilder
 from . Agora.RtmTokenBuilder import RtmTokenBuilder
-from . rabbit_instance import send_msg,send_mp3,notify_quit_robot
+from . rabbit_instance import send_msg,send_mp3,notify_quit_robot,robot_receive_call,robot_call_user
 from helpers.func.random_str import get_str
-from maindb.models import Accountinfo,VoiceMsgList
+from maindb.models import Accountinfo,VoiceMsgList,CallRecord
 from .apple.apns import VoiceCallPush
 from django.utils import timezone
 from helpers.director.model_func.dictfy import sim_dict
@@ -179,10 +179,14 @@ def invite_robot(uid,channel):
     token = RtcTokenBuilder.buildTokenWithAccount(appID, appCertificate, channelName, userAccount, Role_Attendee, privilegeExpiredTs)
     
     userinfo = Accountinfo.objects.filter(uid=uid).first()
-    if userinfo and userinfo.reject_tone:
-        send_mp3(channel,tone_list=json.loads(userinfo.reject_tone),src_uid= uid)
-    else:
-        send_mp3(channel,tone_list=[{'url':'/static/reject_tone.mp3','before_second':0},],src_uid= uid)
+    
+    # 根据当前需求，后台只需要推送 from to 给机器人，由机器人自己到 app后台去拿mp3数据
+    record = CallRecord.objects.get(channel = channelName)
+    robot_receive_call(src=record.src_uid, dst=uid, token=token, appid=appID, channel=channelName)
+    #if userinfo and userinfo.reject_tone:
+        #send_mp3(channel,tone_list=json.loads(userinfo.reject_tone),src_uid= uid)
+    #else:
+        #send_mp3(channel,tone_list=[{'url':'/static/reject_tone.mp3','before_second':0},],src_uid= uid)
     general_log.debug('[%(uid)s]拒绝接听,要求机器人进入[%(channel)s]'%locals() )
     VoiceMsgList.objects.filter(uid = uid,channel=channel).update(status=2)
     
@@ -222,7 +226,7 @@ def call_robot(src_uid):
 
 
 @director_view('quit/robot')
-def quit_robot(channel):
+def quit_robot(channel,uid=None):
     '''{"doc":"api/call.md"}
     ### 踢出机器人
     踢出机器人
@@ -235,7 +239,7 @@ def quit_robot(channel):
     ```
     '''
     general_log.debug('发送消息退出频道[%s]'%channel)
-    notify_quit_robot(channel)
+    notify_quit_robot(channel,uid)
 
     
 '''{"doc":"agora/early_test.md"}

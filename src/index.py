@@ -19,6 +19,8 @@ page_dc = {
     "accountinfo"	:maindb.admin_accountinfo.AccountInfoPage,
     "callrecord"	:maindb.admin_callrecord.CallRecordPage,
     "config"	:maindb.admin_config.ConfigFormPage,
+    
+    "mockapi"	:maindb.admin_mockapi.MockapiPage,
 }
 director = {
     "permit.programer"	:helpers.director.admin.PermitPage.PermitTable,
@@ -40,6 +42,11 @@ director = {
     
     "callevent-tab"	:maindb.admin_callrecord.CallEventTab,
     "config"	:maindb.admin_config.ConfigFormPage.fieldsCls,
+    
+    "mockapi"	:maindb.admin_mockapi.MockapiPage.tableCls,
+    "mockapi.edit"	:maindb.admin_mockapi.MockapiForm,
+    
+     "/hello/test"	:maindb.admin_mockapi.dyn_mock_api,
 }
 director_views = {
     "d.save_row"	:helpers.director.dapi.save_row,
@@ -80,6 +87,7 @@ director_views = {
   
     "system/config"	:maindb.admin_config.get_config,
     
+     "dyn_mock_api"	:maindb.admin_mockapi.dyn_mock_api,
    
 }
 

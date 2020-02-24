@@ -103,6 +103,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="other_api.html">4.3. 其他接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mq.html">4.4. rabbitmq</a></li>
 </ul>
 </li>
 </ul>
@@ -586,7 +587,10 @@ B-&gt;&gt;RTC:离开频道
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">quit</span><span class="o">/</span><span class="n">robot</span>
 
 <span class="n">示例参数</span>
-<span class="p">{</span><span class="s2">&quot;channel&quot;</span><span class="p">:</span><span class="s2">&quot;ch_dgfd2et123&quot;</span><span class="p">}</span>
+<span class="p">{</span>
+    <span class="s2">&quot;channel&quot;</span><span class="p">:</span><span class="s2">&quot;ch_dgfd2et123&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;uid&quot;</span><span class="p">:</span><span class="s2">&quot;1235&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
 </pre></div>
 </div>
 <table border="1" class="docutils">
@@ -601,6 +605,11 @@ B-&gt;&gt;RTC:离开频道
 <tr>
 <td>channel</td>
 <td>频道</td>
+<td>是</td>
+</tr>
+<tr>
+<td>uid</td>
+<td>请求的用户ID</td>
 <td>是</td>
 </tr>
 </tbody>
@@ -625,10 +634,7 @@ B-&gt;&gt;RTC:离开频道
     <span class="s1">&#39;src_uid&#39;</span><span class="p">:</span><span class="s1">&#39;1234&#39;</span><span class="p">,</span>
     <span class="s1">&#39;dst_uid&#39;</span><span class="p">:[</span><span class="s1">&#39;1235&#39;</span><span class="p">,</span><span class="s1">&#39;1236&#39;</span><span class="p">],</span>
     <span class="s1">&#39;call_time&#39;</span><span class="p">:</span><span class="s1">&#39;2020-02-02 20:20:00&#39;</span><span class="p">,</span>
-    <span class="s2">&quot;tone_list&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span><span class="s2">&quot;url&quot;</span><span class="p">:</span><span class="s2">&quot;/media/userfile/mytone1.mp3&quot;</span><span class="p">,</span><span class="s2">&quot;before_second&quot;</span><span class="p">:</span><span class="mi">10</span><span class="p">},</span>                      
-        <span class="p">{</span><span class="s2">&quot;url&quot;</span><span class="p">:</span><span class="s2">&quot;/media/userfile/mytone2.mp3&quot;</span><span class="p">,</span><span class="s2">&quot;before_second&quot;</span><span class="p">:</span><span class="mi">20</span><span class="p">}</span>
-    <span class="p">]</span>
+    <span class="s1">&#39;taskid&#39;</span><span class="p">:</span><span class="s1">&#39;123&#39;</span><span class="p">,</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -662,8 +668,8 @@ B-&gt;&gt;RTC:离开频道
 <td>是</td>
 </tr>
 <tr>
-<td>tone_list</td>
-<td>拨打内容</td>
+<td>taskid</td>
+<td>app后台对应的任务ID</td>
 <td>是</td>
 </tr>
 </tbody>
@@ -769,7 +775,7 @@ B-&gt;&gt;RTC:离开频道
   <div role="contentinfo">
     <p>
         &copy; Copyright 2019, coblan
-      Last updated on 2020-02-16 21:29:18.
+      Last updated on 2020-02-22 23:24:23.
 
     </p>
   </div>

@@ -270,12 +270,16 @@
 [POST]  /dapi/quit/robot
 
 示例参数
-{"channel":"ch_dgfd2et123"}
+{
+    "channel":"ch_dgfd2et123",
+    "uid":"1235",
+    }
 ```
 
 |  参数     |   含义        | 必填 |
 |----------| ---------------|-------|
 |channel   | 频道 | 是   |
+| uid | 请求的用户ID | 是 |
 
 返回
 ```
@@ -299,10 +303,7 @@
     'src_uid':'1234',
     'dst_uid':['1235','1236'],
     'call_time':'2020-02-02 20:20:00',
-    "tone_list": [
-        {"url":"/media/userfile/mytone1.mp3","before_second":10},                      
-        {"url":"/media/userfile/mytone2.mp3","before_second":20}
-    ]
+    'taskid':'123',
 }
 ```
 
@@ -312,7 +313,7 @@
 | src_uid | 发起用户   | 是 |
 | dst_uid  | 接收用户列表   | 是  |
 |call_time  | 拨打时间，注意时间格式  | 是 |
-| tone_list | 拨打内容 | 是 |
+| taskid | app后台对应的任务ID | 是 |
 
 
 #### 获取拨打列表
