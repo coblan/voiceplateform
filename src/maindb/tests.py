@@ -62,15 +62,14 @@ class TestSimpleWash(TestCase):
         self.assertEqual(CallEvent.objects.count(),4)
         
         # 上传拨打任务
-        data = {'src_uid':'1234','dst_uid':['1235','1236'],'call_time':'2020-01-01 10:09:00',
-                'tone_list':[
-                    {"url":"/media/userfile/mytone1.mp3","before_second":10},                        
-                    {"url":"/media/userfile/mytone2.mp3","before_second":20}
-                ]}
+        data = {'src_uid':'1234',
+                'dst_uid':['1235','1236'],
+                'call_time':'2020-01-01 10:09:00',
+                'taskid':123}
         rt = cl.post('/dapi/calltask/update',data=json.dumps(data),content_type='application/json')
         self.assertTrue( CallTask.objects.filter(src_uid='1234').count() == 1 )
         
-        # 获取拨打任务列表
+        # 获取拨打任务列表 [现在可能去app后台获取了，这个接口应该无用了]
         rt = cl.post('/dapi/calltask/list',data={'uid':'1234'})
         
         call_command('calltask')

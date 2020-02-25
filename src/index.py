@@ -83,7 +83,10 @@ director_views = {
     "agora/rtm-option"	:part3.Agora_interface.get_option,
     
     "account/get-reject-tone"	:maindb.admin_accountinfo.get_reject_tone,
+    
+    # 更新定时任务
     "calltask/update"	:maindb.admin_calltask.update_calltask,
+    "calltask/delete"	:maindb.admin_calltask.delete_call_task,
   
     "system/config"	:maindb.admin_config.get_config,
     
@@ -97,3 +100,5 @@ sim_signal = {
     "call.quit"	:[maindb.signal.call_quit],
     "call.end"	:[maindb.signal.call_end],
 }
+
+

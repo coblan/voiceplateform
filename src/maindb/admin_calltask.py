@@ -33,8 +33,18 @@ def update_calltask(**row):
     dst_uid:
     call_time:
     """
-    row['_director_name'] = 'calltask.edit'
-    return director_save_row(row)
+    taskid = row.get('taskid')
+    inst,_ = CallTask.objects.get_or_create(taskid = taskid)
+    inst.src_uid = row.get('src_uid')
+    inst.dst_uid= row.get('dst_uid')
+    inst.call_time=row.get('call_time')
+    inst.save()
+    #row['_director_name'] = 'calltask.edit'
+    #return director_save_row(row)
+
+@director_view('calltask/delete')
+def delete_call_task(taskid):
+    CallTask.objects.filter(taskid = taskid).delete()
 
 #@director_view('call/test')
 #def testmy(**kws):

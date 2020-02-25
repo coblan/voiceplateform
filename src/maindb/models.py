@@ -39,7 +39,7 @@ class CallTask(models.Model):
     src_uid = models.CharField('拨打用户',max_length=30)
     dst_uid = JsonAbleField('接收用户',)
     call_time = models.DateTimeField('拨打时间')
-    tone_list = JsonAbleField('拨打内容',blank=True,default=[])
+    tone_list = JsonAbleField('拨打内容',blank=True,default=[]) # 移到app后台
     status = models.IntegerField('状态',blank=True,default=0,choices=CALLTASK_STATUS)
     taskid = models.IntegerField('任务id',default=0,help_text='app后台的任务ID')
 

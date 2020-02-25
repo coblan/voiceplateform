@@ -48,6 +48,7 @@ class CallEventTab(ModelTable):
 
 @director_view('call/heartbeat')
 def refresh_call_record(uid,channel):
+    "客户端心跳，标识channel有人"
     CallRecord.objects.filter(channel=channel).update(refreshtime=timezone.now())
 
 @director_view('call/event')
@@ -57,6 +58,8 @@ def event_call_record(uid,channel,code,desp=''):
     #except CallRecord.DoesNotExist:
         #record = None
     """
+    客户端上报channel事件
+    
     code:
     1. 用户进入
     2. 用户退出
