@@ -16,6 +16,14 @@ def init():
     channel.exchange_declare(exchange='stop_channel', exchange_type='topic')
     
     channel.exchange_declare(exchange='rtc-robot', exchange_type='topic')
+    
+    channel.exchange_declare(exchange='user_rtc', exchange_type='topic')
+    
+    channel.queue_declare('rtc-robot.call',durable=True)
+    channel.queue_bind( exchange='rtc-robot', queue='rtc-robot.call', routing_key='call')
+    
+    channel.queue_declare('rtc-robot.receive',durable=True)
+    channel.queue_bind( exchange='rtc-robot', queue='rtc-robot.receive', routing_key='receive')
 
 init()
 
@@ -44,10 +52,10 @@ def robot_receive_call(src,dst,channel):
                          body=jsonmsg)
 
 
-def robot_call_user(src,dst_list,channel,taskid):
+def robot_call_user(src,dst_list,channel_name,taskid):
     connection =pika.BlockingConnection(pika.ConnectionParameters(host=host,credentials=credentials))
     channel = connection.channel()
-    jsonmsg = json.dumps({'from':src,'to':dst_list,'channel':channel,'taskid':taskid},ensure_ascii=False)
+    jsonmsg = json.dumps({'from':src,'to':dst_list,'channel':channel_name,'taskid':taskid},ensure_ascii=False)
     channel.basic_publish(exchange='rtc-robot',
                          routing_key= 'call',
                          body=jsonmsg)

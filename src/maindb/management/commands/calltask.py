@@ -46,7 +46,7 @@ def call_user(src_uid,dst_uid,taskid):
     
     #send_mp3(channelName, tone_list,src_uid)
     # 当前不需要推送mp3到前台，机器人自己去app后台拿
-    robot_call_user(src_uid, dst_list = dst_uid, channel =channelName,taskid=taskid)
+    robot_call_user(src_uid, dst_list = dst_uid, channel_name =channelName,taskid=taskid)
     if dst_uid:
         for uid in dst_uid:
             #VoiceMsgList.objects.create(uid = uid,channel=channelName,extra_msg=extra_msg)
