@@ -75,7 +75,7 @@ def event_call_record(uid,channel,code,desp=''):
     #CallEvent.objects.filter(pk = obj.pk).annotate(record_me = Subquery(latest.values('pk')[:1])).update(record_id=F('record_me'))
     CallEvent.objects.filter(pk = obj.pk).update(record_id= Subquery(latest.values('pk')[:1]) )
 
-@director_view(name)
+@director_view('ss')
 def trigger_recording(channel):
     pass
 
