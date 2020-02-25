@@ -16,7 +16,7 @@ routing_key:"receive"
 
 ```
 exchange:"rtc-robot"
-routing_key:"receive"
+routing_key:"call"
 ```
 
 推送的json为
