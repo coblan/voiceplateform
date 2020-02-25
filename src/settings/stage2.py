@@ -48,3 +48,6 @@ APPLE={
 }
 
 from . log import *
+
+APP_HOST='http://kukpyk.natappfree.cc'
+REJECT_WATI = 30
