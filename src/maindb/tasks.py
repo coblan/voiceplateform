@@ -57,17 +57,17 @@ def recording(channel):
         'config_path':config_path,
         
     }
-    order = ''' %(recorder_local)s 
-    --uid %(uid)s 
-    --appId %(appid)s 
-    --channel %(channel)s 
-    --channelKey %(token)s 
-    --appliteDir %(recording_bin)s 
-    --lowUdpPort %(lowUdpPort)s 
-    --highUdpPort %(highUdpPort)s 
-    --cfgFilePath %(config_path)s
-    --isAudioOnly 1 
-    --idle %(idle)s
+    order = ''' %(recorder_local)s \
+    --uid %(uid)s \
+    --appId %(appid)s \
+    --channel %(channel)s \
+    --channelKey %(token)s \
+    --appliteDir %(recording_bin)s \
+    --lowUdpPort %(lowUdpPort)s \
+    --highUdpPort %(highUdpPort)s \
+    --cfgFilePath %(config_path)s\
+    --isAudioOnly 1 \
+    --idle %(idle)s\
    '''
     order = order % dc
     general_log.debug('录制命令:%s'%order)
