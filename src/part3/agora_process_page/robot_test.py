@@ -36,8 +36,8 @@ def sss(src, dst_list, channel_name, taskid):
 
 @director_view('recording_test')
 def recording_test(channel):
-    #recording(channel)
-    recording.delay(channel)
+    recording(channel)
+    #recording.delay(channel)
 
 web_page_dc.update({
     'rtc-robot':RobotTestPage
