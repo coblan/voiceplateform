@@ -11,7 +11,7 @@ general_log = logging.getLogger('general_log')
 @app.task
 def channel_reject_monitor(uid,channel):
     url = urllib.parse.urljoin(settings.APP_HOST,'/extphone_new/ext/setting/call')
-    rt = requests.post(url,data= json.dumps( {'userNo':uid} ) )
+    rt = requests.post(url,json= {'userNo':uid}  )
     general_log.info('请求app服务器%s的拒接等待时间 ,返回结果 %s'% (uid,rt.text) )
     waittime= settings.REJECT_WATI
     if rt.status_code==200:

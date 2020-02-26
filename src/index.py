@@ -90,7 +90,8 @@ director_views = {
   
     "system/config"	:maindb.admin_config.get_config,
     
-     "dyn_mock_api"	:maindb.admin_mockapi.dyn_mock_api,
+    "ss"	:maindb.admin_callrecord.trigger_recording,
+    "mock"	:maindb.admin_mockapi.dyn_mock_api,
    
 }
 
@@ -101,6 +102,8 @@ sim_signal = {
     "call.end"	:[maindb.signal.call_end],
 }
 
+web_page_dc = {
+    "rtc-send"	:part3.agora_process_page.rtc_send.RTCSendPage,
+    "rtm-send"	:part3.agora_process_page.rtm_send.RTMSendPage,
+}
 
-
-=========2020-02-25 15:40:27.003926==========
