@@ -5,7 +5,7 @@ from django.conf import settings
 import json
 from maindb.models import CallRecord
 from part3.rabbit_instance import robot_receive_call
-from subprocess import Popen
+#from subprocess import Popen
 from helpers.func.random_str import get_random_number
 from part3.Agora_interface import get_rtc_option
 import os
@@ -71,6 +71,7 @@ def recording(channel):
    '''
     order = order % dc
     general_log.debug('录制命令:%s'%order)
-    Popen(order)
+    #Popen(order)
+    os.system(order)
     
     
