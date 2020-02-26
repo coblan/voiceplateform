@@ -43,10 +43,10 @@ def send_mp3(rtc_channel,tone_list,src_uid=None):
                          routing_key= 'user_rtc',
                          body=jsonmsg)
 
-def robot_receive_call(src,dst,channel):
+def robot_receive_call(src,dst,channel_name):
     connection =pika.BlockingConnection(pika.ConnectionParameters(host=host,credentials=credentials))
     channel = connection.channel()
-    jsonmsg = json.dumps({'from':src,'to':dst,'channel':channel,},ensure_ascii=False)
+    jsonmsg = json.dumps({'from':src,'to':dst,'channel':channel_name,},ensure_ascii=False)
     channel.basic_publish(exchange='rtc-robot',
                          routing_key= 'receive',
                          body=jsonmsg)

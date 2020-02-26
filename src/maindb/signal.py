@@ -17,7 +17,8 @@ def call_call(uid,channel,src_uid=None,dst_uid=None,extra_msg=None,is_robot=Fals
     obj,created = CallRecord.objects.get_or_create(src_uid=src_uid,dst_uid=dst_uid,channel = channel,is_robot=is_robot)
     if created:
         CallEvent.objects.filter(channel=channel).update(record=obj)
-    channel_reject_monitor.delay(uid,channel)
+    if len(dst_uid)==1 and uid == dst_uid[0]:
+        channel_reject_monitor.delay(uid,channel)
 
 @sim_signal.recieve('call.enter')
 def call_start(uid,channel):
@@ -56,8 +57,8 @@ def call_end(record):
         dc['event'] = event
         rt = requests.post(url,json= {'callrecord':dc})
         
-        general_log.info('推送拨打记录给客户,返回状态码%s,返回结果%s'%(rt.status_code,rt.text))
+        general_log.info('推送拨打记录给app后台,返回状态码%s,返回结果%s'%(rt.status_code,rt.text))
         
     else:
-        general_log.info('推送拨打记录给客户，但是没有设置推送地址!')
+        general_log.info('推送拨打记录给app后台，但是没有设置推送地址!')
 
