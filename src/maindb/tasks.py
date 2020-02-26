@@ -8,6 +8,8 @@ from part3.rabbit_instance import robot_receive_call
 from subprocess import Popen
 from helpers.func.random_str import get_random_number
 from part3.Agora_interface import get_rtc_option
+import os
+
 import logging
 general_log = logging.getLogger('general_log')
 
@@ -31,8 +33,17 @@ def check_is_receive(channel):
 @app.task
 def recording(channel):
     #ss = './recorder_local --appId 303156d224e44881a00af9cabc9e10d8 --channel haha --uid 2245 --channelKey 006303156d224e44881a00af9cabc9e10d8IACHQjxBpV/8289VBT0fRQgzIy7QR8/QC4SwTfMpMiGMZYYRUgEc6RCxEADQkdcEJA9UXgEAAQD8v1Je  --appliteDir ~/agoracore/Agora_Recording_SDK_for_Linux_FULL/bin --lowUdpPort 14000 --highUdpPort 15000'
+    general_log.info('开始录音，频道为%s'%channel)
+    
     uid = get_random_number(11)
     option = get_rtc_option(uid,channel)
+    tone_dir = settings.RECORD.get('tone_dir')
+    config_path = os.path.join(tone_dir,'%s_config')
+    tone_path = os.path.join(tone_dir,channel)
+    
+    with open(config_path,'wb') as f:
+        f.write(json.dumps({"Recording_Dir" : tone_path}))
+        
     dc ={
         'uid':uid,
         'channel':channel,
@@ -42,11 +53,19 @@ def recording(channel):
         'highUdpPort':settings.RECORD.get('highUdpPort'),
         'recorder_local':settings.RECORD.get('recorder_local'),
         'recording_bin':settings.RECORD.get('recording_bin'),
+        'idle':settings.RECORD.get('idle',30),
+        'config_path':config_path,
+        
     }
     order = ''' %(recorder_local)s --appId %(appid)s --channel %(channel) --uid %(uid)s --channelKey %(token)s  
-    --appliteDir %(recording_bin)s --lowUdpPort %(lowUdpPort)s --highUdpPort %(highUdpPort)s 
-    --isAudioOnly 1'''
+    --appliteDir %(recording_bin)s 
+    --lowUdpPort %(lowUdpPort)s 
+    --highUdpPort %(highUdpPort)s 
+    --cfgFilePath %(config_path)s
+    --isAudioOnly 1 
+    --idle %(idle)s'''
     order = order % dc
+    general_log.debug('录制命令:%s'%order)
     Popen(order)
     
     
