@@ -41,7 +41,7 @@ def recording(channel):
     config_path = os.path.join(tone_dir,'%s_config')
     tone_path = os.path.join(tone_dir,channel)
     
-    with open(config_path,'wb') as f:
+    with open(config_path,'w',encoding='utf8') as f:
         f.write(json.dumps({"Recording_Dir" : tone_path}))
         
     dc ={
