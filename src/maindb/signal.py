@@ -9,7 +9,7 @@ from helpers.director.model_func.dictfy import sim_dict
 import logging
 general_log = logging.getLogger('general_log')
 
-from .tasks import channel_reject_monitor
+from .tasks import channel_reject_monitor,recording
 
 @sim_signal.recieve('call.call')
 def call_call(uid,channel,src_uid=None,dst_uid=None,extra_msg=None,is_robot=False):
@@ -22,14 +22,16 @@ def call_call(uid,channel,src_uid=None,dst_uid=None,extra_msg=None,is_robot=Fals
 
 @sim_signal.recieve('call.enter')
 def call_start(uid,channel):
+    #recording.delay(channel)
     VoiceMsgList.objects.filter(uid = uid,channel=channel).update(status=1)
     CallRecord.objects.filter(channel=channel).update(count = F('count')+1 )
-    record  =CallRecord.objects.get(channel = channel)
-    if not record.starttime:
-        record.starttime = timezone.now()
-    record.save()
-    
-   
+    try:
+        record  =CallRecord.objects.get(channel = channel)
+        if not record.starttime:
+            record.starttime = timezone.now()
+        record.save()
+    except CallRecord.DoesNotExist as e:
+        raise UserWarning(str(e))
     
 
 @sim_signal.recieve('call.quit')

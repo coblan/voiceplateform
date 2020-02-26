@@ -5,6 +5,9 @@ from django.conf import settings
 import json
 from maindb.models import CallRecord
 from part3.rabbit_instance import robot_receive_call
+from subprocess import Popen
+from helpers.func.random_str import get_random_number
+from part3.Agora_interface import get_rtc_option
 import logging
 general_log = logging.getLogger('general_log')
 
@@ -24,5 +27,26 @@ def check_is_receive(channel):
     if not call.starttime:
         general_log.info('%s 过期未接听，现在机器人接入'%channel)
         robot_receive_call(call.src_uid,call.dst_uid,call.channel)
+
+@app.task
+def recording(channel):
+    #ss = './recorder_local --appId 303156d224e44881a00af9cabc9e10d8 --channel haha --uid 2245 --channelKey 006303156d224e44881a00af9cabc9e10d8IACHQjxBpV/8289VBT0fRQgzIy7QR8/QC4SwTfMpMiGMZYYRUgEc6RCxEADQkdcEJA9UXgEAAQD8v1Je  --appliteDir ~/agoracore/Agora_Recording_SDK_for_Linux_FULL/bin --lowUdpPort 14000 --highUdpPort 15000'
+    uid = get_random_number(11)
+    option = get_rtc_option(uid,channel)
+    dc ={
+        'uid':uid,
+        'channel':channel,
+        'appid':option.get('appID'),
+        'token':option.get('token'),
+        'lowUdpPort':settings.RECORD.get('lowUdpPort'),
+        'highUdpPort':settings.RECORD.get('highUdpPort'),
+        'recorder_local':settings.RECORD.get('recorder_local'),
+        'recording_bin':settings.RECORD.get('recording_bin'),
+    }
+    order = ''' %(recorder_local)s --appId %(appid)s --channel %(channel) --uid %(uid)s --channelKey %(token)s  
+    --appliteDir %(recording_bin)s --lowUdpPort %(lowUdpPort)s --highUdpPort %(highUdpPort)s 
+    --isAudioOnly 1'''
+    order = order % dc
+    Popen(order)
     
     

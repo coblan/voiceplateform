@@ -269,7 +269,7 @@ def get_token():
     return token
 
 @director_view('agora/rtc-option')
-def get_option(uid=None,channel=None,):
+def get_rtc_option(uid=None,channel=None,):
     '''{"doc":"agora/api.md"}
 ### RTC获取token
 
@@ -314,7 +314,7 @@ def get_option(uid=None,channel=None,):
 
 
 @director_view('agora/rtm-option')
-def get_option(uid=None,channel=None,):
+def get_rtm_option(uid=None,channel=None,):
     '''{"doc":"agora/api.md"}
 ### RTM获取token
 

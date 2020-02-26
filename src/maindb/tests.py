@@ -129,6 +129,19 @@ class TestSimpleWash(TestCase):
         channel = rt.json().get('data').get('channel')
         check_is_receive(channel)
         print('='*30)
+    
+    def test_event(self):
+        cl=Client(enforce_csrf_checks=True)
+        
+        rt = cl.post('/dapi/call/user',data={'src_uid':"1234",'dst_uid':'4321'})
+        data = {
+            "uid":"12345",
+            "channel":rt.json().get('data').get('channel'),
+            "code":1, 
+            "desp":"接通",
+        }
+        rt = cl.post('/dapi/call/event',data=data)
+        print('='*30)
         
     
         
