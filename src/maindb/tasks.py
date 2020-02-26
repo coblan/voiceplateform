@@ -71,7 +71,9 @@ def recording(channel):
    '''
     order = order % dc
     general_log.debug('录制命令:%s'%order)
-    subprocess.Popen(order,shell=True,executable='/bin/bash')
+    #subprocess.Popen(order,shell=True,executable='/bin/bash')
+    os.system(order)
+    
     #f=open("/dev/null",'r')
     #Popen(order,shell=True,stdout=f,executable='/bin/bash')
     #f.close
