@@ -53,7 +53,6 @@ APP_HOST='http://kukpyk.natappfree.cc'
 REJECT_WATI = 30
 
 RECORD={
-    'lowport':14000,
-    'heighport':15000,
-    ''
+    'lowUdpPort':14000,
+    'highUdpPort':15000,
 }
