@@ -5,7 +5,7 @@ from django.conf import settings
 import json
 from maindb.models import CallRecord
 from part3.rabbit_instance import robot_receive_call
-from subprocess import Popen
+import subprocess
 from helpers.func.random_str import get_random_number
 from part3.Agora_interface import get_rtc_option
 import os
@@ -38,7 +38,7 @@ def recording(channel):
     uid = get_random_number(11)
     option = get_rtc_option(uid,channel)
     tone_dir = settings.RECORD.get('tone_dir')
-    config_path = os.path.join(tone_dir,'%s_config')
+    config_path = os.path.join(tone_dir,'%s_config'%channel)
     tone_path = os.path.join(tone_dir,channel)
     
     with open(config_path,'w',encoding='utf8') as f:
@@ -71,9 +71,10 @@ def recording(channel):
    '''
     order = order % dc
     general_log.debug('录制命令:%s'%order)
-    f=open("/dev/null",'r')
-    Popen(order,shell=True,stdout=f,executable='/bin/bash')
-    f.close
+    subprocess.Popen(order,shell=True,executable='/bin/bash')
+    #f=open("/dev/null",'r')
+    #Popen(order,shell=True,stdout=f,executable='/bin/bash')
+    #f.close
     #os.system(order)
     
     
