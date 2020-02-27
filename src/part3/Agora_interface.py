@@ -180,7 +180,7 @@ def invite_robot(uid,channel):
     
     # 根据当前需求，后台只需要推送 from to 给机器人，由机器人自己到 app后台去拿mp3数据
     record = CallRecord.objects.get(channel = channelName)
-    robot_receive_call(src=record.src_uid, dst=uid, channel=channelName)
+    robot_receive_call(src=record.src_uid, dst=uid, channel_name=channelName)
     #userinfo = Accountinfo.objects.filter(uid=uid).first()
     #if userinfo and userinfo.reject_tone:
         #send_mp3(channel,tone_list=json.loads(userinfo.reject_tone),src_uid= uid)
