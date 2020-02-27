@@ -50,7 +50,7 @@ APPLE={
 from . log import *
 
 APP_HOST='http://kukpyk.natappfree.cc'
-REJECT_WATI = 30
+REJECT_WATI = 30  # 废弃
 
 RECORD={
     'lowUdpPort':14000,

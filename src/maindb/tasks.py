@@ -18,11 +18,14 @@ def channel_reject_monitor(uid,channel):
     url = urllib.parse.urljoin(settings.APP_HOST,'/extphone_new/ext/setting/call')
     rt = requests.post(url,json= {'userNo':uid}  )
     general_log.info('请求app服务器[%s] %s的拒接等待时间 ,返回结果 %s'% (url,uid,rt.text) )
-    waittime= settings.REJECT_WATI
-    if rt.status_code==200 and rt.json().get('code') ==1:
+    waittime= 0 #settings.REJECT_WATI
+    if rt.status_code==200 and rt.json().get('code') ==1 and  rt.json().get('data').get('data').get('isAutoAnswer'):
         waittime = rt.json().get('data').get('data').get('waitTime',waittime)
-    general_log.debug(' %s 秒后检查 频道=%s 是否接听'% (waittime,channel) )
-    check_is_receive.apply_async(args=(channel,),countdown=waittime)
+    if waittime:
+        general_log.debug(' %s 秒后检查 频道=%s 是否接听'% (waittime,channel) )
+        check_is_receive.apply_async(args=(channel,),countdown=waittime)
+    else:
+        general_log.debug(' 用户=%s 没有拒接等待时间 '% uid )
 
 @app.task
 def check_is_receive(channel):
