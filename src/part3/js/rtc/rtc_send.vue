@@ -93,7 +93,7 @@ import rtc_rtc from './rtc_rtm.vue'
                 var tone_list = dc.tone_list
                 var src_uid = dc.src_uid
                 ex.stompInit({url: this.ctx.websocket.url,user:this.ctx.websocket.user,pswd:this.ctx.websocket.pswd});
-                ex.stompListen("/exchange/stop_channel/"+channel,(data)=>{
+                ex.stompListen("/exchange/rtc-robot.stop/"+channel,(data)=>{
                     console.log(data.body)
                     this.debug_log(`[${channel}]接收到后台退出频道消息`)
                     this.$emit('finish-task')

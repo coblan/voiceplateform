@@ -13,7 +13,9 @@ def init():
     channel = connection.channel()
     channel.exchange_declare(exchange='usermsg', exchange_type='topic')
     channel.exchange_declare(exchange='user_rtc', exchange_type='topic')
-    channel.exchange_declare(exchange='stop_channel', exchange_type='topic')
+    #channel.exchange_declare(exchange='stop_channel', exchange_type='topic')
+    channel.exchange_declare(exchange='rtc-robot.stop', exchange_type='topic')
+    
     
     channel.exchange_declare(exchange='rtc-robot', exchange_type='topic')
     
