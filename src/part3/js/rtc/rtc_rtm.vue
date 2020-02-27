@@ -25,6 +25,17 @@
         },
         mounted(){
           this.init()
+
+            Promise.all([this.channel_promise]).then(()=>{
+                var msg_body = {
+                    "title" : "robotAnswerCall",
+                    proxUid:this.parStore.vc.src_uid,
+                }
+                return this.channel_obj.sendMessage( {text:JSON.stringify(msg_body )}  )
+            }).then(() =>{
+                self.parStore.vc.debug_log("RTM IN RTC  启动广播:"  )
+            })
+
             this.parStore.$on('play-tone-obj',this.on_play)
         },
         methods:{
