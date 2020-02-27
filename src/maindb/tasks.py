@@ -19,7 +19,7 @@ def channel_reject_monitor(uid,channel):
     rt = requests.post(url,json= {'userNo':uid}  )
     general_log.info('请求app服务器[%s] %s的拒接等待时间 ,返回结果 %s'% (url,uid,rt.text) )
     waittime= settings.REJECT_WATI
-    if rt.status_code==200:
+    if rt.status_code==200 and rt.json().get('code') ==1:
         waittime = rt.json().get('data').get('data').get('waitTime',waittime)
     general_log.debug(' %s 秒后检查 频道=%s 是否接听'% (waittime,channel) )
     check_is_receive.apply_async(args=(channel),countdown=waittime)
