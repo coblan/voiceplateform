@@ -62,7 +62,7 @@ class CallRecord(models.Model):
     
 class CallEvent(models.Model):
     record = models.ForeignKey(CallRecord,blank=True,null=True)
-    uid = models.IntegerField('上报用户',blank=True,null=True)
+    uid = models.CharField('上报用户',max_length=30)
     channel = models.CharField('通话频道',max_length=30)
     code = models.IntegerField('事件编码',blank=True,null=True)
     desp = models.TextField('事件描述',blank=True)
