@@ -22,10 +22,11 @@ def channel_reject_monitor(uid,channel):
     if rt.status_code==200 and rt.json().get('code') ==1:
         waittime = rt.json().get('data').get('data').get('waitTime',waittime)
     general_log.debug(' %s 秒后检查 频道=%s 是否接听'% (waittime,channel) )
-    check_is_receive.apply_async(args=(channel),countdown=waittime)
+    check_is_receive.apply_async(args=(channel,),countdown=waittime)
 
 @app.task
 def check_is_receive(channel):
+    general_log.debug('延时任务，检查频道=%s是否有人接听'% channel )
     call = CallRecord.objects.get(channel = channel)
     if not call.starttime:
         general_log.info('%s 过期未接听，现在机器人接入'%channel)
