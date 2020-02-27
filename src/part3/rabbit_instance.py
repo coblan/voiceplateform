@@ -66,7 +66,7 @@ def robot_call_user(src,dst_list,channel_name,taskid):
 def notify_quit_robot(channel_name,uid):
     connection =pika.BlockingConnection(pika.ConnectionParameters(host=host,credentials=credentials))
     channel = connection.channel()
-    jsonmsg = json.dumps({'channel':rtc_channel,'uid':uid},ensure_ascii=False)
+    jsonmsg = json.dumps({'channel':channel_name,'uid':uid},ensure_ascii=False)
     channel.basic_publish(exchange='rtc-robot.stop',
                          routing_key= channel_name,
                          body=jsonmsg)
