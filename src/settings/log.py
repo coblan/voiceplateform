@@ -41,7 +41,8 @@ LOGGING = {
             'backupCount':3,
             'formatter':'standard',
             'filename': os.path.join(LOG_PATH,'django.log'),            
-            },        
+            },   
+        
     },
     'loggers': {
         'django': {

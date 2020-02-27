@@ -269,7 +269,7 @@ def get_token():
     return token
 
 @director_view('agora/rtc-option')
-def get_rtc_option(uid=None,channel=None,):
+def get_rtc_option(uid,channel):
     '''{"doc":"agora/api.md"}
 ### RTC获取token
 
@@ -300,8 +300,8 @@ def get_rtc_option(uid=None,channel=None,):
     '''
     appID = settings.AGORA.get('appID')
     appCertificate = settings.AGORA.get('appCertificate')
-    channelName= channel  or 'test_channel'
-    userAccount=uid or 987654321
+    channelName= channel  #or 'test_channel'
+    userAccount=uid # or 987654321
     Role_Attendee = 2
     privilegeExpiredTs = time.time() + 600
     token = RtcTokenBuilder.buildTokenWithAccount(appID, appCertificate, channelName, userAccount, Role_Attendee, privilegeExpiredTs)

@@ -35,7 +35,7 @@ def recording(channel):
     #ss = './recorder_local --appId 303156d224e44881a00af9cabc9e10d8 --channel haha --uid 2245 --channelKey 006303156d224e44881a00af9cabc9e10d8IACHQjxBpV/8289VBT0fRQgzIy7QR8/QC4SwTfMpMiGMZYYRUgEc6RCxEADQkdcEJA9UXgEAAQD8v1Je  --appliteDir ~/agoracore/Agora_Recording_SDK_for_Linux_FULL/bin --lowUdpPort 14000 --highUdpPort 15000'
     general_log.info('开始录音，频道为%s'%channel)
     
-    uid = get_random_number(11)
+    uid = get_random_number(5)
     option = get_rtc_option(uid,channel)
     tone_dir = settings.RECORD.get('tone_dir')
     config_path = os.path.join(tone_dir,'%s_config'%channel)
@@ -71,6 +71,7 @@ def recording(channel):
    '''
     order = order % dc
     general_log.debug('录制命令:%s'%order)
+    
     #subprocess.Popen(order,shell=True,executable='/bin/bash')
     #os.system(order)
     
