@@ -49,7 +49,7 @@ APPLE={
 
 from . log import *
 
-APP_HOST='http://kukpyk.natappfree.cc'
+APP_HOST= 'http://uys8je.natappfree.cc' #'http://kukpyk.natappfree.cc'
 REJECT_WATI = 30  # 废弃
 
 RECORD={
