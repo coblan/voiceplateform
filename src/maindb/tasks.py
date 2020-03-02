@@ -33,7 +33,7 @@ def check_is_receive(channel):
     call = CallRecord.objects.get(channel = channel)
     if not call.starttime:
         general_log.info('%s 过期未接听，现在机器人接入'%channel)
-        robot_receive_call(call.src_uid,call.dst_uid,call.channel)
+        robot_receive_call(call.src_uid,call.dst_uid[0],call.channel)
 
 @app.task
 def recording(channel):

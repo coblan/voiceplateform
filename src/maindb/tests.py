@@ -6,6 +6,8 @@ from unittest import mock
 from django.utils import timezone
 from functools import partial
 from maindb.tasks import channel_reject_monitor,check_is_receive
+import urllib
+from django.conf import settings
 # Create your tests here.
 
 class Myobjet(object):
@@ -35,7 +37,8 @@ class TestSimpleWash(TestCase):
         check_receive.side_effect = partial(function_side_effect,'< 准备延迟检测是否有人接听 >')
         
         def request_side_effect(url,*args, **kwargs):
-            if url == 'http://kukpyk.natappfree.cc/extphone_new/ext/setting/call':
+            url = urllib.parse.urljoin(settings.APP_HOST,'/extphone_new/ext/setting/call')
+            if url == url:
                 print('< 请求app后端获取用户等待时间 >',str(args),str(kwargs))
                 obj = Myobjet()
                 obj.text='{"text":"测试app服务器返回内容"}'

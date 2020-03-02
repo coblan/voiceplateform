@@ -21,11 +21,11 @@ def init():
     
     channel.exchange_declare(exchange='user_rtc', exchange_type='topic')
     
-    channel.queue_declare('rtc-robot.call',durable=True)
-    channel.queue_bind( exchange='rtc-robot', queue='rtc-robot.call', routing_key='call')
+    channel.queue_declare('rtc-robot',durable=True)
+    channel.queue_bind( exchange='rtc-robot', queue='rtc-robot', routing_key='call')
     
-    channel.queue_declare('rtc-robot.receive',durable=True)
-    channel.queue_bind( exchange='rtc-robot', queue='rtc-robot.receive', routing_key='receive')
+    #channel.queue_declare('rtc-robot.receive',durable=True)
+    channel.queue_bind( exchange='rtc-robot', queue='rtc-robot', routing_key='receive')
 
 init()
 
