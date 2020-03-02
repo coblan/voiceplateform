@@ -58,5 +58,5 @@ RECORD={
     'recorder_local':'/root/agoracore/Agora_Recording_SDK_for_Linux_FULL/samples/cpp/recorder_local',
     'recording_bin':'/root/agoracore/Agora_Recording_SDK_for_Linux_FULL/bin',
     'tone_dir':'/userfile/recording',
-    'idle':'2',
+    'idle':3,
 }
