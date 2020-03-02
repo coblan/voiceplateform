@@ -58,7 +58,7 @@ def recording(channel):
         'highUdpPort':settings.RECORD.get('highUdpPort'),
         'recorder_local':settings.RECORD.get('recorder_local'),
         'recording_bin':settings.RECORD.get('recording_bin'),
-        'idle':settings.RECORD.get('idle',30),
+        'idle':settings.RECORD.get('idle',2),
         'config_path':config_path,
         
     }
