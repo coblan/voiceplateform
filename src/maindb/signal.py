@@ -6,6 +6,10 @@ from django.utils import timezone
 import requests
 from helpers.director.kv import get_json
 from helpers.director.model_func.dictfy import sim_dict
+import os
+from django.conf import settings
+import urllib
+
 import logging
 general_log = logging.getLogger('general_log')
 
@@ -48,16 +52,39 @@ def call_quit(uid,channel):
 @sim_signal.recieve('call.end')
 def call_end(record):
     url = get_json('cfg_push_call_record')
-    if url:
+    if url or True:
         dc = sim_dict(record)
         event = []
-        for item in record.callevent_set.all():
+        resource =[]
+        for item in record.callevent_set.all().exclude(code =3):
             item_dc = sim_dict(item)
             for k,v in dict(item_dc).items():
                 if k.startswith('_'):
                     item_dc.pop(k)
             event.append(item_dc)
         dc['event'] = event
+        
+        for item in record.callevent_set.filter(code=3):
+            caption_dc =   {'userid':item.uid,'kind_label':'字幕',}
+            caption_dc.update(
+                json.loads(item.desp)
+            )
+            resource.append(caption_dc)
+        
+        path = os.path.join( settings.RECORD.get('tone_dir'),record.channel)
+        if os.path.exists(path):
+            for fl in os.listdir(path):
+                fl_url = urllib.parse.urljoin(settings.RECORD.get('tone_url'),fl)
+                if fl.endswith('.aac'):
+                    resource.append(
+                        {'userid':0,'kind_label':'录音','content':fl_url,}
+                    )
+                elif fl.endswith('.txt') and fl.startswith('uid_'):
+                    resource.append(
+                        {'userid':0,'kind_label':'录音时间戳','content':fl_url}
+                    )
+                
+        dc['resource'] = resource
         rt = requests.post(url,json= {'callrecord':dc})
         
         general_log.info('推送拨打记录给app后台,返回状态码%s,返回结果%s'%(rt.status_code,rt.text))

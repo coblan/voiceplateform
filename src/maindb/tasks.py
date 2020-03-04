@@ -72,6 +72,7 @@ def recording(channel):
     --highUdpPort %(highUdpPort)s \
     --cfgFilePath %(config_path)s\
     --isAudioOnly 1 \
+    --isMixingEnabled 1 \
     --idle %(idle)s\
    '''
     order = order % dc

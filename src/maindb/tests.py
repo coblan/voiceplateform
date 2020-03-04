@@ -8,6 +8,7 @@ from functools import partial
 from maindb.tasks import channel_reject_monitor,check_is_receive
 import urllib
 from django.conf import settings
+from maindb.signal import call_end
 # Create your tests here.
 
 class Myobjet(object):
@@ -162,6 +163,15 @@ class TestSimpleWash(TestCase):
         rt3 = cl.post('/dapi/call/rtcmap',data=data3)
         self.assertAlmostEqual(UserRtcMap.objects.count(),1)
         print('='*30)
+    
+    def test_event_back(self):
+        record = CallRecord.objects.create(channel = 'ch_798dgrgT34')
+        CallEvent.objects.create(channel='ch_798dgrgT34',record=record)
+        call_end(record)
+        
+        print('='*30)
+        
+        
         
     
         

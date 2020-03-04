@@ -75,9 +75,6 @@ def event_call_record(uid,channel,code,desp='',sender_type=0):
     #CallEvent.objects.filter(pk = obj.pk).annotate(record_me = Subquery(latest.values('pk')[:1])).update(record_id=F('record_me'))
     CallEvent.objects.filter(pk = obj.pk).update(record_id= Subquery(latest.values('pk')[:1]) )
 
-#@director_view('ss')
-#def trigger_recording(channel):
-    #pass
 
 @director_view('call/rtcmap')
 def user_rtc_map(channel,uid,rtcid):

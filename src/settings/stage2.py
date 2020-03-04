@@ -50,13 +50,17 @@ APPLE={
 from . log import *
 
 APP_HOST= 'http://uys8je.natappfree.cc' #'http://kukpyk.natappfree.cc'
-REJECT_WATI = 30  # 废弃
+
+
+SELF_DOMAIN = 'https://liu.enjoyst.com'
+import urllib
 
 RECORD={
     'lowUdpPort':14000,
     'highUdpPort':15000,
     'recorder_local':'/root/agoracore/Agora_Recording_SDK_for_Linux_FULL/samples/cpp/recorder_local',
     'recording_bin':'/root/agoracore/Agora_Recording_SDK_for_Linux_FULL/bin',
-    'tone_dir':'/userfile/recording',
-    'idle':3,
+    'tone_dir': os.path.join(MEDIA_ROOT,'recording'),
+    'tone_url':urllib.parse.urljoin(SELF_DOMAIN, '/media/recording'),
+    'idle':'30',
 }
