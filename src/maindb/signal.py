@@ -52,7 +52,7 @@ def call_quit(uid,channel):
 @sim_signal.recieve('call.end')
 def call_end(record):
     url = get_json('cfg_push_call_record')
-    if url or True:
+    if url:
         dc = sim_dict(record)
         event = []
         resource =[]
