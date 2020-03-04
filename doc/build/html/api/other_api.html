@@ -28,6 +28,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.4. rabbitmq" href="mq.html" />
     <link rel="prev" title="4.2. 拨打" href="myapi.html" /> 
 
   
@@ -91,6 +92,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#id4">4.3.3. 外部系统</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="mq.html">4.4. rabbitmq</a></li>
 </ul>
 </li>
 </ul>
@@ -212,6 +214,7 @@
                     <span class="s1">&#39;createtime&#39;</span><span class="p">:</span> <span class="s1">&#39;2020-02-14 21:02:27&#39;</span><span class="p">,</span>  <span class="o">//</span> <span class="n">事件发生时间</span>
                     <span class="s1">&#39;desp&#39;</span><span class="p">:</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span>   <span class="o">//</span> <span class="n">事件详细描述</span>
                     <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>   <span class="o">//</span> <span class="n">事件ID</span>
+                    <span class="s1">&#39;sender_typ&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="o">//</span> <span class="n">普通用户上报</span>
                     <span class="s1">&#39;pk&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
                     <span class="s1">&#39;record&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>  <span class="o">//</span> <span class="n">事件对应的通话记录ID</span>
                     <span class="s1">&#39;uid&#39;</span><span class="p">:</span> <span class="mi">515</span><span class="p">},</span>   <span class="o">//</span> <span class="n">事件上报用户uid</span>
@@ -220,9 +223,17 @@
                     <span class="s1">&#39;createtime&#39;</span><span class="p">:</span> <span class="s1">&#39;2020-02-14 21:02:27&#39;</span><span class="p">,</span>
                     <span class="s1">&#39;desp&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
                     <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+                    <span class="s1">&#39;sender_type&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="o">//</span> <span class="n">机器人上报</span>
                     <span class="s1">&#39;pk&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
                     <span class="s1">&#39;record&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
                     <span class="s1">&#39;uid&#39;</span><span class="p">:</span> <span class="mi">511</span><span class="p">}],</span>
+        <span class="s1">&#39;resource&#39;</span><span class="p">:[</span>
+            <span class="p">{</span><span class="n">user</span><span class="p">:</span><span class="s1">&#39;1231&#39;</span><span class="p">,</span><span class="n">kind_label</span><span class="p">:</span><span class="s1">&#39;字幕&#39;</span><span class="p">,</span><span class="n">content</span><span class="p">:</span><span class="s1">&#39;深深深算宫灯&#39;</span><span class="n">start</span><span class="p">:</span><span class="s1">&#39;2020-10-01 10:20:20&#39;</span><span class="p">,</span><span class="n">end</span><span class="p">:</span><span class="s1">&#39;2020-10-01 10:23:20&#39;</span><span class="p">,},</span>
+            <span class="p">{</span><span class="n">user</span><span class="p">:</span><span class="s1">&#39;1231&#39;</span><span class="p">,</span><span class="n">kind_label</span><span class="p">:</span><span class="s1">&#39;录音&#39;</span><span class="p">,</span><span class="n">content</span><span class="p">:</span><span class="s1">&#39;/media/ssg/12342.acc&#39;</span><span class="p">},</span>
+            <span class="p">{</span><span class="n">user</span><span class="p">:</span><span class="s1">&#39;1231&#39;</span><span class="p">,</span><span class="n">kind_label</span><span class="p">:</span><span class="s1">&#39;录音时间戳&#39;</span><span class="p">,</span><span class="n">content</span><span class="p">:</span><span class="s1">&#39;/media/ssg/12342.text&#39;</span><span class="p">},</span>
+            <span class="p">{</span><span class="n">user</span><span class="p">:</span><span class="s1">&#39;1231&#39;</span><span class="p">,</span><span class="n">kind_label</span><span class="p">:</span><span class="s1">&#39;录音时间戳&#39;</span><span class="p">,</span><span class="n">content</span><span class="p">:</span><span class="s1">&#39;/media/ssg/12342_02.text&#39;</span><span class="p">},</span>
+            <span class="p">{</span><span class="n">user</span><span class="p">:</span><span class="s1">&#39;1231&#39;</span><span class="p">,</span><span class="n">kind_label</span><span class="p">:</span><span class="s1">&#39;录音时间戳&#39;</span><span class="p">,</span><span class="n">content</span><span class="p">:</span><span class="s1">&#39;/media/ssg/12342_3.text&#39;</span><span class="p">},</span>
+        <span class="p">],</span>
 
         <span class="s1">&#39;pk&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
         <span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>  
@@ -284,6 +295,8 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="mq.html" class="btn btn-neutral float-right" title="4.4. rabbitmq" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
       
         <a href="myapi.html" class="btn btn-neutral" title="4.2. 拨打" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
@@ -295,7 +308,7 @@
   <div role="contentinfo">
     <p>
         &copy; Copyright 2019, coblan
-      Last updated on 2020-02-16 21:34:13.
+      Last updated on 2020-03-04 10:46:14.
 
     </p>
   </div>
@@ -321,6 +334,7 @@
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
         <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/mermaid@7.1.0/dist/mermaid.min.js"></script>
     
 
   

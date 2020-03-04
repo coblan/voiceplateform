@@ -58,15 +58,19 @@ class CallRecord(models.Model):
             models.Index(fields=['channel',]),
         ]
 
-
+EVENT_CATEGORY = (
+    (0,'用户上报'),
+    (1,'机器人上报'),
+)
     
 class CallEvent(models.Model):
     record = models.ForeignKey(CallRecord,blank=True,null=True)
-    uid = models.CharField('上报用户',max_length=30)
+    uid = models.CharField('相关用户',max_length=30)
     channel = models.CharField('通话频道',max_length=30)
     code = models.IntegerField('事件编码',blank=True,null=True)
     desp = models.TextField('事件描述',blank=True)
     createtime = models.DateTimeField('产生时间',auto_now_add=True)
+    sender_type = models.IntegerField('上报类型',default=0,choices=EVENT_CATEGORY)
     
     class Meta:
         indexes = [
@@ -77,4 +81,9 @@ class CallEvent(models.Model):
 class MockApi(models.Model):
     url = models.CharField('api地址',max_length=200)
     content = models.TextField('返回内容',help_text='json字符串')
-    
+
+
+class UserRtcMap(models.Model):
+    channel = models.CharField('频道名称',max_length= 30)
+    uid = models.CharField('用户名称',max_length=30)
+    rtcid = models.IntegerField('RTC映射ID')

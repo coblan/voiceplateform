@@ -1,5 +1,5 @@
 from helpers.director.shortcut import TablePage,ModelTable,director,page_dc,director_view,RowFilter
-from .models import CallRecord,CallEvent
+from .models import CallRecord,CallEvent,UserRtcMap
 from django.utils import timezone
 from helpers.func.sim_signal import sim_signal
 from django.db.models import OuterRef, Subquery,F,Count
@@ -52,7 +52,7 @@ def refresh_call_record(uid,channel):
     CallRecord.objects.filter(channel=channel).update(refreshtime=timezone.now())
 
 @director_view('call/event')
-def event_call_record(uid,channel,code,desp=''):
+def event_call_record(uid,channel,code,desp='',sender_type=0):
     #try:
         #record = CallRecord.objects.get(channel=channel)
     #except CallRecord.DoesNotExist:
@@ -70,14 +70,18 @@ def event_call_record(uid,channel,code,desp=''):
     if int(code) ==2:
         sim_signal.send('call.quit',uid=uid,channel=channel)
         
-    obj = CallEvent.objects.create(uid=uid,channel=channel,code=code,desp=desp)
+    obj = CallEvent.objects.create(uid=uid,channel=channel,code=code,desp=desp,sender_type=sender_type)
     latest = CallRecord.objects.filter(channel=OuterRef('channel'))
     #CallEvent.objects.filter(pk = obj.pk).annotate(record_me = Subquery(latest.values('pk')[:1])).update(record_id=F('record_me'))
     CallEvent.objects.filter(pk = obj.pk).update(record_id= Subquery(latest.values('pk')[:1]) )
 
-@director_view('ss')
-def trigger_recording(channel):
-    pass
+#@director_view('ss')
+#def trigger_recording(channel):
+    #pass
+
+@director_view('call/rtcmap')
+def user_rtc_map(channel,uid,rtcid):
+    UserRtcMap.objects.create(channel=channel,uid=uid,rtcid=rtcid)
 
 director.update({
     'callrecord':CallRecordPage.tableCls,

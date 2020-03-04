@@ -101,6 +101,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#id12">4.2.10. 获取拨打列表</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id13">4.2.11. 心跳检查通话</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id">4.2.12. 用户ID映射上报</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="other_api.html">4.3. 其他接口</a></li>
@@ -455,14 +456,15 @@ B-&gt;&gt;RTC:离开频道
 </div>
 <div class="section" id="id6">
 <h2>4.2.6. 通话事件上报<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">call</span><span class="o">/</span><span class="n">event</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[POST]  /dapi/call/event
 
-<span class="n">参数</span><span class="p">{</span>
-    <span class="s2">&quot;uid&quot;</span><span class="p">:</span><span class="s2">&quot;12345&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;channel&quot;</span><span class="p">:</span><span class="s2">&quot;ch_1235&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;code&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> 
-    <span class="s2">&quot;desp&quot;</span><span class="p">:</span><span class="s2">&quot;接通&quot;</span><span class="p">,</span>
-<span class="p">}</span>
+参数{
+    &quot;uid&quot;:&quot;12345&quot;,
+    &quot;channel&quot;:&quot;ch_1235&quot;,
+    &quot;code&quot;:1, 
+    &quot;desp&quot;:&quot;接通&quot;,
+    &quot;sender_type&quot;:0,  // 上报类型，不传则为0，代表普通用户
+}
 </pre></div>
 </div>
 <table border="1" class="docutils">
@@ -493,6 +495,11 @@ B-&gt;&gt;RTC:离开频道
 <td>desp</td>
 <td>详细描述</td>
 <td>否</td>
+</tr>
+<tr>
+<td>sender_type</td>
+<td>上报类型 0:普通用户;1:机器人;</td>
+<td>否 (默认为0)</td>
 </tr>
 </tbody>
 </table><p>事件code具体描述:</p>
@@ -758,6 +765,20 @@ B-&gt;&gt;RTC:离开频道
 </tr>
 </tbody>
 </table></div>
+<div class="section" id="id">
+<h2>4.2.12. 用户ID映射上报<a class="headerlink" href="#id" title="Permalink to this headline">¶</a></h2>
+<p>由于RTC逻辑用户ID是整型，与本地用户需要做映射。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[POST]  /dapi/call/rtcmap
+参数
+{
+    channel:&quot;ch_werwttyy&quot;,
+    uid:&quot;123245&quot;，
+    rtcid:12342454,
+}
+</pre></div>
+</div>
+<p>全部参数都是必填</p>
+</div>
 </div>
 
 
@@ -781,7 +802,7 @@ B-&gt;&gt;RTC:离开频道
   <div role="contentinfo">
     <p>
         &copy; Copyright 2019, coblan
-      Last updated on 2020-02-25 16:18:19.
+      Last updated on 2020-03-04 10:46:14.
 
     </p>
   </div>

@@ -60,6 +60,7 @@
                     'createtime': '2020-02-14 21:02:27',  // 事件发生时间
                     'desp': '3',   // 事件详细描述
                     'id': 7,   // 事件ID
+                    'sender_typ':0, // 普通用户上报
                     'pk': 7,
                     'record': 12,  // 事件对应的通话记录ID
                     'uid': 515},   // 事件上报用户uid
@@ -68,9 +69,17 @@
                     'createtime': '2020-02-14 21:02:27',
                     'desp': '',
                     'id': 8,
+                    'sender_type':1, // 机器人上报
                     'pk': 8,
                     'record': 12,
                     'uid': 511}],
+        'resource':[
+            {user:'1231',kind_label:'字幕',content:'深深深算宫灯'start:'2020-10-01 10:20:20',end:'2020-10-01 10:23:20',},
+            {user:'1231',kind_label:'录音',content:'/media/ssg/12342.acc'},
+            {user:'1231',kind_label:'录音时间戳',content:'/media/ssg/12342.text'},
+            {user:'1231',kind_label:'录音时间戳',content:'/media/ssg/12342_02.text'},
+            {user:'1231',kind_label:'录音时间戳',content:'/media/ssg/12342_3.text'},
+        ],
 
         'pk': 12,
         'count': 0,  

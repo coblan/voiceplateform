@@ -1,5 +1,5 @@
 from django.test import TestCase,Client
-from .models import VoiceMsgList,CallTask,CallRecord,CallEvent
+from .models import VoiceMsgList,CallTask,CallRecord,CallEvent,UserRtcMap
 import json
 from django.core.management import call_command
 from unittest import mock
@@ -137,13 +137,30 @@ class TestSimpleWash(TestCase):
         cl=Client(enforce_csrf_checks=True)
         
         rt = cl.post('/dapi/call/user',data={'src_uid':"1234",'dst_uid':'4321'})
-        data = {
+        data1 = {
             "uid":"12345",
             "channel":rt.json().get('data').get('channel'),
             "code":1, 
             "desp":"接通",
         }
-        rt = cl.post('/dapi/call/event',data=data)
+        rt1 = cl.post('/dapi/call/event',data=data1)
+        data2 = {
+            "uid":"12345",
+            "channel":rt.json().get('data').get('channel'),
+            "code":1, 
+            "desp":"接通",
+            'sender_type':1,
+        }
+        rt2 = cl.post('/dapi/call/event',data=data2)
+        
+        # 测试下 上报映射
+        data3 = {
+            'channel':'1235',
+            'uid':'1235',
+            'rtcid':342342,
+        }
+        rt3 = cl.post('/dapi/call/rtcmap',data=data3)
+        self.assertAlmostEqual(UserRtcMap.objects.count(),1)
         print('='*30)
         
     
