@@ -62,5 +62,5 @@ RECORD={
     'recording_bin':'/root/agoracore/Agora_Recording_SDK_for_Linux_FULL/bin',
     'tone_dir': os.path.join(MEDIA_ROOT,'recording'),
     'tone_url':urllib.parse.urljoin(SELF_DOMAIN, '/media/recording'),
-    'idle':'30',
+    'idle':3,
 }
