@@ -26,7 +26,7 @@ def call_call(uid,channel,src_uid=None,dst_uid=None,extra_msg=None,is_robot=Fals
 
 @sim_signal.recieve('call.enter')
 def call_start(uid,channel):
-    #recording.delay(channel)
+    recording.delay(channel)
     general_log.debug('频道开始%s'%channel)
     VoiceMsgList.objects.filter(uid = uid,channel=channel).update(status=1)
     CallRecord.objects.filter(channel=channel).update(count = F('count')+1 )
