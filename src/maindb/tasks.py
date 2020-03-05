@@ -133,6 +133,8 @@ def push_callrecord(pk):
         resource['recording_timestamp'] =  resource ['recording_timestamp'][:1]
         
         dc['resource'] = resource
+        general_log.debug('推送数据:%s'%json.dumps(   {'callrecord':dc}   ))
+        
         rt = requests.post(url,json= {'callrecord':dc})
         
         general_log.info('推送拨打记录给app后台,返回状态码%s,返回结果%s'%(rt.status_code,rt.text))

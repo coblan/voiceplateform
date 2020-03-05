@@ -60,7 +60,10 @@
                         console.log('stream-subscribed remote-uid: ', id);
                     })
                     }).then(()=>{
-                        this.join()
+                        return this.join()
+                    }).then(()=>{
+                        //
+                        this.publish()
                     })
                 },
                 updateclient(){
