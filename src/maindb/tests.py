@@ -5,7 +5,7 @@ from django.core.management import call_command
 from unittest import mock
 from django.utils import timezone
 from functools import partial
-from maindb.tasks import channel_reject_monitor,check_is_receive
+from maindb.tasks import channel_reject_monitor,check_is_receive,push_callrecord,recording
 import urllib
 from django.conf import settings
 from maindb.signal import call_end
@@ -60,6 +60,12 @@ class TestSimpleWash(TestCase):
         connection.channel = lambda:channel
         pika_connection.return_value = connection
         
+        push_callrecord_mock = mock.patch('maindb.tasks.push_callrecord.delay')
+        push_mock = push_callrecord_mock.start()
+        push_mock.side_effect = push_callrecord
+        
+        recording_mock = mock.patch('maindb.tasks.recording.delay')
+        recording_mock.start().side_effect = lambda channel:print('开始录制音频 channel=%s'%channel)
     
     def tearDown(self):
         self.now_pather.stop()

@@ -73,12 +73,20 @@
                     'pk': 8,
                     'record': 12,
                     'uid': 511}],
-        'resource':[
-            {user:'1231',kind_label:'字幕',content:'深深深算宫灯'start:'2020-10-01 10:20:20',end:'2020-10-01 10:23:20',},
-            {user:'1231',kind_label:'录音',content:'/media/ssg/12342.acc'},
-            {user:'1231',kind_label:'录音时间戳',content:'/media/ssg/12342.text'},
-            {user:'1231',kind_label:'录音时间戳',content:'/media/ssg/12342_02.text'},
-            {user:'1231',kind_label:'录音时间戳',content:'/media/ssg/12342_3.text'},
+        'resource':{
+            "captions":[
+                {user:'1231',kind_label:'字幕',content:'深深深算宫灯'start:'2020-10-01 10:20:20',end:'2020-10-01 10:23:20',},
+            ],
+            "recording":[
+                {user:'1231',kind_label:'录音',content:'/media/ssg/12342.acc'},
+            ],
+            "recording_timestamp":[
+                {user:'1231',kind_label:'录音时间戳',content:'/media/ssg/12342.text'},
+                {user:'1231',kind_label:'录音时间戳',content:'/media/ssg/12342_02.text'},
+                {user:'1231',kind_label:'录音时间戳',content:'/media/ssg/12342_3.text'},
+            ]
+        }
+            
         ],
 
         'pk': 12,

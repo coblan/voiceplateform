@@ -3,12 +3,14 @@ import requests
 import urllib
 from django.conf import settings
 import json
-from maindb.models import CallRecord
+from maindb.models import CallRecord,CallEvent
 from part3.rabbit_instance import robot_receive_call
 import subprocess
 from helpers.func.random_str import get_random_number
 from part3.Agora_interface import get_rtc_option
 import os
+from helpers.director.model_func.dictfy import sim_dict
+from helpers.director.kv import get_json
 
 import logging
 general_log = logging.getLogger('general_log')
@@ -18,7 +20,7 @@ def channel_reject_monitor(uid,channel):
     url = urllib.parse.urljoin(settings.APP_HOST,'/extphone_new/ext/setting/call')
     rt = requests.post(url,json= {'userNo':uid}  )
     general_log.info('请求app服务器[%s] %s的拒接等待时间 ,返回结果 %s'% (url,uid,rt.text) )
-    waittime= 30 #settings.REJECT_WATI
+    waittime= 0 #settings.REJECT_WATI
     if rt.status_code==200 and rt.json().get('code') ==1 and  rt.json().get('data').get('data').get('isAutoAnswer'):
         waittime = rt.json().get('data').get('data').get('waitTime',waittime)
     if waittime:
@@ -86,4 +88,50 @@ def recording(channel):
     #f.close
     #os.system(order)
     
-    
+@app.task
+def push_callrecord(pk):
+    record = CallRecord.objects.get(pk=pk)
+    url = get_json('cfg_push_call_record')
+    if url or True:
+        dc = sim_dict(record)
+        event = []
+        resource ={
+            'captions':[],
+            'recording':[],
+            'recording_timestamp':[],
+        }
+        for item in record.callevent_set.all().exclude(code =3):
+            item_dc = sim_dict(item)
+            for k,v in dict(item_dc).items():
+                if k.startswith('_'):
+                    item_dc.pop(k)
+            event.append(item_dc)
+        dc['event'] = event
+        
+        for item in record.callevent_set.filter(code=3):
+            caption_dc =   {'userid':item.uid,'kind_label':'字幕',}
+            caption_dc.update(
+                json.loads(item.desp)
+            )
+            resource['captions'].append(caption_dc)
+        
+        path = os.path.join( settings.RECORD.get('tone_dir'),record.channel)
+        if os.path.exists(path):
+            for fl in os.listdir(path):
+                fl_url = urllib.parse.urljoin(settings.RECORD.get('tone_url'),fl)
+                if fl.endswith('.aac'):
+                    resource['recording'].append(
+                        {'userid':0,'kind_label':'录音','content':fl_url,}
+                    )
+                elif fl.endswith('.txt') and fl.startswith('uid_'):
+                    resource['recording_timestamp'].append(
+                        {'userid':0,'kind_label':'录音时间戳','content':fl_url}
+                    )
+                
+        dc['resource'] = resource
+        rt = requests.post(url,json= {'callrecord':dc})
+        
+        general_log.info('推送拨打记录给app后台,返回状态码%s,返回结果%s'%(rt.status_code,rt.text))
+        
+    else:
+        general_log.info('推送拨打记录给app后台，但是没有设置推送地址!')
