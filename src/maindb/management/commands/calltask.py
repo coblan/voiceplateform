@@ -18,7 +18,7 @@ class Command(BaseCommand):
     """
     def handle(self, *args, **options):
         now = timezone.now()
-        general_log.debug('启动定时拨打任务')
+        #general_log.debug('启动定时拨打任务')
         for task in CallTask.objects.filter(status = 0,call_time__lte= now):
             #general_log.debug('定时拨打src_uid=%s;dst_uid=%s'%(task.src_uid,task.dst_uid))
             task.status = 1
@@ -26,7 +26,7 @@ class Command(BaseCommand):
             general_log.info('机器人拨打任务 %s'% task.pk )
             call_user(task.src_uid,task.dst_uid,task.taskid)
             
-        general_log.debug('定时拨打任务结束')
+        #general_log.debug('定时拨打任务结束')
     
 def call_user(src_uid,dst_uid,taskid):
     '''
