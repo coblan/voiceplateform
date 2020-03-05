@@ -119,7 +119,7 @@ def push_callrecord(pk):
         if os.path.exists(path):
             for fl in os.listdir(path):
                 fl_url = urllib.parse.urljoin(settings.RECORD.get('tone_url'),fl)
-                if fl.endswith('.aac'):
+                if fl.endswith('.aac') :
                     resource['recording'].append(
                         {'userid':0,'kind_label':'录音','content':fl_url,}
                     )
@@ -127,7 +127,11 @@ def push_callrecord(pk):
                     resource['recording_timestamp'].append(
                         {'userid':0,'kind_label':'录音时间戳','content':fl_url}
                     )
-                
+                    
+        # 临时决定，只取第一个
+        resource['recording'] =  resource ['recording'][:1]
+        resource['recording_timestamp'] =  resource ['recording_timestamp'][:1]
+        
         dc['resource'] = resource
         rt = requests.post(url,json= {'callrecord':dc})
         
