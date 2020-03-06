@@ -74,7 +74,7 @@ def recording(channel):
     --highUdpPort %(highUdpPort)s \
     --cfgFilePath %(config_path)s\
     --isAudioOnly 1 \
-    --getAudioFrame 2\
+    --getAudioFrame 3\
     --idle %(idle)s\
    '''
     #     --isMixingEnabled 1 \
