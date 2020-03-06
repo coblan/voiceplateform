@@ -52,7 +52,7 @@ def delete_call_task(taskid):
     #print(kws)
 
 director.update({
-    'calltask':CallTaskPage,
+    'calltask':CallTaskPage.tableCls,
     'calltask.edit':CallTaskForm,
     'calltask/list':UserCallTask
 })
