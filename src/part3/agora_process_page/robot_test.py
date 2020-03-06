@@ -18,6 +18,7 @@ class RobotTestPage(object):
             'tops':[
                 {'editor':'com-robot-receive',},
                 {'editor':'com-rtc-recording'},
+                {'editor':'com-rtc-put-task'},
                 #{'editor':'com-rtc-trigger'},
                 #*rtc_send,
                 #{'editor':'com-rtc-send'},

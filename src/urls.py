@@ -40,6 +40,7 @@ urlpatterns = [
     url(r'^pc/([\w\.-]+)/?$',PcAdminMenu.as_view(),name=PcAdminMenu.url_name),
     url(r'^d/',include('helpers.director.urls'),name='director'),
     url(r'^dapi/(?P<director_name>[\w\/\.-]+)?/?$',director_view),
+    url(r'^p$',RedirectView.as_view(url='/ago/p')) ,
     url(r'^$',RedirectView.as_view(url='/pc/callrecord')) ,
 ]
 

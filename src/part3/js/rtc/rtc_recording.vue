@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="com-rtc-recording">
         <div>
             <span>频道</span>
             <input type="text" v-model="channel">
@@ -26,3 +26,10 @@
         }
     }
 </script>
+<style scoped lang="scss">
+    .com-rtc-recording{
+        border: 1px solid grey;
+        padding: 20px;
+    }
+
+</style>
