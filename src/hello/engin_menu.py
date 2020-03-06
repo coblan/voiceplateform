@@ -24,7 +24,7 @@ class PcAdminMenu(BaseEngine):
             {'label': '通话管理', 'visible': True,'submenu':[
                 {'label': '通话记录', 'url': page('callrecord'), 'visible': True},
                 {'label': '定时任务', 'url': page('calltask'), 'visible': True},
-                
+                #{'label':'用户语音消息','url':page('voicemsg'),},
             ]},
            
             {'label': '配置管理', 'url': page('config'), 'visible': True},

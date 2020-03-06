@@ -7,6 +7,7 @@ from . import admin_calltask
 from . import admin_callrecord
 from . import admin_config
 from . import admin_mockapi
+from . import admin_voicemsg
 
 from .pc_page import panel
 
