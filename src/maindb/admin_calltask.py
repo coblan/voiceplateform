@@ -11,6 +11,16 @@ class CallTaskPage(TablePage):
     class tableCls(ModelTable):
         model = CallTask
         exclude =[]
+        pop_edit_fields=['id']
+        
+        def dict_head(self, head):
+            width={
+                'src_uid':150,
+                'dst_uid':200,
+            }
+            if head['name'] in width:
+                head['width'] = width.get(head['name'])
+            return head
         
 class CallTaskForm(ModelFields):
     nolimit = True
@@ -29,6 +39,8 @@ class UserCallTask(ModelTable):
 @director_view('calltask/update')
 def update_calltask(**row):
     """
+    普通用户上传或者更改定时任务。
+    
     src_uid:
     dst_uid:
     call_time:
