@@ -56,3 +56,7 @@ director.update({
     'calltask.edit':CallTaskForm,
     'calltask/list':UserCallTask
 })
+
+page_dc.update({
+    'calltask':CallTaskPage,
+})

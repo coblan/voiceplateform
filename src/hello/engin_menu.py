@@ -21,7 +21,12 @@ class PcAdminMenu(BaseEngine):
     def menu(self):
         crt_user = self.request.user
         menu = [
-            {'label': '通话记录', 'url': page('callrecord'), 'visible': True},
+            {'label': '通话管理', 'visible': True,'submenu':[
+                {'label': '通话记录', 'url': page('callrecord'), 'visible': True},
+                {'label': '定时任务', 'url': page('calltask'), 'visible': True},
+                
+            ]},
+           
             {'label': '配置管理', 'url': page('config'), 'visible': True},
             {'label': '模拟api', 'url': page('mockapi'), 'visible': True},
             
