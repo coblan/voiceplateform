@@ -173,7 +173,7 @@ class TestSimpleWash(TestCase):
     def test_event_back(self):
         record = CallRecord.objects.create(channel = 'ch_798dgrgT34')
         CallEvent.objects.create(channel='ch_798dgrgT34',record=record)
-        call_end(record)
+        call_end(record.channel)
         
         print('='*30)
         

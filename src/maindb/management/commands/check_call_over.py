@@ -24,7 +24,7 @@ class Command(BaseCommand):
             record.endtime = now
             record.save()
             out_call.append( CallEvent(record=record,channel=record.channel,code=3,desp='通话记录timeout检测') ) #
-            sim_signal.send('call.end',record)
+            sim_signal.send('call.end',record.channel)
             general_log.debug('检测到刷新时间过期，关闭通话记录%s'%record.pk)
         
         CallEvent.objects.bulk_create(out_call)

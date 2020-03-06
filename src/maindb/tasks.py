@@ -89,8 +89,8 @@ def recording(channel):
     #os.system(order)
     
 @app.task
-def push_callrecord(pk):
-    record = CallRecord.objects.get(pk=pk)
+def push_callrecord(channel):
+    record = CallRecord.objects.get(channel=channel)
     url = get_json('cfg_push_call_record')
     if url or True:
         dc = sim_dict(record)
@@ -133,7 +133,7 @@ def push_callrecord(pk):
         resource['recording_timestamp'] =  resource ['recording_timestamp'][:1]
         
         dc['resource'] = resource
-        general_log.debug('推送数据:%s'%json.dumps(   {'callrecord':dc}   ))
+        general_log.debug('推送数据:%s'%json.dumps(   {'callrecord':dc}   ) )
         
         rt = requests.post(url,json= {'callrecord':dc})
         

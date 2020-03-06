@@ -26,31 +26,39 @@ def call_call(uid,channel,src_uid=None,dst_uid=None,extra_msg=None,is_robot=Fals
 
 @sim_signal.recieve('call.enter')
 def call_start(uid,channel):
-    recording.delay(channel)
+    
     general_log.debug('频道开始%s'%channel)
     VoiceMsgList.objects.filter(uid = uid,channel=channel).update(status=1)
     CallRecord.objects.filter(channel=channel).update(count = F('count')+1 )
-    try:
-        record  =CallRecord.objects.get(channel = channel)
-        if not record.starttime:
-            record.starttime = timezone.now()
-        record.save()
-    except CallRecord.DoesNotExist as e:
-        raise UserWarning(str(e))
+    
+    update_count =  CallRecord.objects.filter(channel=channel,starttime__isnull=True).update(starttime = timezone.now())
+    if update_count:
+        recording.delay(channel)
+    #try:
+        #record  =CallRecord.objects.get(channel = channel)
+        #if not record.starttime:
+            #record.starttime = timezone.now()
+        #record.save()
+    #except CallRecord.DoesNotExist as e:
+        #raise UserWarning(str(e))
     
 
 @sim_signal.recieve('call.quit')
 def call_quit(uid,channel):
     VoiceMsgList.objects.filter(uid = uid,channel=channel).update(status=2)
     CallRecord.objects.filter(channel =channel).update(count = F('count')-1)
-    record = CallRecord.objects.get(channel = channel)
-    if record.count <=0:
-        record.endtime = timezone.now()
-        record.save()
-        sim_signal.send('call.end',record)
+    update_count = CallRecord.objects.filter(channel =channel,count__lte=0,endtime__isnull= True).update(endtime = timezone.now())
+    if update_count:
+        sim_signal.send('call.end',channel)
+        
+    #record = CallRecord.objects.get(channel = channel)
+    #if record.count <=0:
+        #record.endtime = timezone.now()
+        #record.save()
+        #sim_signal.send('call.end',record)
 
 @sim_signal.recieve('call.end')
-def call_end(record):
-    push_callrecord.delay(record.pk)
+def call_end(channel):
+    push_callrecord.delay(channel)
     
 
