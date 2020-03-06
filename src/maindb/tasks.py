@@ -74,10 +74,10 @@ def recording(channel):
     --highUdpPort %(highUdpPort)s \
     --cfgFilePath %(config_path)s\
     --isAudioOnly 1 \
-    --getAudioFrame 3\
+    --isMixingEnabled 1 \
     --idle %(idle)s\
    '''
-    #     --isMixingEnabled 1 \
+    #         --getAudioFrame 3\
     order = order % dc
     general_log.debug('录制命令:%s'%order)
     
@@ -121,7 +121,7 @@ def push_callrecord(channel):
             root_url = urllib.parse.urljoin(settings.RECORD.get('tone_url'),channel) +'/'
             for fl in os.listdir(path):
                 fl_url = urllib.parse.urljoin(root_url,fl)
-                if fl.endswith('.pcm') :
+                if fl.endswith('.aac') :
                     resource['recording'].append(
                         {'userid':0,'kind_label':'录音','content':fl_url,}
                     )
