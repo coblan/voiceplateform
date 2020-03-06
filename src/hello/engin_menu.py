@@ -29,6 +29,8 @@ class PcAdminMenu(BaseEngine):
            
             {'label': '配置管理', 'url': page('config'), 'visible': True},
             {'label': '模拟api', 'url': page('mockapi'), 'visible': True},
+            {'label': '前端日志', 'url': page('frontlog'), 'visible': True},
+            
             
         ]
 

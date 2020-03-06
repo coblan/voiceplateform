@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from helpers.director.model_func.cus_fields.jsonable import JsonAbleField
+from helpers.director.model_func.cus_fields.plain_file import PlainFileField
 
 # Create your models here.
 class Accountinfo(models.Model):
@@ -90,3 +91,8 @@ class UserRtcMap(models.Model):
     channel = models.CharField('频道名称',max_length= 30)
     uid = models.CharField('用户名称',max_length=30)
     rtcid = models.IntegerField('RTC映射ID')
+    
+class FrontLog(models.Model):
+    key = models.CharField('KEY',max_length=30)
+    url = PlainFileField('文件路径',max_length=300)
+    createtime = models.DateTimeField('创建时间',auto_now_add=True)

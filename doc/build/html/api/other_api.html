@@ -90,6 +90,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#upload">4.3.1. 文件上传</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id3">4.3.2. 系统设置</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id4">4.3.3. 外部系统</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">4.3.4. 前端存放日志</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="mq.html">4.4. rabbitmq</a></li>
@@ -293,6 +294,22 @@
 </tr>
 </tbody>
 </table></div>
+<div class="section" id="id5">
+<h2>4.3.4. 前端存放日志<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li>调用<a class="reference internal" href="#upload"><span class="std std-ref">接口上传</span></a>日志文件,获取文件url地址</li>
+<li>调用<code class="docutils literal notranslate"><span class="pre">提交日志</span></code> 接口提交日志</li>
+</ol>
+<p>提交日志信息</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[POST]  /dapi/put-log
+参数
+{
+    key:&quot;231&quot;, // 可以查询的键值，最多不超过30个字
+    url:&quot;/media/sss&quot; ,// 日志文件地址,通过 文件上传 接口上传
+}
+</pre></div>
+</div>
+</div>
 </div>
 
 
@@ -316,7 +333,7 @@
   <div role="contentinfo">
     <p>
         &copy; Copyright 2019, coblan
-      Last updated on 2020-03-05 11:58:36.
+      Last updated on 2020-03-06 23:50:22.
 
     </p>
   </div>
