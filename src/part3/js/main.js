@@ -5,10 +5,12 @@ import rtm_send  from './rtm_send.vue'
 import  rtc_robto_test from  './rtc/rtc_robot_test.vue'
 import  rtc_recording from  './rtc/rtc_recording.vue'
 import  rtc_put_task from  './rtc/rtc_put_task.vue'
+import  rtc_stop_robot from  './rtc/rtc_stop_robto.vue'
 
 Vue.component('com-robot-receive',rtc_robto_test)
 Vue.component('com-rtc-recording',rtc_recording)
 Vue.component('com-rtc-put-task',rtc_put_task)
+Vue.component('com-rtc-stop-robot',rtc_stop_robot)
 
 Vue.component('com-rtc-trigger',rtc_trigger)
 Vue.component('com-rtc-send', (resolve,reject)=>{

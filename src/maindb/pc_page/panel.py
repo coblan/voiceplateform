@@ -20,7 +20,7 @@ class PanelPage(object):
                     {'label':'rabbitmq后台','src':'http://liu.enjoyst.com:10830/','detail':'账号:voice;密码:voice;'},
                     {'label':'elk日志','src':'http://liu.enjoyst.com:10821/','detail':'账号:voice;密码:voice123'},
                     {'label':'rtc模拟','src':'/rtc','detail':'rtc客户端'},
-                    {'label':'机器人拨打','src':'/ago/rtc-robot','detail':'机器人测试;录制频道'},
+                    {'label':'机器人拨打','src':'/ago/rtc-robot','detail':'机器人测试;录制频道;踢出机器人'},
                     
                 ]}
             ]
