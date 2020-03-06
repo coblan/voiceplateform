@@ -1,5 +1,6 @@
 <template>
     <div class="com-rtc-recording">
+        <h3>频道录制触发器</h3>
         <div>
             <span>频道</span>
             <input type="text" v-model="channel">

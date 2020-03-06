@@ -2,6 +2,7 @@
     <div>
 
         <div style="margin: 30px">
+            机器人测试原理为：直接向rabbitmp投递消息。
             <h3>接收机器人</h3>
             <div>
                 <span>发送者</span>
