@@ -90,9 +90,9 @@ def recording(channel):
     
 @app.task
 def push_callrecord(channel):
-    record = CallRecord.objects.get(channel=channel)
     url = get_json('cfg_push_call_record')
     if url:
+        record = CallRecord.objects.get(channel=channel)
         dc = sim_dict(record)
         event = []
         resource ={

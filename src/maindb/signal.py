@@ -59,6 +59,7 @@ def call_quit(uid,channel):
 
 @sim_signal.recieve('call.end')
 def call_end(channel):
-    push_callrecord.delay(channel)
+    # 为了防止前面的事务未完成，这里等待两秒再去发送
+    push_callrecord.apply_async(args=(channel,),countdown = 2 )
     
 

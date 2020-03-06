@@ -61,9 +61,12 @@ class TestSimpleWash(TestCase):
         connection.channel = lambda:channel
         pika_connection.return_value = connection
         
-        push_callrecord_mock = mock.patch('maindb.tasks.push_callrecord.delay')
+        push_callrecord_mock = mock.patch('maindb.tasks.push_callrecord.apply_async')
         push_mock = push_callrecord_mock.start()
-        push_mock.side_effect = push_callrecord
+        def bba_side_effect(args, countdown):
+            return push_callrecord(*args)
+        
+        push_mock.side_effect =  bba_side_effect
         
         recording_mock = mock.patch('maindb.tasks.recording.delay')
         recording_mock.start().side_effect = lambda channel:print('开始录制音频 channel=%s'%channel)
@@ -175,6 +178,9 @@ class TestSimpleWash(TestCase):
         set_json('cfg_push_call_record','aaaaa')
         
         record = CallRecord.objects.create(channel = 'ch_798dgrgT34')
+        record.endtime= timezone.now()
+        record.save()
+        
         CallEvent.objects.create(channel='ch_798dgrgT34',record=record)
         call_end(record.channel)
         
