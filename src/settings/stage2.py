@@ -49,7 +49,7 @@ APPLE={
 
 from . log import *
 
-APP_HOST= 'http://uys8je.natappfree.cc' #'http://kukpyk.natappfree.cc'
+APP_HOST= 'http://mzcq9c.natappfree.cc' #'http://kukpyk.natappfree.cc'
 
 
 SELF_DOMAIN = 'https://liu.enjoyst.com'
