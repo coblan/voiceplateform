@@ -121,7 +121,7 @@ def push_callrecord(channel):
             root_url = urllib.parse.urljoin(settings.RECORD.get('tone_url'),channel) +'/'
             for fl in os.listdir(path):
                 fl_url = urllib.parse.urljoin(root_url,fl)
-                if fl.endswith('.aac') :
+                if fl.endswith('.pcm') :
                     resource['recording'].append(
                         {'userid':0,'kind_label':'录音','content':fl_url,}
                     )
