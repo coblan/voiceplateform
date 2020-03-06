@@ -9,6 +9,7 @@ from maindb.tasks import channel_reject_monitor,check_is_receive,push_callrecord
 import urllib
 from django.conf import settings
 from maindb.signal import call_end
+from helpers.director.kv import set_json
 # Create your tests here.
 
 class Myobjet(object):
@@ -171,6 +172,8 @@ class TestSimpleWash(TestCase):
         print('='*30)
     
     def test_event_back(self):
+        set_json('cfg_push_call_record','aaaaa')
+        
         record = CallRecord.objects.create(channel = 'ch_798dgrgT34')
         CallEvent.objects.create(channel='ch_798dgrgT34',record=record)
         call_end(record.channel)
