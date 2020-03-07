@@ -20,7 +20,7 @@ def channel_reject_monitor(uid,channel):
     url = urllib.parse.urljoin(settings.APP_HOST,'/extphone_new/ext/setting/call')
     rt = requests.post(url,json= {'userNo':uid}  )
     general_log.info('请求app服务器[%s] %s的拒接等待时间 ,返回结果 %s'% (url,uid,rt.text) )
-    waittime= 0 #settings.REJECT_WATI
+    waittime= 30 #settings.REJECT_WATI
     if rt.status_code==200 and rt.json().get('code') ==1 and  rt.json().get('data').get('data').get('isAutoAnswer'):
         waittime = rt.json().get('data').get('data').get('waitTime',waittime)
     if waittime:
