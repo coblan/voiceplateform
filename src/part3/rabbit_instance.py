@@ -57,7 +57,7 @@ def robot_receive_call(src,dst,channel_name):
 def robot_call_user(src,dst_list,channel_name,taskid):
     connection =pika.BlockingConnection(pika.ConnectionParameters(host=host,credentials=credentials))
     channel = connection.channel()
-    jsonmsg = json.dumps({'from':src,'to':dst_list,'channel':channel_name,'taskid':taskid},ensure_ascii=False)
+    jsonmsg = json.dumps({'from':src,'to':dst_list,'channel':channel_name,'taskid':str(taskid) },ensure_ascii=False)
     channel.basic_publish(exchange='rtc-robot',
                          routing_key= 'call',
                          body=jsonmsg)
