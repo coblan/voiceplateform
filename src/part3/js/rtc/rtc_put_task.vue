@@ -2,10 +2,10 @@
     <div>
         <h3>定时任务投送</h3>
     <div>
-        <span>发送UID</span> <input type="text" v-text="row.src_uid">
+        <span>发送UID</span> <input type="text" v-model="row.src_uid">
     </div>
      <div>
-            <span>接收UID</span> <input type="text" v-text="row.dst_uid"> <span>数组格式,例如:[1234,456]</span>
+            <span>接收UID</span> <input type="text" v-model="row.dst_uid"> <span>数组格式,例如:[1234,456]</span>
      </div>
 
       <div>
