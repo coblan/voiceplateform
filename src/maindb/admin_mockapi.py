@@ -1,7 +1,7 @@
 from helpers.director.shortcut import TablePage,ModelTable,ModelFields,director,page_dc,director_view,get_request_cache
 from .models import MockApi
 import json
-from django.http import Http404
+from django.http import Http404,JsonResponse
 
 class MockapiPage(TablePage):
     def get_label(self):
@@ -34,9 +34,9 @@ def dyn_mock_api(api):
     try:
         mock = MockApi.objects.get(url=api)
 
-        return json.loads(mock.content,encoding=False)
+        return JsonResponse( json.loads(mock.content,encoding=False) )
     except MockApi.DoesNotExist:
-        return {'msg':"api找不到"}
+        return JsonResponse({'msg':"api找不到"}) 
 
 dc ={}
 for inst in MockApi.objects.all():
