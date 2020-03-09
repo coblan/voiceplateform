@@ -25,7 +25,7 @@
         },
         mounted(){
           this.init()
-
+            var self =this
             Promise.all([this.channel_promise]).then(()=>{
                 var msg_body = {
                     "title" : "robotAnswerCall",
