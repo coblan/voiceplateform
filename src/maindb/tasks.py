@@ -135,7 +135,7 @@ def push_callrecord(channel):
         resource['recording_timestamp'] =  resource ['recording_timestamp'][:1]
         
         dc['resource'] = resource
-        general_log.debug('推送数据:%s'%json.dumps(   {'callrecord':dc}   ) )
+        general_log.debug('推送数据:%s'%json.dumps(   {'callrecord':dc} ,ensure_ascii=False  ) )
         
         rt = requests.post(url,json= {'callrecord':dc})
         
