@@ -5,7 +5,7 @@
         <span>发送UID</span> <input type="text" v-model="row.src_uid">
     </div>
      <div>
-            <span>接收UID</span> <input type="text" v-model="row.dst_uid"> <span>数组格式,例如:[1234,456]</span>
+            <span>接收UID</span> <input type="text" v-model="dst_uid"> <span>数组格式,例如:[1234,456]</span>
      </div>
 
       <div>
@@ -23,12 +23,14 @@
         props:['ctx'],
         data(){
             return {
+                dst_uid:'',
                 row:{}
             }
         },
         methods:{
             puttask(){
                 cfg.show_load()
+                this.row.dst_uid = JSON.parse(this.dst_uid)
                 ex.post('/dapi/calltask/update',this.row).then(()=>{
                     cfg.hide_load()
 
