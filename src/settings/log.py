@@ -42,7 +42,15 @@ LOGGING = {
             'formatter':'standard',
             'filename': os.path.join(LOG_PATH,'django.log'),            
             },   
-        
+        'rotfile':{
+            'level': 'DEBUG',
+            #'class': 'logging.handlers.RotatingFileHandler',
+             'class': 'concurrent_log_handler.ConcurrentRotatingFileHandler',
+            'maxBytes': 1024*1024*5,
+            'backupCount':3,
+            'formatter':'standard',
+            'filename': os.path.join(LOG_PATH,'process.log'),            
+          },  
     },
     'loggers': {
         'django': {
@@ -50,12 +58,12 @@ LOGGING = {
             'level': 'INFO',
             },
          'rtc_log': {
-            'handlers': ['console', 'rtc_log', ],
+            'handlers': ['console', 'rotfile',], #'rtc_log', ],
             'level': 'DEBUG',
             'propagate': True,            
             },
         'general_log': {
-            'handlers': ['console', 'djangoout_warning', 'VoiceplatformLOG' ],
+            'handlers': ['console', 'djangoout_warning','rotfile'] , #'VoiceplatformLOG' ],
             'level': 'DEBUG',
             'propagate': True,            
             },
