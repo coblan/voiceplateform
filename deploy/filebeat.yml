@@ -10,4 +10,9 @@ output.elasticsearch:
   hosts: ["localhost:9200"]
   username: "elastic"
   password: "he27375089" 
-  index: "filebeat-voice-%{[beat.version]}-%{+yyyy.MM.dd}"
+  index: "voice-beat-%{[beat.version]}-%{+yyyy.MM.dd}"
+
+setup.template:
+  name: "voice-beat-"
+  pattern: "voice-beat-*"
+  enabled: false
