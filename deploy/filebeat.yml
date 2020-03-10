@@ -3,8 +3,11 @@ filebeat.inputs:
   enabled: true
   paths:
     - /pypro/voiceplatform/log/*.log
+    
+tail_files: true
 
 output.elasticsearch:
   hosts: ["localhost:9200"]
   username: "elastic"
   password: "he27375089" 
+  index: "filebeat-voice-%{[beat.version]}-%{+yyyy.MM.dd}"
