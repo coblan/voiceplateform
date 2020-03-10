@@ -6,5 +6,5 @@ filebeat.inputs:
 
 output.elasticsearch:
   hosts: ["localhost:9200"]
-  username: "voice"
-  password: "voice" 
+  username: "elastic"
+  password: "he27375089" 
