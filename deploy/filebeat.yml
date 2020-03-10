@@ -2,7 +2,7 @@ filebeat.inputs:
 - type: log
   enabled: true
   paths:
-    - /pypro/voiceplateform/log/*.log
+    - /pypro/voiceplatform/log/*.log
 
 output.elasticsearch:
   hosts: ["localhost:9200"]
