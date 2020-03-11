@@ -16,3 +16,5 @@ setup.template:
   name: "voice-beat"
   pattern: "voice-beat-*"
   enabled: false
+
+setup.ilm.enabled: false
