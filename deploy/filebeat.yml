@@ -11,6 +11,7 @@ output.elasticsearch:
   username: "elastic"
   password: "he27375089" 
   index: "voice-beat-%{+yyyy.MM.dd}"
+  pipeline: "django-log"
 
 setup.template:
   name: "voice-beat"
