@@ -18,4 +18,3 @@ setup.template:
   enabled: false
 
 setup.ilm.enabled: false
-pipeline.workers:1
