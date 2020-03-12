@@ -1,5 +1,5 @@
 from dfilebeat import DFileBeat,multi_tail_file,django_log_parsers
-
+from functools import partial
 
 pp = DFileBeat(harvest= partial(multi_tail_file,
                                    [
