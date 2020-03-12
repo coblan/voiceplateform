@@ -1,4 +1,4 @@
-from dfilebeat import DFileBeat,multi_tail_file,django_log_parsers
+from dfilebeat import DFileBeat,multi_tail_file,django_log_parsers,elastice_search
 from functools import partial
 
 pp = DFileBeat(harvest= partial(multi_tail_file,
