@@ -63,7 +63,7 @@ LOGGING = {
             'propagate': True,            
             },
         'general_log': {
-            'handlers': ['console', 'djangoout_warning','rotfile','VoiceplatformLOG' ],
+            'handlers': ['console', 'djangoout_warning','rotfile',], #'VoiceplatformLOG' ],
             'level': 'DEBUG',
             'propagate': True,            
             },
