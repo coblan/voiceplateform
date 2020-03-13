@@ -15,7 +15,7 @@ p_django = DFileBeat(harvest= partial(multi_tail_file,
 p_nginx = DFileBeat(harvest= partial(tail_file,'/var/log/nginx/voiceplatform.log'),
                   parsers =nginx_log_parser,
                   outputs = [
-                      partial(elastice_search,'liu.enjoyst.com:9200','elastic','he27375089','beat-voice')
+                      partial(elastice_search,'liu.enjoyst.com:9200','elastic','he27375089','beat-voi-nginx')
                   ] )
 
 executor =  ThreadPoolExecutor(max_workers = 2)
