@@ -1,4 +1,4 @@
-from fastdog.maintain.filebeat.dfilebeat import DFileBeat,multi_tail_file,django_log_parsers,elastice_search,tail_file,nginx_log_parser
+from fastdog.maintain.filebeat.dfilebeat import DFileBeat,multi_tail_file,django_log_parsers,elastice_search,nginx_log_parser
 from functools import partial
 from concurrent.futures import ThreadPoolExecutor,as_completed
 
