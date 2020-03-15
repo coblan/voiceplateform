@@ -172,6 +172,14 @@ class TestSimpleWash(TestCase):
         }
         rt3 = cl.post('/dapi/call/rtcmap',data=data3)
         self.assertAlmostEqual(UserRtcMap.objects.count(),1)
+        
+        data4 ={'desp': json.dumps({'content': '为', 'start': '2020-03-04 23:36:29', 'end': '2020-03-04 23:36:31'}),
+                'uid':123,
+                'channel':'12321',
+                'code':3,
+                }
+        rt4 = cl.post('/dapi/call/event',data=data4)
+        
         print('='*30)
     
     def test_event_back(self):

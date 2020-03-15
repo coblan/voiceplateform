@@ -3,7 +3,9 @@ from .models import CallRecord,CallEvent,UserRtcMap
 from django.utils import timezone
 from helpers.func.sim_signal import sim_signal
 from django.db.models import OuterRef, Subquery,F,Count
-
+import json
+import logging
+general_log = logging.getLogger('general_log')
 
 class CallRecordPage(TablePage):
     def get_label(self):
@@ -65,6 +67,20 @@ def event_call_record(uid,channel,code,desp='',sender_type=0):
     2. 用户退出
     
     """
+   
+    "desp = {'content': '为', 'start': '2020-03-04 23:36:29', 'end': '2020-03-04 23:36:31'}"
+    if int(code) ==3:
+        dc = json.loads(desp)
+        now = timezone.now()
+        dc_end = timezone.datetime.strptime(dc.get('end'),'%Y-%m-%d %H:%M:%S')
+        dc_start = timezone.datetime.strptime(dc.get('start'),'%Y-%m-%d %H:%M:%S')
+        time_delta = now- dc_end
+        dc['start'] = (time_delta + dc_start).strftime('%Y-%m-%d %H:%M:%S')
+        dc['end'] = now.strftime('%Y-%m-%d %H:%M:%S')
+        old_desp = desp
+        desp = json.dumps(dc,ensure_ascii=False)
+        general_log.debug('字幕转换:%s ====> %s'%(old_desp,desp))
+    
     # 可能有些 callevent没有对应的 callrecord,这里把他们设置好
     obj = CallEvent.objects.create(uid=uid,channel=channel,code=code,desp=desp,sender_type=sender_type)
     latest = CallRecord.objects.filter(channel=OuterRef('channel'))
