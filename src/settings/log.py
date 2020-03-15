@@ -9,7 +9,8 @@ LOGGING = {
     'disable_existing_loggers': False, 
     'formatters': {
         'standard': {
-             'format': '%(levelname)s %(asctime)s %(message)s',
+             #'format': '%(levelname)s %(asctime)s %(message)s',
+            'format': '%(levelname)s %(asctime)s %(process)d-%(thread)d %(message)s'
         },
     },
     'filters': {
