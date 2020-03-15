@@ -6,7 +6,9 @@ from . Agora.RtmTokenBuilder import RtmTokenBuilder
 from . rabbit_instance import send_msg,send_mp3,notify_quit_robot,robot_receive_call,robot_call_user
 from helpers.func.random_str import get_str
 from maindb.models import Accountinfo,VoiceMsgList,CallRecord
-from .apple.apns import VoiceCallPush
+#from .apple.apns import VoiceCallPush
+
+
 from django.utils import timezone
 from helpers.director.model_func.dictfy import sim_dict
 from helpers.director.network import argument
@@ -57,6 +59,7 @@ def call_user(src_uid,dst_uid =None,extra_msg=''):
     
     @dst_uid:list
     '''
+    from maindb.tasks import push_apple_message
     if isinstance(dst_uid,str):
         dst_uid = dst_uid.split(',')
             
@@ -82,7 +85,8 @@ def call_user(src_uid,dst_uid =None,extra_msg=''):
                 'accountCaller':src_uid,
                 'channel':channelName,
             }
-            VoiceCallPush(user.apns_token, infodc,src_user = src_uid).push()
+            push_apple_message.delay(user.apns_token, infodc, src_uid)
+            #VoiceCallPush(user.apns_token, infodc,src_user = src_uid).push()
     
     return {
         'appID':appID,

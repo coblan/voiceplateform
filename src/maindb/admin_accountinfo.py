@@ -29,6 +29,7 @@ def update_account_info(**kws):
     @device='',
     @apns_token=
     '''
+    Accountinfo.objects.filter(apns_token=kws.get('apns_token')).update(apns_token='')
     instacne = Accountinfo.objects.filter(uid = kws.get('uid')).first()
     if instacne:
         pk = instacne.pk

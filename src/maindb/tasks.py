@@ -11,6 +11,7 @@ from part3.Agora_interface import get_rtc_option
 import os
 from helpers.director.model_func.dictfy import sim_dict
 from helpers.director.kv import get_json
+from part3.apple.apns import VoiceCallPush
 
 import logging
 general_log = logging.getLogger('general_log')
@@ -170,3 +171,7 @@ def push_callrecord(channel):
         
     else:
         general_log.info('推送拨打记录给app后台，但是没有设置推送地址!')
+        
+@app.task
+def push_apple_message(apns_token,infodc,src_uid):
+    VoiceCallPush(apns_token, infodc,src_user = src_uid).push()

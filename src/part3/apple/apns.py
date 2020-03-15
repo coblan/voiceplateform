@@ -100,7 +100,7 @@ class VoiceCallPush(object):
         }
     
     def push(self):
-        general_log.info('向apple用户[%s]推送消息'% self.token )
+        general_log.info('向apple用户[%s]推送消息:%s'% (self.token,json.dumps(self.payload,ensure_ascii=False) ) )
         return APN(self.token, self.payload, self.pem)
         
 

@@ -4,11 +4,12 @@ from django.conf import settings
 from helpers.director.base_data import director
 from django.utils import timezone
 from helpers.func.random_str import get_str
-from part3.apple.apns import VoiceCallPush
+#from part3.apple.apns import VoiceCallPush
 from maindb.models import CallTask,Accountinfo
 from part3. rabbit_instance import send_msg,send_mp3,robot_call_user
 import json
 from helpers.func.sim_signal import sim_signal
+from maindb.tasks import push_apple_message
 
 import logging
 general_log = logging.getLogger('general_log')
@@ -77,7 +78,8 @@ def call_user(src_uid,dst_uid,taskid):
                 'accountCaller':src_uid,
                 'channel':channelName,
             }
-            VoiceCallPush(user.apns_token, infodc,src_user = src_uid).push()
+            push_apple_message.delay(user.apns_token, infodc, src_uid)
+            #VoiceCallPush(user.apns_token, infodc,src_user = src_uid).push()
            
     
     #return {
