@@ -23,7 +23,7 @@ class TestSimpleWash(TestCase):
     
     def mock_all(self):
         self.now_pather = mock.patch('django.utils.timezone.now')
-        self.channel_monitor_patcher = mock.patch('maindb.tasks.channel_reject_monitor.delay')
+        self.channel_monitor_patcher = mock.patch('maindb.tasks.channel_reject_monitor.apply_async')
         self.check_receive_patcher = mock.patch('maindb.tasks.check_is_receive.apply_async')
         self.request_post_patcher = mock.patch('requests.post')
         
@@ -31,7 +31,12 @@ class TestSimpleWash(TestCase):
         self.mock_now.return_value  = timezone.datetime.strptime('2020-01-01 10:10:10.664309','%Y-%m-%d %H:%M:%S.%f')
         
         monitor = self.channel_monitor_patcher.start()
-        monitor.side_effect = channel_reject_monitor
+        
+        def async_side_effect(async_fun,*args, **kwargs):
+            real_args = kwargs.get('args')
+            async_fun(*real_args)
+        
+        monitor.side_effect = partial(async_side_effect,channel_reject_monitor)
         
         def function_side_effect(usecase,*args, **kwargs):
             return print(usecase,args,json.dumps( kwargs) )
