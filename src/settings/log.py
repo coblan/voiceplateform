@@ -54,17 +54,22 @@ LOGGING = {
           },  
     },
     'loggers': {
-        'django': {
-            'handlers': ['console', 'djangoout_warning', 'mail_admins'],
-            'level': 'INFO',
-            },
+        '': {
+            'handlers': ['console','mail_admins', 'djangoout_warning',],
+            'level': 'WARNING',
+            'propagate': False,
+        },
+        #'django': {
+            #'handlers': ['console', 'djangoout_warning', 'mail_admins'],
+            #'level': 'INFO',
+            #},
          'rtc_log': {
             'handlers': ['console', 'rotfile',] ,#'rtc_log', ],
             'level': 'DEBUG',
             'propagate': True,            
             },
         'general_log': {
-            'handlers': ['console', 'djangoout_warning','rotfile',], #'VoiceplatformLOG' ],
+            'handlers': ['console','rotfile',], #'VoiceplatformLOG' ],
             'level': 'DEBUG',
             'propagate': True,            
             },
