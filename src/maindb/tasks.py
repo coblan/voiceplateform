@@ -21,8 +21,23 @@ def channel_reject_monitor(uid,channel):
     rt = requests.post(url,json= {'userNo':uid}  )
     general_log.info('请求app服务器[%s] %s的拒接等待时间 ,返回结果 %s'% (url,uid,rt.text) )
     waittime= 30 #settings.REJECT_WATI
-    if rt.status_code==200 and rt.json().get('code') ==1 and  rt.json().get('data').get('data').get('isAutoAnswer'):
-        waittime = rt.json().get('data').get('data').get('waitTime',waittime)
+    record = CallRecord.objects.get(channel = channel)
+    if rt.status_code==200 and rt.json().get('code') ==1:
+        CallEvent.objects.create(code = 1302,
+                                 desp=rt.json().get('data').get('data').get('isAutoAnswer'),
+                                 record=record,
+                                 channel=channel,
+                                 sender_type=1,
+                                 uid = uid)
+        if rt.json().get('data').get('data').get('isAutoAnswer'):
+            waittime = rt.json().get('data').get('data').get('waitTime',waittime)
+    else:
+        CallEvent.objects.create(code = 1302,
+                                 desp=rt.text,
+                                 record=record,
+                                 channel=channel,
+                                 sender_type=1,
+                                 uid = uid) 
     if waittime:
         general_log.debug(' %s 秒后检查 频道=%s 是否接听'% (waittime,channel) )
         check_is_receive.apply_async(args=(channel,),countdown=waittime)
@@ -36,6 +51,7 @@ def check_is_receive(channel):
     if not call.starttime:
         general_log.info('%s 过期未接听，现在机器人接入'%channel)
         robot_receive_call(call.src_uid,call.dst_uid[0],call.channel)
+        CallEvent.objects.create(code=1305,record=call,channel=call.channel,uid=call.dst_uid[0],sender_type=1,desp='超时未接听，接听机器人介入')
 
 @app.task
 def recording(channel):

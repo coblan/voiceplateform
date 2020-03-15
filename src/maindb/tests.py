@@ -89,7 +89,7 @@ class TestSimpleWash(TestCase):
         # A 进入频道
         rt = cl.post('/dapi/call/event',data={'uid':'1234','channel':rt.json().get('data').get('channel'),'code':1})
         self.assertTrue( CallRecord.objects.first().count == 1)
-        self.assertEqual(CallEvent.objects.count(),1)
+        self.assertEqual(CallEvent.objects.count(),2)
         
         #B 拉取消息
         rt = cl.post('/dapi/call/msg',data={'uid':'4321'})
@@ -111,7 +111,7 @@ class TestSimpleWash(TestCase):
         self.assertTrue( VoiceMsgList.objects.get(uid='1234').status == 2 )
         self.assertTrue(CallRecord.objects.first().count == 0)
         self.assertTrue(CallRecord.objects.first().endtime)
-        self.assertEqual(CallEvent.objects.count(),4)
+        self.assertEqual(CallEvent.objects.count(),5)
         
         # 上传拨打任务
         data = {'src_uid':'1234',
@@ -131,7 +131,7 @@ class TestSimpleWash(TestCase):
         call_command('check_call_over')
         
         rt = cl.post('/dapi/call/event',data={'uid':'1234','channel':"ch_12345",'code':123,"desp":'ppp'})
-        self.assertEqual(CallEvent.objects.count(),6)
+        self.assertEqual(CallEvent.objects.count(),7)
         print('='*30)
     
     def test_check(self):
