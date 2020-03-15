@@ -24,9 +24,9 @@ def call_call(uid,channel,src_uid=None,dst_uid=None,extra_msg=None,is_robot=Fals
         #CallEvent.objects.filter(channel=channel).update(record=obj)
     if len(dst_uid)==1 and uid == dst_uid[0]:
         #channel_reject_monitor(uid, channel)
-        channel_reject_monitor.delay(uid,channel)
+        #channel_reject_monitor.delay(uid,channel)
         # 延迟2s执行,因为在 task中会读取record数据库记录。不延迟，可能读取不了记录
-        #channel_reject_monitor.apply_async(args=(uid,channel),countdown = 2)
+        channel_reject_monitor.apply_async(args=(uid,channel),countdown = 2)
 
 @sim_signal.recieve('call.enter')
 def call_start(uid,channel):
