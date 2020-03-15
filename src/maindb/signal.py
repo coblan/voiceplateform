@@ -19,7 +19,7 @@ from .tasks import channel_reject_monitor,recording,push_callrecord
 def call_call(uid,channel,src_uid=None,dst_uid=None,extra_msg=None,is_robot=False):
     VoiceMsgList.objects.create(uid = uid,channel=channel,status=0,extra_msg = extra_msg )
     obj,created = CallRecord.objects.get_or_create(src_uid=src_uid,dst_uid=dst_uid,channel = channel,is_robot=is_robot)
-    general_log.debug('创建CallRecord channel=%s'%channel)
+    general_log.debug('创建CallRecord channel=%s ;uid= %s'%( channel,uid))
     #if created:
         #CallEvent.objects.filter(channel=channel).update(record=obj)
     if len(dst_uid)==1 and uid == dst_uid[0]:
