@@ -29,15 +29,18 @@ def channel_reject_monitor(uid,channel):
                                  channel=channel,
                                  sender_type=1,
                                  uid = uid)
+        general_log.info('创建正常1302日志' )
         if rt.json().get('data').get('data').get('isAutoAnswer'):
             waittime = rt.json().get('data').get('data').get('waitTime',waittime)
     else:
+       
         CallEvent.objects.create(code = 1302,
                                  desp=rt.text,
                                  record=record,
                                  channel=channel,
                                  sender_type=1,
-                                 uid = uid) 
+                                 uid = uid)
+        general_log.info('创建异常1302日志' )
     if waittime:
         general_log.debug(' %s 秒后检查 频道=%s 是否接听'% (waittime,channel) )
         check_is_receive.apply_async(args=(channel,),countdown=waittime)
