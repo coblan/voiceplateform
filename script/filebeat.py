@@ -5,7 +5,8 @@ from fastdog.maintain.fast_log import set_log
 
 from functools import partial
 from concurrent.futures import ThreadPoolExecutor,as_completed
-log_path = os.path.join(  os.path.dirname( os.path.abspath(__file__) ),'log/filebeat.log')
+base_dir = os.path.dirname(  os.path.dirname( os.path.abspath(__file__) )  )
+log_path = os.path.join( base_dir,'log/filebeat.log')
 set_log(log_path)
 
 p_django = DFileBeat(harvest= partial(multi_tail_file,
