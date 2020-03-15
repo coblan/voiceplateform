@@ -32,11 +32,12 @@ class TestSimpleWash(TestCase):
         
         monitor = self.channel_monitor_patcher.start()
         
-        def async_side_effect(async_fun,*args, **kwargs):
-            real_args = kwargs.get('args')
-            async_fun(*real_args)
+        #def async_side_effect(async_fun,*args, **kwargs):
+            #real_args = kwargs.get('args')
+            #async_fun(*real_args)
         
-        monitor.side_effect = partial(async_side_effect,channel_reject_monitor)
+        #monitor.side_effect = partial(async_side_effect,channel_reject_monitor)
+        monitor.side_effect = channel_reject_monitor
         
         def function_side_effect(usecase,*args, **kwargs):
             return print(usecase,args,json.dumps( kwargs) )

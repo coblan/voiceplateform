@@ -19,13 +19,14 @@ from .tasks import channel_reject_monitor,recording,push_callrecord
 def call_call(uid,channel,src_uid=None,dst_uid=None,extra_msg=None,is_robot=False):
     VoiceMsgList.objects.create(uid = uid,channel=channel,status=0,extra_msg = extra_msg )
     obj,created = CallRecord.objects.get_or_create(src_uid=src_uid,dst_uid=dst_uid,channel = channel,is_robot=is_robot)
-    if created:
-        CallEvent.objects.filter(channel=channel).update(record=obj)
+    general_log.debug('创建CallRecord channel=%s'%channel)
+    #if created:
+        #CallEvent.objects.filter(channel=channel).update(record=obj)
     if len(dst_uid)==1 and uid == dst_uid[0]:
         #channel_reject_monitor(uid, channel)
-        #channel_reject_monitor.delay(uid,channel)
+        channel_reject_monitor.delay(uid,channel)
         # 延迟2s执行,因为在 task中会读取record数据库记录。不延迟，可能读取不了记录
-        channel_reject_monitor.apply_async(args=(uid,channel),countdown = 2)
+        #channel_reject_monitor.apply_async(args=(uid,channel),countdown = 2)
 
 @sim_signal.recieve('call.enter')
 def call_start(uid,channel):
@@ -62,7 +63,10 @@ def call_quit(uid,channel):
 
 @sim_signal.recieve('call.end')
 def call_end(channel):
-    # 为了防止前面的事务未完成，这里等待两秒再去发送
-    push_callrecord.apply_async(args=(channel,),countdown = 2 )
+    record = CallRecord.objects.get(channel = channel)
+    CallEvent.objects.filter(channel=channel).update(record=record)
+    
+    # 为了防止前面的事务未完成，这里等待四秒再去发送
+    push_callrecord.apply_async(args=(channel,),countdown = 4 )
     
 
