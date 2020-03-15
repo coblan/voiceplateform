@@ -21,7 +21,12 @@ def channel_reject_monitor(uid,channel):
     rt = requests.post(url,json= {'userNo':uid}  )
     general_log.info('请求app服务器[%s] %s的拒接等待时间 ,返回结果 %s'% (url,uid,rt.text) )
     waittime= 30 #settings.REJECT_WATI
-    record = CallRecord.objects.get(channel = channel)
+    try:
+        record = CallRecord.objects.get(channel = channel)
+    except CallRecord.DoesNotExist:
+        record=None
+        general_log.debug('通话记录%s不存在'%channel)
+        
     if rt.status_code==200 and rt.json().get('code') ==1:
         CallEvent.objects.create(code = 1302,
                                  desp=rt.json().get('data').get('data').get('isAutoAnswer'),
