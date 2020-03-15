@@ -125,8 +125,8 @@ def push_callrecord(channel):
             'recording':[],
             'recording_timestamp':[],
         }
-        #for item in record.callevent_set.all().exclude(code =3):
-        for item in CallEvent.objects.filter(channel=channel).exclude(code =3):
+        for item in record.callevent_set.all().exclude(code =3):
+        #for item in CallEvent.objects.filter(channel=channel).exclude(code =3):
             item_dc = sim_dict(item)
             for k,v in dict(item_dc).items():
                 if k.startswith('_'):
@@ -134,8 +134,8 @@ def push_callrecord(channel):
             event.append(item_dc)
         dc['event'] = event
         
-        #for item in record.callevent_set.filter(code=3):
-        for item in CallEvent.objects.filter(code=3):
+        for item in record.callevent_set.filter(code=3):
+        #for item in CallEvent.objects.filter(code=3):
             caption_dc =   {'userid':item.uid,'kind_label':'字幕',}
             caption_dc.update(
                 json.loads(item.desp)
