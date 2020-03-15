@@ -48,7 +48,8 @@ def channel_reject_monitor(uid,channel):
         general_log.info('创建异常1302日志' )
     if waittime:
         general_log.debug(' %s 秒后检查 频道=%s 是否接听'% (waittime,channel) )
-        check_is_receive.apply_async(args=(channel,),countdown=waittime)
+        # 因为前面的任务延迟2秒执行，所以这里把延迟的时间补回来。
+        check_is_receive.apply_async(args=(channel,),countdown= max(0,waittime-2) ) 
     else:
         general_log.debug(' 用户=%s 没有拒接等待时间 '% uid )
 
