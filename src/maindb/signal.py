@@ -17,10 +17,11 @@ from .tasks import channel_reject_monitor,recording,push_callrecord
 
 @sim_signal.recieve('call.call')
 def call_call(uid,channel,src_uid=None,dst_uid=None,extra_msg=None,is_robot=False,call_group=0):
+    general_log.debug('用户拨打触发创建拨打记录:channel=%s ;src_uid= %s;dst_uid=%s'%( channel,src_uid,dst_uid ))
     VoiceMsgList.objects.create(uid = uid,channel=channel,status=0,extra_msg = extra_msg )
     if uid == src_uid:
         obj,created = CallRecord.objects.get_or_create(src_uid=src_uid,dst_uid=dst_uid,channel = channel,is_robot=is_robot,call_group=call_group)
-        general_log.debug('用户拨打触发创建拨打记录:channel=%s ;src_uid= %s;dst_uid=%s'%( channel,src_uid,dst_uid ))
+        
     #if created:
         #CallEvent.objects.filter(channel=channel).update(record=obj)
     if len(dst_uid)==1 and uid == dst_uid[0]:
