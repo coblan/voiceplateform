@@ -151,7 +151,7 @@ def recieve(uid,channel):
     privilegeExpiredTs = time.time() + 600
     token = RtcTokenBuilder.buildTokenWithAccount(appID, appCertificate, channelName, userAccount, Role_Attendee, privilegeExpiredTs)
     
-    general_log.debug('[%(uid)s]接听[%(channel)s]通话'%locals() )
+    general_log.debug('[%(uid)s]调用接听接口;频道=[%(channel)s]'%locals() )
     #sim_signal.send('call.enter',uid,channel)
     return {
         'appID':appID,
