@@ -59,10 +59,11 @@ LOGGING = {
             'level': 'WARNING',
             'propagate': False,
         },
-        #'django': {
+        'django': {
+            'propagate': True,
             #'handlers': ['console', 'djangoout_warning', 'mail_admins'],
             #'level': 'INFO',
-            #},
+            },
          'rtc_log': {
             'handlers': ['console', 'rotfile',] ,#'rtc_log', ],
             'level': 'DEBUG',
