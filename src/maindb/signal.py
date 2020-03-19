@@ -32,7 +32,7 @@ def call_call(uid,channel,src_uid=None,dst_uid=None,extra_msg=None,is_robot=Fals
 def call_start(uid,channel):
     
     general_log.debug('频道开始%s'%channel)
-    VoiceMsgList.objects.select_for_update().filter(uid = uid,channel=channel,status=0).update(status=1)
+    VoiceMsgList.objects.filter(uid = uid,channel=channel,status=0).update(status=1)
     CallRecord.objects.filter(channel=channel).update(count = F('count')+1 )
     
     update_count =  CallRecord.objects.filter(channel=channel,starttime__isnull=True).update(starttime = timezone.now())
