@@ -213,14 +213,15 @@ B-&gt;&gt;RTC:离开频道
 <div class="section" id="id3">
 <h2>4.2.2. 用户拨打<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>用户向其他用户拨打电话，可以是向一个用户也可以向多个用户拨打</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">call</span><span class="o">/</span><span class="n">user</span>       
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[POST]  /dapi/call/user       
 
-<span class="n">参数示例</span>
-<span class="p">{</span>
-    <span class="n">src_uid</span><span class="p">:</span><span class="s2">&quot;12356&quot;</span><span class="p">,</span>
-    <span class="n">dst_uid</span><span class="p">:[</span><span class="s2">&quot;12345&quot;</span><span class="p">,</span><span class="s2">&quot;34566&quot;</span><span class="p">],</span>
-    <span class="n">extra_msg</span><span class="p">:</span><span class="s2">&quot;your extra message&quot;</span>
-<span class="p">}</span>
+参数示例
+{
+    src_uid:&quot;12356&quot;,
+    dst_uid:[&quot;12345&quot;,&quot;34566&quot;],
+    extra_msg:&quot;your extra message&quot;，
+    call_group:0,
+}
 </pre></div>
 </div>
 <table border="1" class="docutils">
@@ -245,6 +246,11 @@ B-&gt;&gt;RTC:离开频道
 <tr>
 <td>extra_msg</td>
 <td>额外信息(客户端请求语音信息时，该信息会传递给客户端)</td>
+<td>否</td>
+</tr>
+<tr>
+<td>call_group</td>
+<td>拨打用户组</td>
 <td>否</td>
 </tr>
 </tbody>
@@ -802,7 +808,7 @@ B-&gt;&gt;RTC:离开频道
   <div role="contentinfo">
     <p>
         &copy; Copyright 2019, coblan
-      Last updated on 2020-03-06 23:50:22.
+      Last updated on 2020-03-19 22:36:09.
 
     </p>
   </div>

@@ -40,7 +40,8 @@
 {
     src_uid:"12356",
     dst_uid:["12345","34566"],
-    extra_msg:"your extra message"
+    extra_msg:"your extra message"，
+    call_group:0,
 }
 ```
 
@@ -49,6 +50,7 @@
 |src_uid   | 自己的uid，用于签名token | 是   |
 | dst_uid   | 对方的uid数组 ，如果对方是苹果用户，会push消息给对方 |  否 |
 | extra_msg  | 额外信息(客户端请求语音信息时，该信息会传递给客户端) | 否 |
+| call_group | 拨打用户组 | 否 |
 
 返回 
 ```

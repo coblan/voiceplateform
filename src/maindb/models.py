@@ -56,6 +56,7 @@ class CallRecord(models.Model):
     refreshtime = models.DateTimeField('心跳刷新时间',blank=True,null=True)
     count = models.IntegerField('人员计数',default=0)
     is_robot = models.BooleanField('是否机器人',default=False)
+    call_group= models.IntegerField(verbose_name='拨打组',default=0)
     
     class Meta:
         indexes = [

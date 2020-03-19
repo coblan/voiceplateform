@@ -52,7 +52,7 @@ general_log = logging.getLogger('general_log')
 '''
 
 @director_view('call/user')
-def call_user(src_uid,dst_uid =None,extra_msg=''):
+def call_user(src_uid,dst_uid =None,extra_msg='',call_group=0):
     '''{'doc':'api/call.md',}
     ### 拨打
     用户拨打电话给其他人
@@ -72,7 +72,7 @@ def call_user(src_uid,dst_uid =None,extra_msg=''):
     token = RtcTokenBuilder.buildTokenWithAccount(appID, appCertificate, channelName, userAccount, Role_Attendee, privilegeExpiredTs)
     general_log.info('[%s]向[%s]拨打语音'%(src_uid,dst_uid))
     #VoiceMsgList.objects.create(uid = src_uid,channel=channelName,status=1,extra_msg=extra_msg)
-    sim_signal.send('call.call',uid=src_uid,channel=channelName,src_uid=src_uid,dst_uid=dst_uid,extra_msg=extra_msg,is_robot=False)
+    sim_signal.send('call.call',uid=src_uid,channel=channelName,src_uid=src_uid,dst_uid=dst_uid,extra_msg=extra_msg,is_robot=False,call_group=call_group)
     if dst_uid:
         for uid in dst_uid:
             sim_signal.send('call.call',uid=uid,channel=channelName,src_uid=src_uid,dst_uid=dst_uid,extra_msg=extra_msg)
