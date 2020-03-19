@@ -27,6 +27,8 @@ def call_call(uid,channel,src_uid=None,dst_uid=None,extra_msg=None,is_robot=Fals
     if len(dst_uid)==1 and uid == dst_uid[0]:
         #channel_reject_monitor(uid, channel)
         channel_reject_monitor.delay(uid,channel)
+    else:
+        general_log.debug('给多人拨打,不触发延迟检测是否接听。 channel=%s ;src_uid= %s;dst_uid=%s'%( channel,src_uid,dst_uid ))
         # 延迟2s执行,因为在 task中会读取record数据库记录。不延迟，可能读取不了记录
         #channel_reject_monitor.apply_async(args=(uid,channel),countdown = 2)
 
