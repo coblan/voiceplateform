@@ -74,6 +74,11 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': True,            
             },
+        'ModelFields.save_form': {
+            'handlers': ['console', 'rotfile'],
+            'level': 'DEBUG',
+            'propagate': False,              
+         },
  
     }
 }
