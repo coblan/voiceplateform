@@ -17,6 +17,10 @@ from .tasks import channel_reject_monitor,recording,push_callrecord
 
 @sim_signal.recieve('call.call')
 def call_call(uid,channel,src_uid=None,dst_uid=None,extra_msg=None,is_robot=False,call_group=0):
+    """
+    在拨打用户的时候会触发该事件。
+    主叫触发一次，每个被叫都会被触发一次。
+    """
     general_log.debug('用户拨打触发创建拨打记录:channel=%s ;src_uid= %s;dst_uid=%s'%( channel,src_uid,dst_uid ))
     VoiceMsgList.objects.create(uid = uid,channel=channel,status=0,extra_msg = extra_msg )
     if uid == src_uid:
@@ -24,13 +28,16 @@ def call_call(uid,channel,src_uid=None,dst_uid=None,extra_msg=None,is_robot=Fals
         
     #if created:
         #CallEvent.objects.filter(channel=channel).update(record=obj)
-    if len(dst_uid)==1 and uid == dst_uid[0]:
-        #channel_reject_monitor(uid, channel)
-        channel_reject_monitor.delay(uid,channel)
-    else:
-        general_log.debug('给多人拨打,不触发延迟检测是否接听。 channel=%s ;src_uid= %s;dst_uid=%s'%( channel,src_uid,dst_uid ))
-        # 延迟2s执行,因为在 task中会读取record数据库记录。不延迟，可能读取不了记录
-        #channel_reject_monitor.apply_async(args=(uid,channel),countdown = 2)
+    if uid == dst_uid[0]:
+        general_log.debug('被叫0触发call.call事件。channel=%s ;src_uid= %s;dst_uid=%s'%( channel,src_uid,dst_uid ))
+        if len(dst_uid)==1:
+            #channel_reject_monitor(uid, channel)
+            channel_reject_monitor.delay(uid,channel)
+        else:
+            general_log.debug('给多人拨打,不触发延迟检测是否接听。 channel=%s ;src_uid= %s;dst_uid=%s'%( channel,src_uid,dst_uid ))
+            
+            # 延迟2s执行,因为在 task中会读取record数据库记录。不延迟，可能读取不了记录
+            #channel_reject_monitor.apply_async(args=(uid,channel),countdown = 2)
 
 @sim_signal.recieve('call.enter')
 def call_start(uid,channel):
