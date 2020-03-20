@@ -27,6 +27,8 @@ def call_call(uid,channel,src_uid=None,dst_uid=None,extra_msg=None,is_robot=Fals
         obj,created = CallRecord.objects.get_or_create(channel = channel,)
         if created:
             CallRecord.objects.filter(channel = channel).update(src_uid=src_uid,dst_uid=dst_uid,is_robot=is_robot,call_group=call_group)
+        else:
+            general_log.debug('多次调用创建CallRecord')
         
     #if created:
         #CallEvent.objects.filter(channel=channel).update(record=obj)
