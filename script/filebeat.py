@@ -1,7 +1,9 @@
 import os
-from fastdog.maintain.filebeat.dfilebeat import DFileBeat,multi_tail_file,django_process_parsers,elastice_search,nginx_log_parser,\
+from fastdog.maintain.filebeat.dfilebeat import DFileBeat,multi_tail_file,django_process_parsers,elastice_output,nginx_log_parser,\
      elasticesearch_process
 from fastdog.maintain.fast_log import set_log
+from fastdog.maintain.filebeat.output.elastic_process import ELKProcess
+from fastdog.maintain.filebeat.output.elastic_nginx import ELKNginx
 
 from functools import partial
 from concurrent.futures import ThreadPoolExecutor,as_completed
@@ -16,13 +18,13 @@ p_django = DFileBeat(harvest= partial(multi_tail_file,
                                    ]),
                   parsers =django_process_parsers,
                   outputs = [
-                      partial(elasticesearch_process,'liu.enjoyst.com:9200','elastic','he27375089','voice-django')
+                      partial(elastice_output,'liu.enjoyst.com:9200','elastic','he27375089','voice-django',ELKProcess)
                   ] )
 
 p_nginx = DFileBeat(harvest= partial(multi_tail_file,['/var/log/nginx/voiceplatform.log']),
                   parsers =nginx_log_parser,
                   outputs = [
-                      partial(elastice_search,'liu.enjoyst.com:9200','elastic','he27375089','voice-nginx')
+                      partial(elastice_output,'liu.enjoyst.com:9200','elastic','he27375089','voice-nginx',ELKNginx)
                   ] )
 
 executor =  ThreadPoolExecutor(max_workers = 2)
