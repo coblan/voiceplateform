@@ -25,7 +25,8 @@ def call_call(uid,channel,src_uid=None,dst_uid=None,extra_msg=None,is_robot=Fals
     VoiceMsgList.objects.create(uid = uid,channel=channel,status=0,extra_msg = extra_msg )
     if uid == src_uid:
         obj,created = CallRecord.objects.get_or_create(channel = channel,)
-        CallRecord.objects.filter(channel = channel).update(src_uid=src_uid,dst_uid=dst_uid,is_robot=is_robot,call_group=call_group)
+        if created:
+            CallRecord.objects.filter(channel = channel).update(src_uid=src_uid,dst_uid=dst_uid,is_robot=is_robot,call_group=call_group)
         
     #if created:
         #CallEvent.objects.filter(channel=channel).update(record=obj)
