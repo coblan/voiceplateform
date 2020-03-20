@@ -67,12 +67,12 @@ LOGGING = {
          'rtc_log': {
             'handlers': ['console', 'rotfile',] ,#'rtc_log', ],
             'level': 'DEBUG',
-            'propagate': True,            
+            'propagate': False,            
             },
         'general_log': {
             'handlers': ['console','rotfile',], #'VoiceplatformLOG' ],
             'level': 'DEBUG',
-            'propagate': True,            
+            'propagate': False,            
             },
         'ModelFields.save_form': {
             'handlers': ['console', 'rotfile'],

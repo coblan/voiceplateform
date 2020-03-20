@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import os
 import sys
+import logging
 
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
@@ -19,4 +20,8 @@ if __name__ == "__main__":
                 "forget to activate a virtual environment?"
             )
         raise
-    execute_from_command_line(sys.argv)
+    try:
+        general_log = logging.getLogger('general_log')
+        execute_from_command_line(sys.argv)
+    except Exception as e:
+        general_log.error(e,exc_info=True)

@@ -24,7 +24,7 @@ class Command(BaseCommand):
             #general_log.debug('定时拨打src_uid=%s;dst_uid=%s'%(task.src_uid,task.dst_uid))
             task.status = 1
             task.save()
-            general_log.info('机器人拨打任务 %s'% task.pk )
+            general_log.info('机器人主动拨打任务 %s'% task.pk )
             call_user(task.src_uid,task.dst_uid,task.taskid)
             
         #general_log.debug('定时拨打任务结束')

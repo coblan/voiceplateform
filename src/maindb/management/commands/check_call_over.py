@@ -17,6 +17,7 @@ class Command(BaseCommand):
     """
     """
     def handle(self, *args, **options):
+        general_log.debug('定期检查通话频道是否过期未关闭。')
         now = timezone.now()
         valid_time = now - timezone.timedelta(seconds = 30)
         out_call=[]
