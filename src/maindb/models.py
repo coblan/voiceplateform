@@ -50,7 +50,7 @@ class CallTask(models.Model):
 class CallRecord(models.Model):
     src_uid = models.CharField('拨打用户',max_length=30)
     dst_uid = JsonAbleField('接收用户',)
-    channel = models.CharField('通话频道',max_length=30)
+    channel = models.CharField('通话频道',max_length=30,unique=True)
     starttime = models.DateTimeField('开始时间',blank=True,null=True)
     endtime = models.DateTimeField('结束时间',blank=True,null=True)
     refreshtime = models.DateTimeField('心跳刷新时间',blank=True,null=True)
