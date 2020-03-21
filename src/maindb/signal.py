@@ -33,7 +33,7 @@ def call_call(uid,channel,src_uid=None,dst_uid=None,extra_msg=None,is_robot=Fals
     #if created:
         #CallEvent.objects.filter(channel=channel).update(record=obj)
     if uid == dst_uid[0]:
-        general_log.debug('被叫0触发call.call事件。channel=%s ;src_uid= %s;dst_uid=%s'%( channel,src_uid,dst_uid ))
+        general_log.debug('被叫%s(dst_uid[0])触发call.call事件。channel=%s ;src_uid= %s;dst_uid=%s'%(uid, channel,src_uid,dst_uid ))
         if len(dst_uid)==1:
             #channel_reject_monitor(uid, channel)
             channel_reject_monitor.delay(uid,channel)
