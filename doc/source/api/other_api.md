@@ -32,6 +32,11 @@
     "data": {
         "channel_heartbeat": 30，// 频道心跳间隔
         "agora_appid":"12312432435", // appid
+        "baiduai_key": {
+            "APPID": "123", 
+            "API_KEY": "3", 
+            "SECRECT_KEY": "123"
+            }
     }
 }
 ```
