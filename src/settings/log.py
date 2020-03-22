@@ -22,14 +22,14 @@ LOGGING = {
             'class': 'django.utils.log.AdminEmailHandler',
             'formatter':'standard',
         },
-        'rtc_log':{
-            'level': 'DEBUG',
-            'class': 'hello.elk.RTCLOG',         
-            },    
-        'VoiceplatformLOG':{
-            'level': 'DEBUG',
-            'class': 'hello.elk.VoiceplatformLOG', 
-        },
+        #'rtc_log':{
+            #'level': 'DEBUG',
+            #'class': 'hello.elk.RTCLOG',         
+            #},    
+        #'VoiceplatformLOG':{
+            #'level': 'DEBUG',
+            #'class': 'hello.elk.VoiceplatformLOG', 
+        #},
         'console': {
             'level':'DEBUG',
             'class': 'logging.StreamHandler',
