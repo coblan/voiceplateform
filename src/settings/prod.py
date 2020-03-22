@@ -60,8 +60,8 @@ import urllib
 RECORD={
     'lowUdpPort':14000,
     'highUdpPort':15000,
-    'recorder_local':'/root/agoracore/Agora_Recording_SDK_for_Linux_FULL/samples/cpp/recorder_local',
-    'recording_bin':'/root/agoracore/Agora_Recording_SDK_for_Linux_FULL/bin',
+    'recorder_local':'/userfile/agora_record_sdk/samples/cpp/recorder_local',
+    'recording_bin':'/userfile/agora_record_sdk/bin',
     'tone_dir': os.path.join(MEDIA_ROOT,'recording'),
     'tone_url':urllib.parse.urljoin(SELF_DOMAIN, '/media/recording/'),
     'idle':3,
