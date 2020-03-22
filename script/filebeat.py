@@ -1,4 +1,6 @@
 import os
+os.environ['geo_db'] = '/userfile/GeoLite2-City.mmdb'
+
 from fastdog.maintain.filebeat.dfilebeat import DFileBeat,multi_tail_file,django_process_parsers,elastice_output,nginx_log_parser,\
      elasticesearch_process
 from fastdog.maintain.fast_log import set_log
