@@ -9,6 +9,8 @@ from fastdog.maintain.filebeat.output.elastic_nginx import ELKNginx
 
 from functools import partial
 from concurrent.futures import ThreadPoolExecutor,as_completed
+import settings
+
 base_dir = os.path.dirname(  os.path.dirname( os.path.abspath(__file__) )  )
 log_path = os.path.join( base_dir,'log/filebeat.log')
 set_log(log_path)
@@ -20,13 +22,13 @@ p_django = DFileBeat(harvest= partial(multi_tail_file,
                                    ]),
                   parsers =django_process_parsers,
                   outputs = [
-                      partial(elastice_output,'liu.enjoyst.com:9200','elastic','he27375089','voice-django',ELKProcess)
+                      partial(elastice_output,settings.ELK.get('host'),settings.ELK.get('username'),settings.ELK.get('pswd'),'voice-django',ELKProcess)
                   ] )
 
 p_nginx = DFileBeat(harvest= partial(multi_tail_file,['/var/log/nginx/voiceplatform.log']),
                   parsers =nginx_log_parser,
                   outputs = [
-                      partial(elastice_output,'liu.enjoyst.com:9200','elastic','he27375089','voice-nginx',ELKNginx)
+                      partial(elastice_output,settings.ELK.get('host'),settings.ELK.get('username'),settings.ELK.get('pswd'),'voice-nginx',ELKNginx)
                   ] )
 
 executor =  ThreadPoolExecutor(max_workers = 2)
