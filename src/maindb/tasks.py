@@ -18,16 +18,24 @@ general_log = logging.getLogger('general_log')
 
 @app.task
 def channel_reject_monitor(uid,channel):
-    url = urllib.parse.urljoin(settings.APP_HOST,'/extphone_new/ext/setting/call')
-    rt = requests.post(url,json= {'userNo':uid}  )
-    general_log.info('请求app服务器[%s] %s的拒接等待时间 ,返回结果 %s'% (url,uid,rt.text) )
-    waittime= 30 #settings.REJECT_WATI
+    
     try:
         record = CallRecord.objects.get(channel = channel)
     except CallRecord.DoesNotExist:
         record=None
         general_log.debug('通话记录%s不存在'%channel)
         
+    waittime= 30 #settings.REJECT_WATI
+    url = urllib.parse.urljoin(settings.APP_HOST,'/extphone_new/ext/setting/call')
+    try:
+        rt = requests.post(url,json= {'userNo':uid}  )
+        general_log.info('请求app服务器[%s] %s的拒接等待时间 ,返回结果 %s'% (url,uid,rt.text) )
+    except Exception as e:
+        general_log.info(e,exc_info=True)
+        rt = object()
+        rt.status_code = 500
+        rt.text='请求服务器跑出异常'
+    
     if rt.status_code==200 and rt.json().get('code') ==1:
         CallEvent.objects.create(code = 1302,
                                  desp=rt.json().get('data').get('data').get('isAutoAnswer'),
@@ -39,7 +47,6 @@ def channel_reject_monitor(uid,channel):
         if rt.json().get('data').get('data').get('isAutoAnswer'):
             waittime = rt.json().get('data').get('data').get('waitTime',waittime)
     else:
-       
         CallEvent.objects.create(code = 1302,
                                  desp=rt.text,
                                  record=record,
