@@ -31,10 +31,10 @@ def channel_reject_monitor(uid,channel):
         rt = requests.post(url,json= {'userNo':uid}  )
         general_log.info('请求app服务器[%s] %s的拒接等待时间 ,返回结果 %s'% (url,uid,rt.text) )
     except Exception as e:
-        general_log.info(e,exc_info=True)
+        general_log.info('请求app服务器抛出异常:%s'%str(e))
         rt = object()
         rt.status_code = 500
-        rt.text='请求服务器跑出异常'
+        rt.text='请求服务器抛出异常'
     
     if rt.status_code==200 and rt.json().get('code') ==1:
         CallEvent.objects.create(code = 1302,
