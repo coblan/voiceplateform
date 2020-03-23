@@ -79,7 +79,7 @@ def event_call_record(uid,channel,code,desp='',sender_type=0):
         dc['end'] = now.strftime('%Y-%m-%d %H:%M:%S')
         old_desp = desp
         desp = json.dumps(dc,ensure_ascii=False)
-        general_log.debug('字幕转换:%s ====> %s'%(old_desp,desp))
+        general_log.debug('uid=%s;channel=%s字幕转换:%s ====> %s'%(uid,channel,old_desp,desp))
     
     # 可能有些 callevent没有对应的 callrecord,这里把他们设置好
     obj = CallEvent.objects.create(uid=uid,channel=channel,code=code,desp=desp,sender_type=sender_type)
