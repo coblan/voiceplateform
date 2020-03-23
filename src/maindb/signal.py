@@ -21,7 +21,7 @@ def call_call(uid,channel,src_uid=None,dst_uid=None,extra_msg=None,is_robot=Fals
     在拨打用户的时候会触发该事件。
     主叫触发一次，每个被叫都会被触发一次。
     """
-    general_log.debug('用户拨打触发创建拨打记录:channel=%s ;src_uid= %s;dst_uid=%s'%( channel,src_uid,dst_uid ))
+    general_log.debug('用户拨打触发创建拨打记录:uid=%s;channel=%s ;src_uid= %s;dst_uid=%s'%(uid, channel,src_uid,dst_uid ))
     VoiceMsgList.objects.create(uid = uid,channel=channel,status=0,extra_msg = extra_msg )
     if uid == src_uid:
         obj,created = CallRecord.objects.get_or_create(channel = channel,)
