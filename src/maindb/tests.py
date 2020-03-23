@@ -141,7 +141,7 @@ class TestSimpleWash(TestCase):
         call_command('check_call_over')
         
         rt = cl.post('/dapi/call/event',data={'uid':'1234','channel':"ch_12345",'code':123,"desp":'ppp'})
-        self.assertEqual(CallEvent.objects.count(),7)
+        self.assertEqual(CallEvent.objects.count(),9)
         print('='*30)
     
     def test_check(self):

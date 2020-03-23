@@ -24,8 +24,10 @@ class Command(BaseCommand):
             #general_log.debug('定时拨打src_uid=%s;dst_uid=%s'%(task.src_uid,task.dst_uid))
             task.status = 1
             task.save()
-            general_log.info('机器人主动拨打任务 %s'% task.pk )
-            call_user(task.src_uid,task.dst_uid,task.taskid)
+            # 现在要求把每个人拆开打
+            #call_user(task.src_uid,task.dst_uid,task.taskid)
+            for user in task.dst_uid:
+                call_user(task.src_uid,[user],task.taskid)
             
         #general_log.debug('定时拨打任务结束')
     
@@ -34,20 +36,11 @@ def call_user(src_uid,dst_uid,taskid):
     机器人主动拨打电话给用户
     @dst_uid:list
     '''
-    #appID = settings.AGORA.get('appID')
-    #appCertificate = settings.AGORA.get('appCertificate')
     channelName= 'ch_'+ get_str(length=10)
-    #userAccount= src_uid
-    #Role_Attendee = 2
-    #privilegeExpiredTs = time.time() + 600
-    #token = RtcTokenBuilder.buildTokenWithAccount(appID, appCertificate, channelName, userAccount, Role_Attendee, privilegeExpiredTs)
+    general_log.info('机器人主动拨打任务 taskid=%s;src_uid=%s;dst_uid=%s;channel=%s'% (taskid,src_uid,dst_uid ,channelName) )
     
-    #VoiceMsgList.objects.create(uid = src_uid,channel=channelName,status=1,extra_msg=extra_msg)
-    
-    
-    #send_mp3(channelName, tone_list,src_uid)
-    # 当前不需要推送mp3到前台，机器人自己去app后台拿
     robot_call_user(src_uid, dst_list = dst_uid, channel_name =channelName,taskid=taskid)
+    sim_signal.send('call.call',uid=src_uid,channel=channelName,src_uid=src_uid,dst_uid=dst_uid,extra_msg='',is_robot=True)
     if dst_uid:
         for uid in dst_uid:
             #VoiceMsgList.objects.create(uid = uid,channel=channelName,extra_msg=extra_msg)
