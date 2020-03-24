@@ -31,7 +31,7 @@
             puttask(){
                 cfg.show_load()
                 this.row.dst_uid = JSON.parse(this.dst_uid)
-                ex.post('/dapi/calltask/update',JSON.stringify(this.row)).then(()=>{
+                ex.post('/dapi/calltask/update',this.row).then(()=>{
                     cfg.hide_load()
 
                 })
