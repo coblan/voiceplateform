@@ -24,11 +24,12 @@ def call_call(uid,channel,src_uid=None,dst_uid=None,extra_msg=None,is_robot=Fals
     general_log.debug('用户拨打触发创建拨打记录:uid=%s;channel=%s ;src_uid= %s;dst_uid=%s'%(uid, channel,src_uid,dst_uid ))
     VoiceMsgList.objects.create(uid = uid,channel=channel,status=0,extra_msg = extra_msg )
     if uid == src_uid:
+        general_log.debug('主叫%s(src_uid)触发call.call事件。channel=%s ;src_uid= %s;dst_uid=%s'%(uid, channel,src_uid,dst_uid ))
         obj,created = CallRecord.objects.get_or_create(channel = channel,)
         if created:
             CallRecord.objects.filter(channel = channel).update(src_uid=src_uid,dst_uid=dst_uid,is_robot=is_robot,call_group=call_group)
         else:
-            general_log.debug('多次调用创建CallRecord')
+            general_log.debug('多次调用创建CallRecord; channel=%s;'%channel)
         
     #if created:
         #CallEvent.objects.filter(channel=channel).update(record=obj)
