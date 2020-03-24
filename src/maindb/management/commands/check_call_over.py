@@ -17,7 +17,7 @@ class Command(BaseCommand):
     """
     """
     def handle(self, *args, **options):
-        general_log.debug('定期检查通话频道是否过期未关闭。')
+        #general_log.debug('定期检查通话频道是否过期未关闭。')
         now = timezone.now()
         valid_time = now - timezone.timedelta(seconds = 30)
         out_call=[]
@@ -26,7 +26,7 @@ class Command(BaseCommand):
             record.save()
             out_call.append( CallEvent(record=record,channel=record.channel,code=3,desp='通话记录timeout检测') ) #
             sim_signal.send('call.end',record.channel)
-            general_log.debug('检测到刷新时间过期，关闭通话记录%s'%record.pk)
+            general_log.debug('检测到刷新时间过期,关闭通话记录=%s;channel=%s'%(record.pk,record.channel))
         
         CallEvent.objects.bulk_create(out_call)
         
