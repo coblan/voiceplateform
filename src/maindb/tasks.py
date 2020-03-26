@@ -124,6 +124,7 @@ def recording(channel):
     
 @app.task
 def push_callrecord(channel):
+    general_log.debug('channel=%s 拨打结束，准备数据推送给app后台'%channel)
     url = get_json('cfg_push_call_record')
     record = CallRecord.objects.get(channel=channel)
     dc = sim_dict(record)
