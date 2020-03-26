@@ -57,6 +57,8 @@ class CallRecord(models.Model):
     count = models.IntegerField('人员计数',default=0)
     is_robot = models.BooleanField('是否机器人',default=False)
     call_group= models.IntegerField(verbose_name='拨打组',default=0)
+    record_file =  PlainFileField('录音音频',max_length = 300,blank=True)
+    
     
     class Meta:
         indexes = [

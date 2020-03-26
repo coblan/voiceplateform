@@ -32,6 +32,11 @@ class CallRecordPage(TablePage):
             }
         
         def dict_head(self, head):
+            width = {
+                'record_file':160,
+            }
+            if head['name'] in width:
+                head['width']  = width.get(head['name'])
             if head['name'] =='event_count':
                 head['editor']='com-table-click'
                 head['action']='scope.head.table_ctx.search_args._par=scope.row.pk;cfg.pop_vue_com("com-table-panel",scope.head.table_ctx)'

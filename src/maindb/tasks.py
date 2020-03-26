@@ -125,53 +125,53 @@ def recording(channel):
 @app.task
 def push_callrecord(channel):
     url = get_json('cfg_push_call_record')
+    record = CallRecord.objects.get(channel=channel)
+    dc = sim_dict(record)
+    event = []
+    resource ={
+        'captions':[],
+        'recording':[],
+        'recording_timestamp':[],
+    }
+    for item in record.callevent_set.all().exclude(code =3):
+    #for item in CallEvent.objects.filter(channel=channel).exclude(code =3):
+        item_dc = sim_dict(item)
+        for k,v in dict(item_dc).items():
+            if k.startswith('_'):
+                item_dc.pop(k)
+        event.append(item_dc)
+    dc['event'] = event
+    
+    for item in record.callevent_set.filter(code=3):
+    #for item in CallEvent.objects.filter(code=3):
+        caption_dc =   {'userid':item.uid,'kind_label':'字幕',}
+        caption_dc.update(
+            json.loads(item.desp)
+        )
+        resource['captions'].append(caption_dc)
+    
+    path = os.path.join( settings.RECORD.get('tone_dir'),record.channel)
+    if os.path.exists(path):
+        root_url = urllib.parse.urljoin(settings.RECORD.get('tone_url'),channel) +'/'
+        for fl in os.listdir(path):
+            fl_url = urllib.parse.urljoin(root_url,fl)
+            if fl.endswith('.aac') :
+                resource['recording'].append(
+                    {'userid':0,'kind_label':'录音','content':fl_url,}
+                )
+            elif fl.endswith('.txt') and fl.startswith('uid_'):
+                resource['recording_timestamp'].append(
+                    {'userid':0,'kind_label':'录音时间戳','content':fl_url}
+                )
+                
+    # 甲方要求,只取第一个
+    resource['recording'] =  resource ['recording'][:1]
+    resource['recording_timestamp'] =  resource ['recording_timestamp'][:1]
+    record.record_file = resource['recording']
+    record.save()
+    dc['resource'] = resource
     if url:
-        record = CallRecord.objects.get(channel=channel)
-        dc = sim_dict(record)
-        event = []
-        resource ={
-            'captions':[],
-            'recording':[],
-            'recording_timestamp':[],
-        }
-        for item in record.callevent_set.all().exclude(code =3):
-        #for item in CallEvent.objects.filter(channel=channel).exclude(code =3):
-            item_dc = sim_dict(item)
-            for k,v in dict(item_dc).items():
-                if k.startswith('_'):
-                    item_dc.pop(k)
-            event.append(item_dc)
-        dc['event'] = event
-        
-        for item in record.callevent_set.filter(code=3):
-        #for item in CallEvent.objects.filter(code=3):
-            caption_dc =   {'userid':item.uid,'kind_label':'字幕',}
-            caption_dc.update(
-                json.loads(item.desp)
-            )
-            resource['captions'].append(caption_dc)
-        
-        path = os.path.join( settings.RECORD.get('tone_dir'),record.channel)
-        if os.path.exists(path):
-            root_url = urllib.parse.urljoin(settings.RECORD.get('tone_url'),channel) +'/'
-            for fl in os.listdir(path):
-                fl_url = urllib.parse.urljoin(root_url,fl)
-                if fl.endswith('.aac') :
-                    resource['recording'].append(
-                        {'userid':0,'kind_label':'录音','content':fl_url,}
-                    )
-                elif fl.endswith('.txt') and fl.startswith('uid_'):
-                    resource['recording_timestamp'].append(
-                        {'userid':0,'kind_label':'录音时间戳','content':fl_url}
-                    )
-                    
-        # 临时决定，只取第一个
-        resource['recording'] =  resource ['recording'][:1]
-        resource['recording_timestamp'] =  resource ['recording_timestamp'][:1]
-        
-        dc['resource'] = resource
         general_log.debug('推送数据:%s'%json.dumps(   {'callrecord':dc} ,ensure_ascii=False  ) )
-        
         rt = requests.post(url,json= {'callrecord':dc})
         
         general_log.info('推送拨打记录给app后台,返回状态码%s,返回结果%s'%(rt.status_code,rt.text))
