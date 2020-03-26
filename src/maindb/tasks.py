@@ -167,8 +167,9 @@ def push_callrecord(channel):
     # 甲方要求,只取第一个
     resource['recording'] =  resource ['recording'][:1]
     resource['recording_timestamp'] =  resource ['recording_timestamp'][:1]
-    record.record_file = resource['recording']
-    record.save()
+    if  resource['recording']:
+        record.record_file = resource['recording'][0]['content']
+        record.save()
     dc['resource'] = resource
     if url:
         general_log.debug('推送数据:%s'%json.dumps(   {'callrecord':dc} ,ensure_ascii=False  ) )
