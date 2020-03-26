@@ -79,6 +79,7 @@ def call_quit(uid,channel):
 
 @sim_signal.recieve('call.end')
 def call_end(channel):
+    general_log.debug('channel=%s ;接收到频道结束事件'%channel )
     record = CallRecord.objects.get(channel = channel)
     CallEvent.objects.filter(channel=channel).update(record=record)
     
