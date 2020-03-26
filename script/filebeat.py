@@ -1,5 +1,6 @@
 import os
-os.environ['geo_db'] = '/pypro/userfile/GeoLite2-City.mmdb'
+#os.environ['geo_db'] = '/pypro/userfile/GeoLite2-City.mmdb'
+os.environ['ip_db'] = '/pypro/userfile/iptable.sqlite3'
 
 from fastdog.maintain.filebeat.dfilebeat import DFileBeat,multi_tail_file,django_process_parsers,elastice_output,nginx_log_parser,\
      elasticesearch_process
