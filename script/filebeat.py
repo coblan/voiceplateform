@@ -1,5 +1,5 @@
 import os
-#os.environ['geo_db'] = '/pypro/userfile/GeoLite2-City.mmdb'
+os.environ['geo_db'] = '/pypro/userfile/GeoLite2-City.mmdb'
 os.environ['ip_db'] = '/pypro/userfile/iptable.sqlite3'
 os.environ['baidu_ak'] = 'AtRBwhSsxykCi5hON3RIBcPhor6jcmAW'
 
