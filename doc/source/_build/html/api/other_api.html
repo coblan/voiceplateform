@@ -1,0 +1,380 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2.3. 其他接口 &mdash; voiceplatform 1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="2.4. rabbitmq" href="mq.html" />
+    <link rel="prev" title="2.2. 拨打" href="myapi.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> voiceplatform
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../system_frame.html">1. 系统架构</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">2. 接口文档</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="user_api.html">2.1. 用户管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="myapi.html">2.2. 拨打</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2.3. 其他接口</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#upload">2.3.1. 文件上传</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">2.3.2. 系统设置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">2.3.3. 外部系统</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">2.3.4. 前端存放日志</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mq.html">2.4. rabbitmq</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">voiceplatform</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">2. 接口文档</a> &raquo;</li>
+        
+      <li>2.3. 其他接口</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/other_api.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>2.3. 其他接口<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="upload">
+<span id="id2"></span><h2>2.3.1. 文件上传<a class="headerlink" href="#upload" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">d</span><span class="o">/</span><span class="n">upload</span>
+</pre></div>
+</div>
+<p>参数名字随意，如果是单个文件，返回的一个url，如果是同时上传多个文件返回的是一个相同数量的数组</p>
+<p>返回</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="s2">&quot;/media/general_upload/0a2533c28a18ac79057a93b5817da886.jpg&quot;</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>2.3.2. 系统设置<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">GET</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">system</span><span class="o">/</span><span class="n">config</span>
+</pre></div>
+</div>
+<p>返回:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>{
+    &quot;success&quot;: true,
+    &quot;data&quot;: {
+        &quot;channel_heartbeat&quot;: 30，// 频道心跳间隔
+        &quot;agora_appid&quot;:&quot;12312432435&quot;, // appid
+        &quot;baiduai_key&quot;: {
+            &quot;APPID&quot;: &quot;123&quot;, 
+            &quot;API_KEY&quot;: &quot;3&quot;, 
+            &quot;SECRECT_KEY&quot;: &quot;123&quot;
+            }
+    }
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>2.3.3. 外部系统<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>客户如果需要同步通话记录，可以在后台设置回调API地址。每当通话结束时，后台会向这个回调地址发送通话记录数据。</p>
+<ol class="simple">
+<li>在后台配置推送地址。该地址的接口API，应该能够接受POST请求,json格式。</li>
+<li>后台在通话结束时，如果配置了回调api地址，会向该api推送该条通话记录。</li>
+</ol>
+<p>推送的通话记录数据结构如下。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;callrecord&#39;</span><span class="p">:{</span>
+        <span class="s1">&#39;channel&#39;</span><span class="p">:</span> <span class="s1">&#39;ch_56Cm7p82K5&#39;</span><span class="p">,</span>  <span class="o">//</span> <span class="n">通话频道</span>
+        <span class="s1">&#39;dst_uid&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;511&#39;</span><span class="p">],</span>  <span class="o">//</span> <span class="n">被叫用户uid</span>
+        <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>  <span class="o">//</span> <span class="n">通话记录id</span>
+        <span class="s1">&#39;is_robot&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="o">//</span> <span class="n">是否机器人主动拨打</span>
+        <span class="s1">&#39;call_group&#39;</span><span class="p">:</span><span class="mi">1234</span><span class="p">,</span> <span class="o">//</span> <span class="n">拨打用户组</span>
+        <span class="s1">&#39;src_uid&#39;</span><span class="p">:</span> <span class="s1">&#39;515&#39;</span><span class="p">,</span>   <span class="o">//</span> <span class="n">拨打用户uid</span>
+        <span class="s1">&#39;starttime&#39;</span><span class="p">:</span> <span class="s1">&#39;2020-02-12 21:02:27&#39;</span>   <span class="o">//</span> <span class="n">通话开始时间</span>
+        <span class="s1">&#39;endtime&#39;</span><span class="p">:</span> <span class="s1">&#39;2020-02-12 21:026:27&#39;</span><span class="p">,</span>   <span class="o">//</span> <span class="n">通话结束时间</span>
+        <span class="s1">&#39;event&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;channel&#39;</span><span class="p">:</span> <span class="s1">&#39;ch_56Cm7p82K5&#39;</span><span class="p">,</span>  <span class="o">//</span> <span class="n">通话频道</span>
+                    <span class="s1">&#39;code&#39;</span><span class="p">:</span> <span class="mi">102</span><span class="p">,</span>   <span class="o">//</span> <span class="n">时间编码</span>
+                    <span class="s1">&#39;createtime&#39;</span><span class="p">:</span> <span class="s1">&#39;2020-02-14 21:02:27&#39;</span><span class="p">,</span>  <span class="o">//</span> <span class="n">事件发生时间</span>
+                    <span class="s1">&#39;desp&#39;</span><span class="p">:</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span>   <span class="o">//</span> <span class="n">事件详细描述</span>
+                    <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>   <span class="o">//</span> <span class="n">事件ID</span>
+                    <span class="s1">&#39;sender_typ&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="o">//</span> <span class="n">普通用户上报</span>
+                    <span class="s1">&#39;pk&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+                    <span class="s1">&#39;record&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>  <span class="o">//</span> <span class="n">事件对应的通话记录ID</span>
+                    <span class="s1">&#39;uid&#39;</span><span class="p">:</span> <span class="mi">515</span><span class="p">},</span>   <span class="o">//</span> <span class="n">事件上报用户uid</span>
+                <span class="p">{</span><span class="s1">&#39;channel&#39;</span><span class="p">:</span> <span class="s1">&#39;ch_56Cm7p82K5&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;code&#39;</span><span class="p">:</span> <span class="mi">103</span><span class="p">,</span>
+                    <span class="s1">&#39;createtime&#39;</span><span class="p">:</span> <span class="s1">&#39;2020-02-14 21:02:27&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;desp&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+                    <span class="s1">&#39;sender_type&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="o">//</span> <span class="n">机器人上报</span>
+                    <span class="s1">&#39;pk&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+                    <span class="s1">&#39;record&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+                    <span class="s1">&#39;uid&#39;</span><span class="p">:</span> <span class="mi">511</span><span class="p">}],</span>
+        <span class="s1">&#39;resource&#39;</span><span class="p">:{</span>
+            <span class="s2">&quot;captions&quot;</span><span class="p">:[</span>
+                <span class="p">{</span><span class="n">user</span><span class="p">:</span><span class="s1">&#39;1231&#39;</span><span class="p">,</span><span class="n">kind_label</span><span class="p">:</span><span class="s1">&#39;字幕&#39;</span><span class="p">,</span><span class="n">content</span><span class="p">:</span><span class="s1">&#39;深深深算宫灯&#39;</span><span class="n">start</span><span class="p">:</span><span class="s1">&#39;2020-10-01 10:20:20&#39;</span><span class="p">,</span><span class="n">end</span><span class="p">:</span><span class="s1">&#39;2020-10-01 10:23:20&#39;</span><span class="p">,},</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;recording&quot;</span><span class="p">:[</span>
+                <span class="p">{</span><span class="n">user</span><span class="p">:</span><span class="s1">&#39;1231&#39;</span><span class="p">,</span><span class="n">kind_label</span><span class="p">:</span><span class="s1">&#39;录音&#39;</span><span class="p">,</span><span class="n">content</span><span class="p">:</span><span class="s1">&#39;/media/ssg/12342.acc&#39;</span><span class="p">},</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;recording_timestamp&quot;</span><span class="p">:[</span>
+                <span class="p">{</span><span class="n">user</span><span class="p">:</span><span class="s1">&#39;1231&#39;</span><span class="p">,</span><span class="n">kind_label</span><span class="p">:</span><span class="s1">&#39;录音时间戳&#39;</span><span class="p">,</span><span class="n">content</span><span class="p">:</span><span class="s1">&#39;/media/ssg/12342.text&#39;</span><span class="p">},</span>
+                <span class="p">{</span><span class="n">user</span><span class="p">:</span><span class="s1">&#39;1231&#39;</span><span class="p">,</span><span class="n">kind_label</span><span class="p">:</span><span class="s1">&#39;录音时间戳&#39;</span><span class="p">,</span><span class="n">content</span><span class="p">:</span><span class="s1">&#39;/media/ssg/12342_02.text&#39;</span><span class="p">},</span>
+                <span class="p">{</span><span class="n">user</span><span class="p">:</span><span class="s1">&#39;1231&#39;</span><span class="p">,</span><span class="n">kind_label</span><span class="p">:</span><span class="s1">&#39;录音时间戳&#39;</span><span class="p">,</span><span class="n">content</span><span class="p">:</span><span class="s1">&#39;/media/ssg/12342_3.text&#39;</span><span class="p">},</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+            
+        <span class="p">],</span>
+
+        <span class="s1">&#39;pk&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+        <span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>  
+        <span class="s1">&#39;refreshtime&#39;</span><span class="p">:</span> <span class="s1">&#39;2020-02-14 21:02:27&#39;</span><span class="p">,</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>事件code具体描述:</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>Code</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>开始通话 （指通话有2人或是多人进入通话）</td>
+</tr>
+<tr>
+<td>2</td>
+<td>通话结束 (在通话过程中结束通话，未进入通话前的拨号结束不是该事件)</td>
+</tr>
+<tr>
+<td>1000</td>
+<td>发起方事件：通话方取消通话，通话方发起通话，在通话在响铃未接通时通话方取消通话</td>
+</tr>
+<tr>
+<td>1001</td>
+<td>发起方事件：通话方发起通话，无人接听，超时结束通话</td>
+</tr>
+<tr>
+<td>1002</td>
+<td>发起方事件：通话方发起通话，接听方拒接电话，通话结束</td>
+</tr>
+<tr>
+<td>1003</td>
+<td>接听方事件：接听方拒接电话，通话结束</td>
+</tr>
+<tr>
+<td>1006</td>
+<td>接听方事件：通话方取消通话，通话结束</td>
+</tr>
+<tr>
+<td>1007</td>
+<td>通用事件：通话中遇到错误，通话失败，通话结束</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id5">
+<h2>2.3.4. 前端存放日志<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li>调用<a class="reference internal" href="#upload"><span class="std std-ref">接口上传</span></a>日志文件,获取文件url地址</li>
+<li>调用<code class="docutils literal notranslate"><span class="pre">提交日志</span></code> 接口提交日志</li>
+</ol>
+<p>提交日志信息</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[POST]  /dapi/put-log
+参数
+{
+    key:&quot;231&quot;, // 可以查询的键值，最多不超过30个字
+    url:&quot;/media/sss&quot; ,// 日志文件地址,通过 文件上传 接口上传
+}
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="mq.html" class="btn btn-neutral float-right" title="2.4. rabbitmq" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="myapi.html" class="btn btn-neutral" title="2.2. 拨打" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, coblan
+      Last updated on 2020-03-27 18:13:38.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/mermaid@7.1.0/dist/mermaid.min.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

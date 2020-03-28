@@ -153,7 +153,8 @@
          '_status_label': '初始化',
           'createtime': '2020-01-10 00:19:40', 
           'pk': 16,
-          'extra_msg':'caller send extra message'}]
+          'extra_msg':'caller send extra message',
+          'is_robot':false,}]
     }
 
 ```

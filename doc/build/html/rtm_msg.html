@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>3. RTM发送消息 &mdash; voiceplatform 1 documentation</title>
+  <title>RTM发送消息 &mdash; voiceplatform 1 documentation</title>
   
 
   
@@ -27,9 +27,7 @@
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="4. 接口文档" href="api/index.html" />
-    <link rel="prev" title="2. 语音对接" href="agora/api.html" /> 
+    <link rel="search" title="Search" href="search.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -79,14 +77,9 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="abstract.html">1. 外部链接</a></li>
-<li class="toctree-l1"><a class="reference internal" href="agora/api.html">2. 语音对接</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">3. RTM发送消息</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#rtmtoken">3.1. rtm获取token</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html">4. 接口文档</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="system_frame.html">1. 拨打系统架构</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">2. 接口文档</a></li>
 </ul>
 
             
@@ -132,7 +125,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>3. RTM发送消息</li>
+      <li>RTM发送消息</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -152,7 +145,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="rtm">
-<h1>3. RTM发送消息<a class="headerlink" href="#rtm" title="Permalink to this headline">¶</a></h1>
+<h1>RTM发送消息<a class="headerlink" href="#rtm" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="/rtm">测试网址</a>。如下截图</p>
 <p><img alt="Image" src="_images/rtm_msg.png" /></p>
 <p>上部用于浏览器端调用rtm webclient进行本地发送消息。<em>不能给自己发送消息</em>,只能发消息给其他用户。</p>
@@ -172,7 +165,7 @@ B --&gt; C{rabbitMq}
 C --&gt;|One| D[rtm client on backend]
 D --&gt;|RTM| E[User]
         </div><div class="section" id="rtmtoken">
-<h2>3.1. rtm获取token<a class="headerlink" href="#rtmtoken" title="Permalink to this headline">¶</a></h2>
+<h2>rtm获取token<a class="headerlink" href="#rtmtoken" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">agora</span><span class="o">/</span><span class="n">rtm</span><span class="o">-</span><span class="n">option</span>
 <span class="n">参数示例</span>
 <span class="p">{</span>
@@ -221,22 +214,13 @@ D --&gt;|RTM| E[User]
           </div>
           <footer>
   
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="api/index.html" class="btn btn-neutral float-right" title="4. 接口文档" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="agora/api.html" class="btn btn-neutral" title="2. 语音对接" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
         &copy; Copyright 2019, coblan
-      Last updated on 2020-03-22 16:15:08.
+      Last updated on 2020-03-28 22:21:05.
 
     </p>
   </div>

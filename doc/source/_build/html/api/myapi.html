@@ -1,0 +1,849 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2.2. 拨打 &mdash; voiceplatform 1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="2.3. 其他接口" href="other_api.html" />
+    <link rel="prev" title="2.1. 用户管理" href="user_api.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> voiceplatform
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../system_frame.html">1. 系统架构</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">2. 接口文档</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="user_api.html">2.1. 用户管理</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2.2. 拨打</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">2.2.1. 拨打序列图</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">2.2.2. 用户拨打</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">2.2.3. 直接拨打机器人</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">2.2.4. 最近通话消息</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#token">2.2.5. 进入频道token</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">2.2.6. 通话事件上报</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">2.2.7. 请求机器人进入频道</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">2.2.8. 将机器人踢出频道</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">2.2.9. 定时拨打任务</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id10">创建和更新任务</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id11">删除任务</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">2.2.10. 获取拨打列表</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">2.2.11. 心跳检查通话</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id">2.2.12. 用户ID映射上报</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="other_api.html">2.3. 其他接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mq.html">2.4. rabbitmq</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">voiceplatform</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">2. 接口文档</a> &raquo;</li>
+        
+      <li>2.2. 拨打</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/myapi.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>2.2. 拨打<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>2.2.1. 拨打序列图<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+
+            <style>
+            /* mermaid issue 527 workaround */
+            .section {
+                opacity: 1.0 !important;
+            }
+            </style>
+            <script>mermaid.initialize({startOnLoad:true});</script><div class="mermaid">
+            sequenceDiagram
+participant RTC
+participant A as 拨打方A
+participant  B as 被叫方B
+participant  S as 服务器
+
+A-&gt;&gt;S:请求通知B
+activate A
+S--&gt;&gt;A:返回token
+A-&gt;&gt;RTC:加入频道
+deactivate A
+S--&gt;&gt;B:消息通知B
+activate B
+B--&gt;&gt;S:启动app时请求是否有被叫消息
+B-&gt;&gt;S:申请接听频道
+S--&gt;&gt;B:返回token
+deactivate B
+B-&gt;&gt;RTC:加入频道
+A-&gt;B:开始通话
+A-&gt;&gt;S:通知服务器通话完结
+A-&gt;&gt;RTC:离开频道
+B-&gt;&gt;S:通知服务器通话完结
+B-&gt;&gt;RTC:离开频道
+        </div></div>
+<div class="section" id="id3">
+<h2>2.2.2. 用户拨打<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>用户向其他用户拨打电话，可以是向一个用户也可以向多个用户拨打</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[POST]  /dapi/call/user       
+
+参数示例
+{
+    src_uid:&quot;12356&quot;,
+    dst_uid:[&quot;12345&quot;,&quot;34566&quot;],
+    extra_msg:&quot;your extra message&quot;，
+    call_group:0,
+}
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+<th>必填</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>src_uid</td>
+<td>自己的uid，用于签名token</td>
+<td>是</td>
+</tr>
+<tr>
+<td>dst_uid</td>
+<td>对方的uid数组 ，如果对方是苹果用户，会push消息给对方</td>
+<td>否</td>
+</tr>
+<tr>
+<td>extra_msg</td>
+<td>额外信息(客户端请求语音信息时，该信息会传递给客户端)</td>
+<td>否</td>
+</tr>
+<tr>
+<td>call_group</td>
+<td>拨打用户组</td>
+<td>否</td>
+</tr>
+</tbody>
+</table><p>返回</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;success&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;appID&quot;</span><span class="p">:</span> <span class="s2">&quot;303156d224e44881a00af9cabc9e10d8&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;channel&quot;</span><span class="p">:</span> <span class="s2">&quot;ch_4aY875LP4o&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;uid&quot;</span><span class="p">:</span> <span class="s2">&quot;1234&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="s2">&quot;006303156d224e44881a00af9cabc9e10d8IACgUJJitrMNSv8lt51GOztehgjZLfpgtuWC6mDDhAKBeJMxVymj4OObEADw9+kBR7MUXgEAAQAfZBNe&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>2.2.3. 直接拨打机器人<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p><em>该接口用于演示目的</em>,客户端拿到返回的<code class="docutils literal notranslate"><span class="pre">channel</span></code>后，就加入该频道，后台机器人会在该频道播放预先准备好的音频。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">call</span><span class="o">/</span><span class="n">robot</span>
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+<th>必填</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>src_uid</td>
+<td>自己的uid，用于签名token</td>
+<td>是</td>
+</tr>
+</tbody>
+</table><p>返回</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;success&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;appID&quot;</span><span class="p">:</span> <span class="s2">&quot;303156d224e44881a00af9cabc9e10d8&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;channel&quot;</span><span class="p">:</span> <span class="s2">&quot;ch_b5O729YA23&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;uid&quot;</span><span class="p">:</span> <span class="s2">&quot;12345&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="s2">&quot;006303156d224e44881a00af9cabc9e10d8IADayEfx+2LpKe++OZ08xiOyOY1xAE4y0cLFagSx6DXQr6I35iUcOvXLEABnbngE/uwVXgEAAQDWnRRe&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<!-- ### 获取token
+
+被叫用户加入频道需要token，调用该接口获取token
+
+```
+[POST]  /dapi/channel/join
+
+{
+    "uid":"1234",
+    "channel":"ch_xergsde"
+}
+```
+
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+<th>必填</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uid</td>
+<td>用户的uid</td>
+<td>是</td>
+</tr>
+<tr>
+<td>channel</td>
+<td>频道名</td>
+<td>是</td>
+</tr>
+</tbody>
+</table>
+
+返回
+```
+{
+    "success": true,
+    "data": {
+        "appID": "303156d224e44881a00af9cabc9e10d8",
+        "channel": "ch_xergsde",
+        "uid": "1234",
+        "token": "006303156d224e44881a00af9cabc9e10d8IAAcLnRJAGjM7DIH6qEO4Ef8j8h3NNMDxj8xpSjblZ9SXR6ERHqj4OObEABa+9gDky4XXgEAAQBr3xVe"
+    }
+}
+``` --></div>
+<div class="section" id="id5">
+<h2>2.2.4. 最近通话消息<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>返回最近(<code class="docutils literal notranslate"><span class="pre">暂定1分钟</span></code>)的拨打消息。主要作用是:</p>
+<ul class="simple">
+<li>当app启动时，需要调用一下该接口，客户端可以以此判断否有人给自己拨打语音电话。</li>
+<li>任意拨打方可以调用该接口,查询自己最近是否有通话会话，以此辅助判断自己是否断线。</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">call</span><span class="o">/</span><span class="n">msg</span>
+
+<span class="n">示例参数</span><span class="p">:</span>
+<span class="p">{</span>
+    <span class="s1">&#39;uid&#39;</span><span class="p">:</span><span class="s1">&#39;4321&#39;</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+<th>必填</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uid</td>
+<td>用户的uid</td>
+<td>是</td>
+</tr>
+</tbody>
+</table><p>返回</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;success&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> 
+    <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span> 
+        <span class="s1">&#39;uid&#39;</span><span class="p">:</span> <span class="mi">4321</span><span class="p">,</span> 
+        <span class="s1">&#39;channel&#39;</span><span class="p">:</span> <span class="s1">&#39;ch_iX48Sle954&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> 
+         <span class="s1">&#39;_status_label&#39;</span><span class="p">:</span> <span class="s1">&#39;初始化&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;createtime&#39;</span><span class="p">:</span> <span class="s1">&#39;2020-01-10 00:19:40&#39;</span><span class="p">,</span> 
+          <span class="s1">&#39;pk&#39;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
+          <span class="s1">&#39;extra_msg&#39;</span><span class="p">:</span><span class="s1">&#39;caller send extra message&#39;</span><span class="p">}]</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>返回的状态值status</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>值</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>初始化</td>
+</tr>
+<tr>
+<td>1</td>
+<td>信息已获取</td>
+</tr>
+<tr>
+<td>2</td>
+<td>通话已经完结</td>
+</tr>
+</tbody>
+</table><p>当客户端退出频道时，必须通知服务器，以维持该状态值的准确性。</p>
+</div>
+<div class="section" id="token">
+<h2>2.2.5. 进入频道token<a class="headerlink" href="#token" title="Permalink to this headline">¶</a></h2>
+<p>任何用户频道通话时，通过该接口获取app token信息</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">call</span><span class="o">/</span><span class="n">token</span>
+
+<span class="n">示例参数</span><span class="p">:</span>
+<span class="p">{</span>
+    <span class="s1">&#39;uid&#39;</span><span class="p">:</span><span class="s1">&#39;4321&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;channel&#39;</span><span class="p">:</span><span class="s1">&#39;ch_sdgsdgsgs&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+<th>必填</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uid</td>
+<td>用户的uid</td>
+<td>是</td>
+</tr>
+<tr>
+<td>channel</td>
+<td>频道</td>
+<td>是</td>
+</tr>
+</tbody>
+</table><p>返回</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;success&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> 
+<span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s1">&#39;appID&#39;</span><span class="p">:</span> <span class="s1">&#39;303156d224e44881a00af9cabc9e10d8&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;channel&#39;</span><span class="p">:</span> <span class="s1">&#39;ch_04g1j0531W&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;uid&#39;</span><span class="p">:</span> <span class="s1">&#39;4321&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;token&#39;</span><span class="p">:</span> <span class="s1">&#39;006303156d224e44881a00af9cabc9e10d8IADUmLAwn3zGNLGaIIyrz6M4I1rJ0/Sx0+9uP+mChtxlVaHThWxov47EEAAqbGEE+KUYXgEAAQDQVhde&#39;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>2.2.6. 通话事件上报<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[POST]  /dapi/call/event
+
+参数{
+    &quot;uid&quot;:&quot;12345&quot;,
+    &quot;channel&quot;:&quot;ch_1235&quot;,
+    &quot;code&quot;:1, 
+    &quot;desp&quot;:&quot;接通&quot;,
+    &quot;sender_type&quot;:0,  // 上报类型，不传则为0，代表普通用户
+}
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+<th>必填</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uid</td>
+<td>用户的uid</td>
+<td>是</td>
+</tr>
+<tr>
+<td>channel</td>
+<td>频道</td>
+<td>是</td>
+</tr>
+<tr>
+<td>code</td>
+<td>事件编码</td>
+<td>是</td>
+</tr>
+<tr>
+<td>desp</td>
+<td>详细描述</td>
+<td>否</td>
+</tr>
+<tr>
+<td>sender_type</td>
+<td>上报类型 0:普通用户;1:机器人;</td>
+<td>否 (默认为0)</td>
+</tr>
+</tbody>
+</table><p>事件code具体描述:</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>Code</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>开始通话 （指通话有2人或是多人进入通话）</td>
+</tr>
+<tr>
+<td>2</td>
+<td>通话结束 (在通话过程中结束通话，未进入通话前的拨号结束不是该事件)</td>
+</tr>
+<tr>
+<td>1000</td>
+<td>发起方事件：通话方取消通话，通话方发起通话，在通话在响铃未接通时通话方取消通话</td>
+</tr>
+<tr>
+<td>1001</td>
+<td>发起方事件：通话方发起通话，无人接听，超时结束通话</td>
+</tr>
+<tr>
+<td>1002</td>
+<td>发起方事件：通话方发起通话，接听方拒接电话，通话结束</td>
+</tr>
+<tr>
+<td>1003</td>
+<td>接听方事件：接听方拒接电话，通话结束</td>
+</tr>
+<tr>
+<td>1006</td>
+<td>接听方事件：通话方取消通话，通话结束</td>
+</tr>
+<tr>
+<td>1007</td>
+<td>通用事件：通话中遇到错误，通话失败，通话结束</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id7">
+<h2>2.2.7. 请求机器人进入频道<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>当用户拒接电话时，可以请求机器人接入该频道</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">invite</span><span class="o">/</span><span class="n">robot</span>
+
+<span class="n">示例参数</span><span class="p">:</span>
+<span class="p">{</span>
+ <span class="s2">&quot;uid&quot;</span><span class="p">:</span><span class="s2">&quot;1235&quot;</span><span class="p">,</span>
+<span class="s1">&#39;channel&#39;</span><span class="p">:</span><span class="s1">&#39;ch_sdgsdgsgwe&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+<th>必填</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uid</td>
+<td>用户的uid</td>
+<td>是</td>
+</tr>
+<tr>
+<td>channel</td>
+<td>频道</td>
+<td>是</td>
+</tr>
+</tbody>
+</table><p>返回</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;success&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;appID&quot;</span><span class="p">:</span> <span class="s2">&quot;303156d224e44881a00af9cabc9e10d8&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;channel&quot;</span><span class="p">:</span> <span class="s2">&quot;ch_sdgsdgsgwe&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;uid&quot;</span><span class="p">:</span> <span class="s2">&quot;1235&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="s2">&quot;006303156d224e44881a00af9cabc9e10d8IADcxCL86Hiy0kAF/mKUdbNh2lBGVH+RQ+GAXMwinkoZjwEAybM10OTsEABu3lAAHhwcXgEAAQD2zBpe&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>2.2.8. 将机器人踢出频道<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">quit</span><span class="o">/</span><span class="n">robot</span>
+
+<span class="n">示例参数</span>
+<span class="p">{</span>
+    <span class="s2">&quot;channel&quot;</span><span class="p">:</span><span class="s2">&quot;ch_dgfd2et123&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;uid&quot;</span><span class="p">:</span><span class="s2">&quot;1235&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+<th>必填</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>channel</td>
+<td>频道</td>
+<td>是</td>
+</tr>
+<tr>
+<td>uid</td>
+<td>请求的用户ID</td>
+<td>是</td>
+</tr>
+</tbody>
+</table><p>返回</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;success&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">null</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>2.2.9. 定时拨打任务<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id10">
+<h3>创建和更新任务<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>创建和更新调用相同的接口，后台以<code class="docutils literal notranslate"><span class="pre">taskid</span></code>唯一参照，进行CUID操作</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">calltask</span><span class="o">/</span><span class="n">update</span>
+
+<span class="n">参数</span>
+<span class="p">{</span>
+    <span class="s1">&#39;src_uid&#39;</span><span class="p">:</span><span class="s1">&#39;1234&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;dst_uid&#39;</span><span class="p">:[</span><span class="s1">&#39;1235&#39;</span><span class="p">,</span><span class="s1">&#39;1236&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;call_time&#39;</span><span class="p">:</span><span class="s1">&#39;2020-02-02 20:20:00&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;taskid&#39;</span><span class="p">:</span><span class="mi">123</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+<th>必填</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>src_uid</td>
+<td>发起用户</td>
+<td>是</td>
+</tr>
+<tr>
+<td>dst_uid</td>
+<td>接收用户列表</td>
+<td>是</td>
+</tr>
+<tr>
+<td>call_time</td>
+<td>拨打时间，注意时间格式</td>
+<td>是</td>
+</tr>
+<tr>
+<td>taskid</td>
+<td>app后台对应的任务ID</td>
+<td>是</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id11">
+<h3>删除任务<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p>删除对应<code class="docutils literal notranslate"><span class="pre">taskid</span></code>的拨打任务</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">calltask</span><span class="o">/</span><span class="n">delete</span>
+<span class="n">参数</span>
+<span class="p">{</span>
+    <span class="s1">&#39;taskid&#39;</span><span class="p">:</span><span class="mi">123</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id12">
+<h2>2.2.10. 获取拨打列表<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">calltask</span><span class="o">/</span><span class="nb">list</span>
+<span class="n">参数示例</span>
+<span class="p">{</span>
+    <span class="s1">&#39;uid&#39;</span><span class="p">:</span><span class="s1">&#39;1234&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+<th>必填</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uid</td>
+<td>用户id</td>
+<td>是</td>
+</tr>
+</tbody>
+</table><p>返回:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;success&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> 
+    <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;rows&#39;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> 
+            <span class="s1">&#39;src_uid&#39;</span><span class="p">:</span> <span class="s1">&#39;1234&#39;</span><span class="p">,</span> 
+            <span class="s1">&#39;dst_uid&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;1235&#39;</span><span class="p">,</span> <span class="s1">&#39;1236&#39;</span><span class="p">],</span> 
+            <span class="s1">&#39;call_time&#39;</span><span class="p">:</span> <span class="s1">&#39;2020-02-02 20:20:00&#39;</span><span class="p">,</span> 
+            <span class="s1">&#39;tone_list&#39;</span><span class="p">:[],</span>
+            <span class="s1">&#39;pk&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">}],</span> 
+            <span class="s1">&#39;row_pages&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;crt_page&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> 
+                <span class="s1">&#39;total&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> 
+                <span class="s1">&#39;perpage&#39;</span><span class="p">:</span> <span class="mi">20</span>
+                <span class="p">}</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id13">
+<h2>2.2.11. 心跳检查通话<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<p>当处在某个频道通话时，客户端需要每隔30内通知一次后台，否则后台可能会判断客户端已经掉线。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">call</span><span class="o">/</span><span class="n">heartbeat</span>
+<span class="n">参数</span>
+<span class="p">{</span>
+    <span class="n">uid</span><span class="p">:</span><span class="s1">&#39;1234&#39;</span><span class="p">,</span>
+    <span class="n">channel</span><span class="p">:</span><span class="s1">&#39;cha_235&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>参数</th>
+<th>含义</th>
+<th>必填</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>uid</td>
+<td>用户id</td>
+<td>是</td>
+</tr>
+<tr>
+<td>channel</td>
+<td>频道名称</td>
+<td>是</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id">
+<h2>2.2.12. 用户ID映射上报<a class="headerlink" href="#id" title="Permalink to this headline">¶</a></h2>
+<p>由于RTC逻辑用户ID是整型，与本地用户需要做映射。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[POST]  /dapi/call/rtcmap
+参数
+{
+    channel:&quot;ch_werwttyy&quot;,
+    uid:&quot;123245&quot;，
+    rtcid:12342454,
+}
+</pre></div>
+</div>
+<p>全部参数都是必填</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="other_api.html" class="btn btn-neutral float-right" title="2.3. 其他接口" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="user_api.html" class="btn btn-neutral" title="2.1. 用户管理" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, coblan
+      Last updated on 2020-03-27 18:13:38.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/mermaid@7.1.0/dist/mermaid.min.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

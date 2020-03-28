@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.2. 拨打 &mdash; voiceplatform 1 documentation</title>
+  <title>2.2. 拨打 &mdash; voiceplatform 1 documentation</title>
   
 
   
@@ -28,8 +28,8 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="4.3. 其他接口" href="other_api.html" />
-    <link rel="prev" title="4.1. 用户管理" href="user_api.html" /> 
+    <link rel="next" title="2.3. 其他接口" href="other_api.html" />
+    <link rel="prev" title="2.1. 用户管理" href="user_api.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -80,32 +80,30 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../abstract.html">1. 外部链接</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../agora/api.html">2. 语音对接</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../rtm_msg.html">3. RTM发送消息</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">4. 接口文档</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="user_api.html">4.1. 用户管理</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">4.2. 拨打</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id2">4.2.1. 拨打序列图</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">4.2.2. 用户拨打</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">4.2.3. 直接拨打机器人</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">4.2.4. 最近通话消息</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#token">4.2.5. 进入频道token</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id6">4.2.6. 通话事件上报</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id7">4.2.7. 请求机器人进入频道</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id8">4.2.8. 将机器人踢出频道</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id9">4.2.9. 定时拨打任务</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../system_frame.html">1. 拨打系统架构</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">2. 接口文档</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="user_api.html">2.1. 用户管理</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2.2. 拨打</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">2.2.1. 拨打序列图</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">2.2.2. 用户拨打</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">2.2.3. 直接拨打机器人</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">2.2.4. 最近通话消息</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#token">2.2.5. 进入频道token</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">2.2.6. 通话事件上报</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">2.2.7. 请求机器人进入频道</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">2.2.8. 将机器人踢出频道</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">2.2.9. 定时拨打任务</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id10">创建和更新任务</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id11">删除任务</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id12">4.2.10. 获取拨打列表</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id13">4.2.11. 心跳检查通话</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id">4.2.12. 用户ID映射上报</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">2.2.10. 获取拨打列表</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">2.2.11. 心跳检查通话</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id">2.2.12. 用户ID映射上报</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="other_api.html">4.3. 其他接口</a></li>
-<li class="toctree-l2"><a class="reference internal" href="mq.html">4.4. rabbitmq</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other_api.html">2.3. 其他接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mq.html">2.4. rabbitmq</a></li>
 </ul>
 </li>
 </ul>
@@ -153,9 +151,9 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="index.html">4. 接口文档</a> &raquo;</li>
+          <li><a href="index.html">2. 接口文档</a> &raquo;</li>
         
-      <li>4.2. 拨打</li>
+      <li>2.2. 拨打</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -175,9 +173,9 @@
            <div itemprop="articleBody">
             
   <div class="section" id="id1">
-<h1>4.2. 拨打<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1>2.2. 拨打<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id2">
-<h2>4.2.1. 拨打序列图<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2>2.2.1. 拨打序列图<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 
             <style>
             /* mermaid issue 527 workaround */
@@ -211,7 +209,7 @@ B-&gt;&gt;S:通知服务器通话完结
 B-&gt;&gt;RTC:离开频道
         </div></div>
 <div class="section" id="id3">
-<h2>4.2.2. 用户拨打<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2>2.2.2. 用户拨打<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>用户向其他用户拨打电话，可以是向一个用户也可以向多个用户拨打</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[POST]  /dapi/call/user       
 
@@ -268,7 +266,7 @@ B-&gt;&gt;RTC:离开频道
 </div>
 </div>
 <div class="section" id="id4">
-<h2>4.2.3. 直接拨打机器人<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h2>2.2.3. 直接拨打机器人<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p><em>该接口用于演示目的</em>,客户端拿到返回的<code class="docutils literal notranslate"><span class="pre">channel</span></code>后，就加入该频道，后台机器人会在该频道播放预先准备好的音频。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">call</span><span class="o">/</span><span class="n">robot</span>
 </pre></div>
@@ -348,7 +346,7 @@ B-&gt;&gt;RTC:离开频道
 }
 ``` --></div>
 <div class="section" id="id5">
-<h2>4.2.4. 最近通话消息<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<h2>2.2.4. 最近通话消息<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>返回最近(<code class="docutils literal notranslate"><span class="pre">暂定1分钟</span></code>)的拨打消息。主要作用是:</p>
 <ul class="simple">
 <li>当app启动时，需要调用一下该接口，客户端可以以此判断否有人给自己拨打语音电话。</li>
@@ -388,7 +386,8 @@ B-&gt;&gt;RTC:离开频道
          <span class="s1">&#39;_status_label&#39;</span><span class="p">:</span> <span class="s1">&#39;初始化&#39;</span><span class="p">,</span>
           <span class="s1">&#39;createtime&#39;</span><span class="p">:</span> <span class="s1">&#39;2020-01-10 00:19:40&#39;</span><span class="p">,</span> 
           <span class="s1">&#39;pk&#39;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
-          <span class="s1">&#39;extra_msg&#39;</span><span class="p">:</span><span class="s1">&#39;caller send extra message&#39;</span><span class="p">}]</span>
+          <span class="s1">&#39;extra_msg&#39;</span><span class="p">:</span><span class="s1">&#39;caller send extra message&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;is_robot&#39;</span><span class="p">:</span><span class="n">false</span><span class="p">,}]</span>
     <span class="p">}</span>
 </pre></div>
 </div>
@@ -417,7 +416,7 @@ B-&gt;&gt;RTC:离开频道
 </table><p>当客户端退出频道时，必须通知服务器，以维持该状态值的准确性。</p>
 </div>
 <div class="section" id="token">
-<h2>4.2.5. 进入频道token<a class="headerlink" href="#token" title="Permalink to this headline">¶</a></h2>
+<h2>2.2.5. 进入频道token<a class="headerlink" href="#token" title="Permalink to this headline">¶</a></h2>
 <p>任何用户频道通话时，通过该接口获取app token信息</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">call</span><span class="o">/</span><span class="n">token</span>
 
@@ -461,7 +460,7 @@ B-&gt;&gt;RTC:离开频道
 </div>
 </div>
 <div class="section" id="id6">
-<h2>4.2.6. 通话事件上报<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<h2>2.2.6. 通话事件上报<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[POST]  /dapi/call/event
 
 参数{
@@ -552,7 +551,7 @@ B-&gt;&gt;RTC:离开频道
 </tbody>
 </table></div>
 <div class="section" id="id7">
-<h2>4.2.7. 请求机器人进入频道<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<h2>2.2.7. 请求机器人进入频道<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <p>当用户拒接电话时，可以请求机器人接入该频道</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">invite</span><span class="o">/</span><span class="n">robot</span>
 
@@ -597,7 +596,7 @@ B-&gt;&gt;RTC:离开频道
 </div>
 </div>
 <div class="section" id="id8">
-<h2>4.2.8. 将机器人踢出频道<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<h2>2.2.8. 将机器人踢出频道<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">quit</span><span class="o">/</span><span class="n">robot</span>
 
 <span class="n">示例参数</span>
@@ -636,7 +635,7 @@ B-&gt;&gt;RTC:离开频道
 </div>
 </div>
 <div class="section" id="id9">
-<h2>4.2.9. 定时拨打任务<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<h2>2.2.9. 定时拨打任务<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id10">
 <h3>创建和更新任务<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <p>创建和更新调用相同的接口，后台以<code class="docutils literal notranslate"><span class="pre">taskid</span></code>唯一参照，进行CUID操作</p>
@@ -695,7 +694,7 @@ B-&gt;&gt;RTC:离开频道
 </div>
 </div>
 <div class="section" id="id12">
-<h2>4.2.10. 获取拨打列表<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<h2>2.2.10. 获取拨打列表<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">calltask</span><span class="o">/</span><span class="nb">list</span>
 <span class="n">参数示例</span>
 <span class="p">{</span>
@@ -740,7 +739,7 @@ B-&gt;&gt;RTC:离开频道
 </div>
 </div>
 <div class="section" id="id13">
-<h2>4.2.11. 心跳检查通话<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<h2>2.2.11. 心跳检查通话<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
 <p>当处在某个频道通话时，客户端需要每隔30内通知一次后台，否则后台可能会判断客户端已经掉线。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">POST</span><span class="p">]</span>  <span class="o">/</span><span class="n">dapi</span><span class="o">/</span><span class="n">call</span><span class="o">/</span><span class="n">heartbeat</span>
 <span class="n">参数</span>
@@ -772,7 +771,7 @@ B-&gt;&gt;RTC:离开频道
 </tbody>
 </table></div>
 <div class="section" id="id">
-<h2>4.2.12. 用户ID映射上报<a class="headerlink" href="#id" title="Permalink to this headline">¶</a></h2>
+<h2>2.2.12. 用户ID映射上报<a class="headerlink" href="#id" title="Permalink to this headline">¶</a></h2>
 <p>由于RTC逻辑用户ID是整型，与本地用户需要做映射。</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[POST]  /dapi/call/rtcmap
 参数
@@ -795,10 +794,10 @@ B-&gt;&gt;RTC:离开频道
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="other_api.html" class="btn btn-neutral float-right" title="4.3. 其他接口" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="other_api.html" class="btn btn-neutral float-right" title="2.3. 其他接口" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="user_api.html" class="btn btn-neutral" title="4.1. 用户管理" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="user_api.html" class="btn btn-neutral" title="2.1. 用户管理" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -808,7 +807,7 @@ B-&gt;&gt;RTC:离开频道
   <div role="contentinfo">
     <p>
         &copy; Copyright 2019, coblan
-      Last updated on 2020-03-22 16:15:08.
+      Last updated on 2020-03-28 22:21:05.
 
     </p>
   </div>

@@ -24,6 +24,7 @@ class VoiceMsgList(models.Model):
     status = models.IntegerField('状态',default=0,choices=MSG_STATUS)
     createtime = models.DateTimeField('创建时间',auto_now_add=True)
     extra_msg = models.TextField('额外信息',blank=True)
+    is_robot = models.BooleanField('是否机器人',default = False)
     
 
 #class ChannelList(models.Model):
