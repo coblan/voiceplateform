@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>拨打后台文档! &mdash; voiceplatform 1 documentation</title>
+  <title>3. 代码及部署 &mdash; voiceplatform 1 documentation</title>
   
 
   
@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="1. 拨打系统架构" href="system_frame.html" /> 
+    <link rel="prev" title="2.4. rabbitmq" href="api/mq.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -47,7 +47,7 @@
           
 
           
-            <a href="#" class="icon icon-home"> voiceplatform
+            <a href="index.html" class="icon icon-home"> voiceplatform
           
 
           
@@ -78,10 +78,10 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="system_frame.html">1. 拨打系统架构</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">2. 接口文档</a></li>
-<li class="toctree-l1"><a class="reference internal" href="code.html">3. 代码及部署</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">3. 代码及部署</a></li>
 </ul>
 
             
@@ -96,7 +96,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">voiceplatform</a>
+          <a href="index.html">voiceplatform</a>
         
       </nav>
 
@@ -125,15 +125,15 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="#">Docs</a> &raquo;</li>
+      <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>拨打后台文档!</li>
+      <li>3. 代码及部署</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/code.md.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -147,35 +147,13 @@
            <div itemprop="articleBody">
             
   <div class="section" id="id1">
-<h1>拨打后台文档!<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="system_frame.html">1. 拨打系统架构</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="system_frame.html#id2">1.1. 管理通话记录</a></li>
-<li class="toctree-l2"><a class="reference internal" href="system_frame.html#id7">1.2. 调度机器人接听</a></li>
-<li class="toctree-l2"><a class="reference internal" href="system_frame.html#id8">1.3. 调度机器人拨打</a></li>
-<li class="toctree-l2"><a class="reference internal" href="system_frame.html#id9">1.4. 拨打管理后台</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html">2. 接口文档</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/user_api.html">2.1. 用户管理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/myapi.html">2.2. 拨打</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/other_api.html">2.3. 其他接口</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/mq.html">2.4. rabbitmq</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="code.html">3. 代码及部署</a></li>
-</ul>
-</div>
-</div>
-<div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
-<ul class="simple">
-<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
-<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
-<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
-</ul>
+<h1>3. 代码及部署<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">拨打后台</span></code>采用python+django进行开发。后台管理界面主要使用<code class="docutils literal notranslate"><span class="pre">vue.js</span></code>进行开发。</p>
+<p>现在开发测试环境使用Python3.6+django1.11  vuejs 版本2.6.10</p>
+<p>webserver 建议采用 nginx + uwsgi 形式</p>
+<p>数据库建议使用 mysql5.7</p>
+<p>测试环境消息队列:rabbitmq ,版本 3.6.10</p>
+<p>日志系统建议采用 elk 7.1</p>
 </div>
 
 
@@ -186,8 +164,8 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="system_frame.html" class="btn btn-neutral float-right" title="1. 拨打系统架构" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
+        <a href="api/mq.html" class="btn btn-neutral" title="2.4. rabbitmq" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

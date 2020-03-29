@@ -16,6 +16,7 @@
    .. rtm_msg.md
    system_frame.md
    api/index.rst
+   code.md
 
 
 

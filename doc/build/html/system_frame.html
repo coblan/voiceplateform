@@ -80,8 +80,21 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">1. 拨打系统架构</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. 拨打系统架构</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">1.1. 管理通话记录</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">1.1.1. 开始拨打</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">1.1.2. 用户进入频道</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">1.1.3. 用户退出</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">1.1.4. 通话结束</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">1.2. 调度机器人接听</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">1.3. 调度机器人拨打</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">1.4. 拨打管理后台</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">2. 接口文档</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code.html">3. 代码及部署</a></li>
 </ul>
 
             
@@ -155,6 +168,118 @@
 <li>调度机器人拨打电话。</li>
 <li>配备一个管理后台，管理员可以查看<code class="docutils literal notranslate"><span class="pre">拨打后台</span></code>各项数据。</li>
 </ol>
+<div class="section" id="id2">
+<h2>1.1. 管理通话记录<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>由于机器人的接入，使得触发通话的开始与结束有多种方式，比较复杂。编程实现时，将各种操作转换为通话事件。<code class="docutils literal notranslate"><span class="pre">拨打后台</span></code>将通话过程分拆为以下几个事件。其中每个<code class="docutils literal notranslate"><span class="pre">方框</span></code>为一个<code class="docutils literal notranslate"><span class="pre">拨打后台</span></code>事件</p>
+
+            <style>
+            /* mermaid issue 527 workaround */
+            .section {
+                opacity: 1.0 !important;
+            }
+            </style>
+            <script>mermaid.initialize({startOnLoad:true});</script><div class="mermaid">
+            graph TD
+A[开始拨打] --&gt;|客户端协商| B[用户进入频道]
+B --&gt; |客户端通话|C[用户退出]
+C --&gt;|用户全部退出| D[通话结束]
+        </div><div class="section" id="id3">
+<h3>1.1.1. 开始拨打<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>开始拨打由客户端调用<code class="docutils literal notranslate"><span class="pre">/dapi/call/user</span></code>接口触发，或者由机器人主动拨打触发。触发该事件后，后台会做以下几个处理:</p>
+<ol class="simple">
+<li>为每个相关用户创建<code class="docutils literal notranslate"><span class="pre">VoiceMsgList</span></code>语音消息。该语音消息便于客户端查询用户是否有未接语音。</li>
+<li>创建<code class="docutils literal notranslate"><span class="pre">CallRecord</span></code>通话记录。</li>
+<li>创建延迟检查(接听方是否拒接)任务。</li>
+</ol>
+</div>
+<div class="section" id="id4">
+<h3>1.1.2. 用户进入频道<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>客户端调用<code class="docutils literal notranslate"><span class="pre">/dapi/call/enter</span></code>接口触发该事件。该事件下，后台主要会做以下几项处理:</p>
+<ol class="simple">
+<li>修改<code class="docutils literal notranslate"><span class="pre">VoiceMsgList</span></code>语音消息记录，标记为已经接听状态。客户端查询用户是否有未接语音时，不会再返回该条语音消息。</li>
+<li>更新<code class="docutils literal notranslate"><span class="pre">CallRecord</span></code>的一些相关信息。例如开始时间，用户计数等。</li>
+<li>触发<code class="docutils literal notranslate"><span class="pre">recording</span></code>录音任务。</li>
+</ol>
+</div>
+<div class="section" id="id5">
+<h3>1.1.3. 用户退出<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>客户端调用<code class="docutils literal notranslate"><span class="pre">通话事件</span></code>接口，上传<code class="docutils literal notranslate"><span class="pre">code=2</span></code>的通话事件时，触发该<em>后台事件</em>。后台会做以下几个处理:</p>
+<ol class="simple">
+<li>更新<code class="docutils literal notranslate"><span class="pre">VoiceMsgList</span></code>语音消息记录状态为完成状态。</li>
+<li>更新<code class="docutils literal notranslate"><span class="pre">CallRecord</span></code>的一些相关信息。例如结束时间等。</li>
+<li>如果用户退出完毕，则触发<code class="docutils literal notranslate"><span class="pre">通话结束</span></code>后台事件</li>
+</ol>
+</div>
+<div class="section" id="id6">
+<h3>1.1.4. 通话结束<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>触发该事件后，后台会组织<code class="docutils literal notranslate"><span class="pre">CallRecord</span></code>所关联的各种数据，然后触发异步任务向<code class="docutils literal notranslate"><span class="pre">app后台</span></code>推送。</p>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>1.2. 调度机器人接听<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>在<code class="docutils literal notranslate"><span class="pre">开始拨打</span></code>事件中，会触发<code class="docutils literal notranslate"><span class="pre">延迟检测</span></code>,如果在主叫用户设定等待时间内，被叫用户未接听电话，则后台会向<code class="docutils literal notranslate"><span class="pre">消息队列</span></code>投递消息，触发机器接听。</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>exchange</th>
+<th>rounting_key</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rtc-robot</td>
+<td>receive</td>
+</tr>
+</tbody>
+</table><p>消息格式:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;from&quot;</span><span class="p">:</span> <span class="s2">&quot;98087081204510002&quot;</span><span class="p">,</span> 
+    <span class="s2">&quot;to&quot;</span><span class="p">:</span> <span class="s2">&quot;98087081204510001&quot;</span><span class="p">,</span> 
+    <span class="s2">&quot;channel&quot;</span><span class="p">:</span> <span class="s2">&quot;ch_363u053167&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>1.3. 调度机器人拨打<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>客户端通过接口上报用户的定时任务。在定时任务到期时，<code class="docutils literal notranslate"><span class="pre">拨打后台</span></code>会向<code class="docutils literal notranslate"><span class="pre">消息队列</span></code>投递消息，触发机器人执行拨打任务.</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>exchange</th>
+<th>rounting_key</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rtc-robot</td>
+<td>call</td>
+</tr>
+</tbody>
+</table><p>消息格式:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;from&quot;</span><span class="p">:</span> <span class="s2">&quot;98087081204510002&quot;</span><span class="p">,</span> 
+    <span class="s2">&quot;to&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;98087081204510001&quot;</span><span class="p">,</span><span class="s2">&quot;98087081204510003&quot;</span><span class="p">],</span> 
+    <span class="s2">&quot;channel&quot;</span><span class="p">:</span> <span class="s2">&quot;ch_363u053167&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>1.4. 拨打管理后台<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>拨打管理后台是为了便于管理<code class="docutils literal notranslate"><span class="pre">拨打后台</span></code>数据而开放的功能。</p>
+<p><a class="reference external" href="/pc/callrecord">点击这里</a> 访问管理后台</p>
+<p>界面如下::</p>
+<p><img alt="Image" src="_images/backend.png" /></p>
+<p>管理后台主要包括几个页面:</p>
+<ol class="simple">
+<li>通话记录管理界面。可以实时查看<code class="docutils literal notranslate"><span class="pre">拨打后台</span></code>存储的<code class="docutils literal notranslate"><span class="pre">callrecord</span></code>通话记录数据</li>
+<li>定时任务页面.</li>
+<li>配置管理页面。主要用于设置前端SDK需要的一些配置项。</li>
+<li>模拟api用于开发测试。</li>
+<li>前端日志查询界面。</li>
+</ol>
+</div>
 </div>
 
 
@@ -178,7 +303,7 @@
   <div role="contentinfo">
     <p>
         &copy; Copyright 2019, coblan
-      Last updated on 2020-03-28 22:21:05.
+      Last updated on 2020-03-29 14:05:13.
 
     </p>
   </div>
