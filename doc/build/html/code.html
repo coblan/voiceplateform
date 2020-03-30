@@ -81,7 +81,15 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="system_frame.html">1. 拨打系统架构</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">2. 接口文档</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">3. 代码及部署</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">3. 代码及部署</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">3.1. 代码解析</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">3.1.1. 接口函数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#signal-code">3.1.2. 事件处理函数</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">3.2. 部署方案</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -148,6 +156,38 @@
             
   <div class="section" id="id1">
 <h1>3. 代码及部署<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>3.1. 代码解析<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>所有接口的入口索引文件为:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">src</span><span class="o">/</span><span class="n">index</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>该文件中有以下几个字典组成:</p>
+<ol class="simple">
+<li>page_dc :管理后台的页面入口，所有管理页面的url形式为<code class="docutils literal notranslate"><span class="pre">{host}/pc/{key}</span></code></li>
+<li>director : 后端的一些类对象命名，便于前端直接调用。</li>
+<li>director_views : 后端的接口函数。 所有的api的url形式为 <code class="docutils literal notranslate"><span class="pre">{host}/dapi/{key}</span></code></li>
+<li>sim_signal: 事件的处理函数。</li>
+</ol>
+<p>针对理解系统最重要的<code class="docutils literal notranslate"><span class="pre">director_views</span></code>和<code class="docutils literal notranslate"><span class="pre">sim_signal</span></code>进行一定的说明。其他可以以此类推。</p>
+<div class="section" id="id3">
+<h3>3.1.1. 接口函数<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>所有接口函数都位于<code class="docutils literal notranslate"><span class="pre">director_views</span></code>字典中，所有的api的url形式为 <code class="docutils literal notranslate"><span class="pre">{host}/dapi/{key}</span></code>.
+如下图所示，红框内的部分，即使<a class="reference internal" href="api/myapi.html"><span class="doc">拨打接口</span></a>的入口函数。对于其他的接口可以以此类推找到对应的入口函数。
+<img alt="Image" src="_images/director_views.png" /></p>
+</div>
+<div class="section" id="signal-code">
+<span id="id4"></span><h3>3.1.2. 事件处理函数<a class="headerlink" href="#signal-code" title="Permalink to this headline">¶</a></h3>
+<p>拨打任务被分割为<a class="reference internal" href="system_frame.html#signal-logic"><span class="std std-ref">4个事件</span></a>，代表了拨打任务的不同阶段。其代码入口如下图所示。</p>
+<p><img alt="Image" src="_images/signal.png" /></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">如果你的IDE支持，点击函数名称即可跳转到函数定义。例如pycharm,wingide这些IDE支持跳转功能。</p>
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>3.2. 部署方案<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">拨打后台</span></code>采用python+django进行开发。后台管理界面主要使用<code class="docutils literal notranslate"><span class="pre">vue.js</span></code>进行开发。</p>
 <p>现在开发测试环境使用 Ubuntu18.04 + Python3.6+django1.11</p>
 <p>管理后台界面vuejs 版本2.6.10</p>
@@ -155,6 +195,7 @@
 <p>数据库建议使用 mysql5.7</p>
 <p>测试环境消息队列:rabbitmq ,版本 3.6.10</p>
 <p>日志系统建议采用 elk 7.1</p>
+</div>
 </div>
 
 
@@ -176,7 +217,7 @@
   <div role="contentinfo">
     <p>
         &copy; Copyright 2019, coblan
-      Last updated on 2020-03-29 14:09:28.
+      Last updated on 2020-03-30 11:13:16.
 
     </p>
   </div>

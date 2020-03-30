@@ -256,8 +256,8 @@ def quit_robot(channel,uid=None):
 
 @director_view('agora/token')
 def get_token():
-    '''{"doc":"agora/early_test.mdd"}
-### 获取token
+    '''
+获取token
 可能没有什么用，暂时放这里
 ```
 [GET]   /dapi/agora/token  

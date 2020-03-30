@@ -17,10 +17,15 @@ page_dc = {
     "jb_user"	:helpers.case.jb_admin.admin.UserPage,
     "jb_group"	:helpers.case.jb_admin.admin.GroupPage,
     "accountinfo"	:maindb.admin_accountinfo.AccountInfoPage,
+    # 通过记录管理界面
     "callrecord"	:maindb.admin_callrecord.CallRecordPage,
     "config"	:maindb.admin_config.ConfigFormPage,
-    
+    # 模拟api管理界面
     "mockapi"	:maindb.admin_mockapi.MockapiPage,
+    # 拨打任务管理界面
+    "calltask"	:maindb.admin_calltask.CallTaskPage,
+    "voicemsg"	:maindb.admin_voicemsg.VoicemsgPage,
+    "frontlog"	:maindb.admin_frontlog.FrontLogPage,
 }
 director = {
     "permit.programer"	:helpers.director.admin.PermitPage.PermitTable,
@@ -34,7 +39,7 @@ director = {
     "accountinfo"	:maindb.admin_accountinfo.AccountInfoPage.tableCls,
     "accountinfo.edit"	:maindb.admin_accountinfo.AccountForm,
     
-    "calltask"	:maindb.admin_calltask.CallTaskPage,
+    "calltask"	:maindb.admin_calltask.CallTaskPage.tableCls,
     "calltask.edit"	:maindb.admin_calltask.CallTaskForm,
     "calltask/list"	:maindb.admin_calltask.UserCallTask,
     
@@ -45,10 +50,14 @@ director = {
     
     "mockapi"	:maindb.admin_mockapi.MockapiPage.tableCls,
     "mockapi.edit"	:maindb.admin_mockapi.MockapiForm,
+    "voicemsg"	:maindb.admin_voicemsg.VoicemsgPage.tableCls,
+    "frontlog"	:maindb.admin_frontlog.FrontLogPage.tableCls,
+    "frontlog.edit"	:maindb.admin_frontlog.FrontLogForm,
     
-     "/hello/test"	:maindb.admin_mockapi.dyn_mock_api,
+     #"/hello/test"	:maindb.admin_mockapi.dyn_mock_api,
 }
 director_views = {
+    # 系统内部使用
     "d.save_row"	:helpers.director.dapi.save_row,
     "d.get_row"	:helpers.director.dapi.get_row,
     "get_row"	:helpers.director.dapi.get_row,
@@ -66,7 +75,7 @@ director_views = {
     "try_send_mp3"	:part3.Agora_interface.try_send_mp3,
     "rtc_front_log"	:part3.agora_process_page.Agora_elk.rtc_front_log,
     
-    # 
+    # 拨打接口
     "account/update"	:maindb.admin_accountinfo.update_account_info,
     "account/reject-tone"	:maindb.admin_accountinfo.upload_reject_tone,
     "call/user"	:part3.Agora_interface.call_user,
@@ -74,14 +83,12 @@ director_views = {
     "call/token"	:part3.Agora_interface.recieve,
     "call/heartbeat"	:maindb.admin_callrecord.refresh_call_record,
     "call/event"	:maindb.admin_callrecord.event_call_record,
-      
     "invite/robot"	:part3.Agora_interface.invite_robot,
     "call/robot"	:part3.Agora_interface.call_robot,
     "quit/robot"	:part3.Agora_interface.quit_robot,
-    "agora/token"	:part3.Agora_interface.get_token,
-    "agora/rtc-option"	:part3.Agora_interface.get_option,
-    "agora/rtm-option"	:part3.Agora_interface.get_option,
     
+    
+    # 获取拒接语音 [不使用了,现在从app后台获取]
     "account/get-reject-tone"	:maindb.admin_accountinfo.get_reject_tone,
     
     # 更新定时任务
@@ -90,8 +97,24 @@ director_views = {
   
     "system/config"	:maindb.admin_config.get_config,
     
-    "ss"	:maindb.admin_callrecord.trigger_recording,
+    # 模拟测试接口
     "mock"	:maindb.admin_mockapi.dyn_mock_api,
+    
+    # 获取rtc 的token
+    "agora/rtc-option"	:part3.Agora_interface.get_rtc_option,
+    "agora/rtm-option"	:part3.Agora_interface.get_rtm_option,
+    
+    # 该接口废弃，使用 agora/rtc-option 获取
+    "agora/token"	:part3.Agora_interface.get_token,
+    
+    # 用于机器人测试
+    "robot_receive_call"	:part3.agora_process_page.robot_test.send_sss,
+    "robot_call_user"	:part3.agora_process_page.robot_test.sss,
+    "recording_test"	:part3.agora_process_page.robot_test.recording_test,
+    # rtc uid 映射，暂时未使用
+    "call/rtcmap"	:maindb.admin_callrecord.user_rtc_map,
+    # 前端上传前端日志
+    "put-log"	:maindb.admin_frontlog.put_log,
    
 }
 
@@ -105,5 +128,9 @@ sim_signal = {
 web_page_dc = {
     "rtc-send"	:part3.agora_process_page.rtc_send.RTCSendPage,
     "rtm-send"	:part3.agora_process_page.rtm_send.RTMSendPage,
+    # 机器人测试页面
+    "rtc-robot"	:part3.agora_process_page.robot_test.RobotTestPage,
+    # 总控制台
+    "p"	:maindb.pc_page.panel.PanelPage,
 }
 

@@ -81,7 +81,7 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">1. 拨打系统架构</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id2">1.1. 管理通话记录</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#signal-logic">1.1. 管理通话记录</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id3">1.1.1. 开始拨打</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id4">1.1.2. 用户进入频道</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id5">1.1.3. 用户退出</a></li>
@@ -168,9 +168,9 @@
 <li>调度机器人拨打电话。</li>
 <li>配备一个管理后台，管理员可以查看<code class="docutils literal notranslate"><span class="pre">拨打后台</span></code>各项数据。</li>
 </ol>
-<div class="section" id="id2">
-<h2>1.1. 管理通话记录<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>由于机器人的接入，使得触发通话的开始与结束有多种方式，比较复杂。编程实现时，将各种操作转换为通话事件。<code class="docutils literal notranslate"><span class="pre">拨打后台</span></code>将通话过程分拆为以下几个事件。其中每个<code class="docutils literal notranslate"><span class="pre">方框</span></code>为一个<code class="docutils literal notranslate"><span class="pre">拨打后台</span></code>事件</p>
+<div class="section" id="signal-logic">
+<span id="id2"></span><h2>1.1. 管理通话记录<a class="headerlink" href="#signal-logic" title="Permalink to this headline">¶</a></h2>
+<p>由于机器人的接入，使得触发通话的开始与结束有多种方式，比较复杂。编程实现时，将各种操作转换为通话事件。<code class="docutils literal notranslate"><span class="pre">拨打后台</span></code>将通话过程分拆为以下几个事件。其中每个<code class="docutils literal notranslate"><span class="pre">方框</span></code>为一个<code class="docutils literal notranslate"><span class="pre">拨打后台</span></code>事件 。</p>
 
             <style>
             /* mermaid issue 527 workaround */
@@ -183,7 +183,12 @@
 A[开始拨打] --&gt;|客户端协商| B[用户进入频道]
 B --&gt; |客户端通话|C[用户退出]
 C --&gt;|用户全部退出| D[通话结束]
-        </div><div class="section" id="id3">
+        </div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">对事件的的机理，可能需要结合具体的代码进行理解。</p>
+</div>
+<p><a class="reference internal" href="code.html#signal-code"><span class="std std-ref">具体代码入口索引</span></a></p>
+<div class="section" id="id3">
 <h3>1.1.1. 开始拨打<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>开始拨打由客户端调用<code class="docutils literal notranslate"><span class="pre">/dapi/call/user</span></code>接口触发，或者由机器人主动拨打触发。触发该事件后，后台会做以下几个处理:</p>
 <ol class="simple">
@@ -303,7 +308,7 @@ C --&gt;|用户全部退出| D[通话结束]
   <div role="contentinfo">
     <p>
         &copy; Copyright 2019, coblan
-      Last updated on 2020-03-29 14:09:28.
+      Last updated on 2020-03-30 11:13:16.
 
     </p>
   </div>
