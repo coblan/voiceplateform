@@ -22,8 +22,8 @@ ALLOWED_HOSTS=['www.fenji.xyz','localhost']
 DEBUG =False
 
 AGORA={
-    'appID':'303156d224e44881a00af9cabc9e10d8',
-    'appCertificate':'0ca642eb8e3a4c868822af7e4d0dfee9'
+    'appID':'1f74816f860048d3a92cc48784fcc2d4',
+    'appCertificate':'0d615a1312e1436b8c2f4e70e648b7cb'
 }
 
 RABBIT={
@@ -31,11 +31,11 @@ RABBIT={
     'user':'guest',
     'pswd':'guest',
 }
-WEBSOCKET = {
-    'url':'wss://liu.enjoyst.com:10831/ws',
-    'user':'voice',
-    'pswd':'voice',
-}
+#WEBSOCKET = {
+    #'url':'wss://liu.enjoyst.com:10831/ws',
+    #'user':'voice',
+    #'pswd':'voice',
+#}
 
 #ELK={
     #'host':'http://localhost:9200',
