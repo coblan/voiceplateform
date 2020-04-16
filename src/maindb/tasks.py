@@ -166,6 +166,7 @@ def push_callrecord(channel):
                 )
                 
     # 甲方要求,只取第一个
+    general_log.debug('channel =  %s读取到资源文件:%s'% (channel,resource,))
     resource['recording'] =  resource ['recording'][:1]
     resource['recording_timestamp'] =  resource ['recording_timestamp'][:1]
     if  resource['recording']:
